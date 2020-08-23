@@ -1,0 +1,29 @@
+<div fxFlexFill fxLayoutAlign="center center">
+  <mat-card fxFlex="500px">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <form (ngSubmit)="submit()" fxLayoutAlign="center" fxLayout="column">
+      <mat-form-field appearance="standard">
+        <mat-label>Email</mat-label>
+        <input matInput [formControl]="email" type="text"/>
+        <mat-error *ngIf="email.touched && email.errors?.required">Email cannot be empty</mat-error>
+        <mat-error *ngIf="email.touched && email.errors?.email">Invalid email</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Password</mat-label>
+        <input matInput [formControl]="password" [type]="hidePassword ? 'password' : 'text'"/>
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hidePassword" type="button">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.touched && password.errors?.required">Password cannot be empty</mat-error>
+        <mat-error *ngIf="password.touched && password.errors?.minlength">Password must be at least 8 characters long</mat-error>
+      </mat-form-field>
+      <div class="submit-button" fxLayoutAlign="center">
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+

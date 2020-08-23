@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <a routerLink="/home">{{appBrand}}</a>
+    <span class="spacer"></span>
+    <div>
+      <a mat-button *ngIf="isLoggedIn()" [routerLink]="'/dashboard'">Dashboard</a>
+      <a mat-button *ngIf="isLoggedIn()" [routerLink]="'/profile'">Profile</a>
+      <a mat-button *ngIf="isLoggedIn()" (click)="onLogoutClick()" href="#"> Logout </a>
+      <a mat-button *ngIf="!isLoggedIn()" [routerLink]="'/login'"> Login </a>
+      <a mat-button *ngIf="!isLoggedIn()" [routerLink]="'/register'"> Register </a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
