@@ -20,7 +20,8 @@ const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path:'expensesManager', component: ExpensesManagerDashboardComponent, canActivate: [AuthGuard]},
-  {path:'inventoryManager', component: InventoryManagerDashboardComponent, canActivate: [AuthGuard]}
+  {path:'inventoryManager', component: InventoryManagerDashboardComponent, canActivate: [AuthGuard]},
+  {path:'**',redirectTo:'/home'}
 ];
 
 @NgModule({
