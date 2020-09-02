@@ -3,6 +3,7 @@
 :host {
   position: sticky;
   top: 0;
+  z-index: 50;
 }
 
 a {
@@ -10,6 +11,6 @@ a {
   color: $text-color-1;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.navbar {
+  justify-content: space-between;
 }

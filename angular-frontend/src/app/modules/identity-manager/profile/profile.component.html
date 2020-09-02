@@ -1,0 +1,18 @@
+<div fxFill *ngIf="user">
+  <label class="image-upload-container btn btn-bwm">
+    <span>Select Image</span>
+    <input #imageInput
+           type="file"
+           accept="image/*"
+           (change)="processFile(imageInput)">
+  </label>
+  <ul>
+    <li>Name: {{user.name}}</li>
+    <li>Email: {{user.email}}</li>
+    <li>Role: {{user.role}}</li>
+    <li>Profile photo: {{user.profilePicUrl === null ? 'Not set yet' : user.profilePicUrl}}</li>
+    <li>Date of birth: {{user.dateOfBirth === null ? 'Not set yet' : user.dateOfBirth}}</li>
+    <li>Address: {{user.address === null ? 'Not set yet' : user.address}}</li>
+    <li>Gender: {{user.gender === null ? 'Not set yet' : user.gender}}</li>
+  </ul>
+</div>

@@ -1,23 +1,35 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {HomeComponent} from "./pages/home/home.component";
-import {RegisterComponent} from "./pages/register/register.component";
-import {LoginComponent} from "./pages/login/login.component";
-import {DashboardComponent} from "./pages/dashboard/dashboard.component";
-import {ProfileComponent} from "./pages/profile/profile.component";
-import {AuthGuard} from "./shared/guards/auth.guard";
+
+import {HomeComponent} from "./shared/components/home/home.component";
+
+import {IdentityManagerModule} from "./modules/identity-manager/identity-manager.module";
+import {RegisterComponent} from "./modules/identity-manager/register/register.component";
+import {LoginComponent} from "./modules/identity-manager/login/login.component";
+import {ProfileComponent} from "./modules/identity-manager/profile/profile.component";
+import {AuthGuard} from "./modules/identity-manager/auth.guard";
+import {ExpensesManagerModule} from "./modules/transaction-manager/expenses-manager.module";
+import {ExpensesManagerDashboardComponent} from "./modules/transaction-manager/expenses-manager-dashboard/expenses-manager-dashboard.component";
+import {InventoryManagerModule} from "./modules/inventory-manager/inventory-manager.module";
+import {InventoryManagerDashboardComponent} from "./modules/inventory-manager/inventory-manager-dashboard/inventory-manager-dashboard.component";
 
 const routes: Routes = [
   {path:'', redirectTo:'/home', pathMatch:'full'},
   {path:'home', component: HomeComponent},
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
-  {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
-  {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]}
+  {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+  {path:'expensesManager', component: ExpensesManagerDashboardComponent, canActivate: [AuthGuard]},
+  {path:'inventoryManager', component: InventoryManagerDashboardComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes),
+    IdentityManagerModule.forRoot(),
+    ExpensesManagerModule.forRoot(),
+    InventoryManagerModule.forRoot()
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

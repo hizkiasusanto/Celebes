@@ -1,6 +1,5 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
-const config = require('../config/database')
 
 const UserSchema = mongoose.Schema({
     name: {
@@ -20,6 +19,23 @@ const UserSchema = mongoose.Schema({
         type: String,
         enum: ['Admin','Manager','Employee'],
         required: true
+    },
+    dateOfBirth: {
+        type: Date,
+        default: null
+    },
+    address: {
+        type: String,
+        default: null
+    },
+    profilePicUrl: {
+        type: String,
+        default: null
+    },
+    gender: {
+        type: String,
+        enum: ['M','F'],
+        default: 'M'
     }
 })
 
@@ -49,3 +65,5 @@ module.exports.comparePassword = (passwordInput, hash, callback) => {
         callback(null, isMatch)
     })
 }
+
+module.exports.authenticate = () => require('passport').authenticate('jwt', {session: false});

@@ -1,0 +1,14 @@
+<div fxFlexFill fxLayout="column">
+  <app-datepicker (startDateEmitter)="listenToStartDate($event)"
+                  (endDateEmitter)="listenToEndDate($event)"></app-datepicker>
+  <div fxFlex fxLayoutAlign="center center">
+    <canvas *ngIf="chartData" baseChart
+            [datasets]="chartData"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [colors]="[{borderColor: 'black',backgroundColor: 'rgba(0,0,0,0)'}]"
+            [legend]="false"
+            chartType="line">
+    </canvas>
+  </div>
+</div>

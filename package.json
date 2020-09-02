@@ -1,19 +1,21 @@
 {
-  "name": "Celebes",
+  "name": "celebes",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "repository": "https://github.com/hizkiaadrian/Celebes.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app"
+    "start": "node app.js"
   },
   "dependencies": {
-    "express": "*",
-    "mongoose": "*",
     "bcryptjs": "*",
-    "cors": "*",
-    "jsonwebtoken": "*",
     "body-parser": "*",
+    "cors": "*",
+    "dotenv": "^8.2.0",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
     "passport": "*",
     "passport-jwt": "*"
   },

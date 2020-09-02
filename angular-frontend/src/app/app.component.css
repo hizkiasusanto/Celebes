@@ -1,11 +1,17 @@
-.hidden-router {
-  flex: 1 1 auto;
-  display: flex;
-  overflow: hidden;
-}
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 1 | @import "~src/styles";
+ *   |         ^^^^^^^^^^^^^
+ *   '
+ *   app.component.scss 1:9  root stylesheet */
 
-main {
-  padding: 16px;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import \"~src/styles\";\d\a   \2502          ^^^^^^^^^^^^^\a   \2575 \a   app.component.scss 1:9  root stylesheet";
 }
-
-/*# sourceMappingURL=app.component.css.map */

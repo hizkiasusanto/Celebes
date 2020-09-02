@@ -1,0 +1,33 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: auto;
+}
+
+.mat-cell {
+  text-align: left;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.hidden-row {
+  height: 0;
+}
+
+.expanded-row {
+  overflow: hidden;
+}
+
+.expanded-detail {
+  padding: 10px 0;
+  margin: 50px 0;
+}

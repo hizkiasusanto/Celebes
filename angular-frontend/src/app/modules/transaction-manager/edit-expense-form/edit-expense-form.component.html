@@ -1,0 +1,66 @@
+<div fxFill fxLayoutAlign="center center">
+  <form [formGroup]="expensesForm" (ngSubmit)="submit()" fxLayout="column" fxFlex="100%" fxFlex.gt-md="70%" autocomplete="off">
+    <h2>Edit expense</h2>
+    <mat-form-field appearance="standard">
+      <mat-label>Item</mat-label>
+      <input matInput formControlName="item" type="text"/>
+      <mat-error
+        *ngIf="expensesForm.get('item').hasError('required')">
+        Item is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Supplier</mat-label>
+      <input matInput formControlName="supplier" type="text"/>
+      <mat-error
+        *ngIf="expensesForm.get('supplier').hasError('required')">
+        Supplier is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Amount</mat-label>
+      <input matInput formControlName="amount"
+             (focus)="changeLastChanged('amount')"
+             (ngModelChange)="onAmountChange()" type="number"/>
+      <mat-error
+        *ngIf="expensesForm.get('amount').hasError('required')">
+        Amount is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Unit</mat-label>
+      <mat-select formControlName="unit">
+        <mat-option *ngFor="let unit of units" [value]="unit">
+          {{unit}}
+        </mat-option>
+      </mat-select>
+      <mat-error
+        *ngIf="expensesForm.get('unit').hasError('required')">
+        Unit is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Price per unit</mat-label>
+      <input matInput formControlName="pricePerUnit"
+             (focus)="changeLastChanged('pricePerUnit')"
+             (ngModelChange)="onPricePerUnitChange()" type="number"/>
+      <mat-error
+        *ngIf="expensesForm.get('pricePerUnit').hasError('required')">
+        Price per unit is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Total price</mat-label>
+      <input matInput formControlName="totalPrice"
+             (focus)="changeLastChanged('totalPrice')"
+             (ngModelChange)="onTotalPriceChange()" type="number"/>
+      <mat-error
+        *ngIf="expensesForm.get('totalPrice').hasError('required')">
+        Total price is required
+      </mat-error>
+    </mat-form-field>
+    <div fxLayoutAlign="center">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>
+</div>

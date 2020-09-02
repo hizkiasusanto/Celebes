@@ -1,7 +1,9 @@
 <div fxFlexFill fxLayout="column">
-  <app-navbar [appBrand]="appBrand"></app-navbar>
-  <main fxFlex>
-    <router-outlet class="hidden-router"></router-outlet>
+  <app-navbar [appBrand]="appBrand" (openSidenav)="isSidenavOpen=!isSidenavOpen"></app-navbar>
+  <main fxLayout="row" fxFlex>
+    <app-sidenav [isSidenavOpen]="isSidenavOpen"></app-sidenav>
+    <div fxFlex class="main-app-view">
+    <router-outlet class="hidden-router"></router-outlet></div>
   </main>
   <app-footer></app-footer>
 </div>

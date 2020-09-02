@@ -1,13 +1,21 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <a routerLink="/home">{{appBrand}}</a>
-    <span class="spacer"></span>
+  <mat-toolbar-row class="navbar mat-elevation-z4">
     <div>
-      <a mat-button *ngIf="isLoggedIn()" [routerLink]="'/dashboard'">Dashboard</a>
-      <a mat-button *ngIf="isLoggedIn()" [routerLink]="'/profile'">Profile</a>
-      <a mat-button *ngIf="isLoggedIn()" (click)="onLogoutClick()" href="#"> Logout </a>
-      <a mat-button *ngIf="!isLoggedIn()" [routerLink]="'/login'"> Login </a>
-      <a mat-button *ngIf="!isLoggedIn()" [routerLink]="'/register'"> Register </a>
+      <span *ngIf="isLoggedIn()">
+      <button
+        (click)="clickMenu()"
+        *ngIf="(isHandset$ | async)"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        type="button">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      </span>
+      <span><a routerLink="/home">{{appBrand}}</a></span></div>
+    <div>
+      <a (click)="onLogoutClick()" *ngIf="isLoggedIn()" mat-button> Logout </a>
+      <a *ngIf="!isLoggedIn()" [routerLink]="['/login']" mat-button> Login </a>
+      <a *ngIf="!isLoggedIn()" [routerLink]="['/register']" mat-button> Register </a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

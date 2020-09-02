@@ -1,0 +1,13 @@
+<div fxFlexFill fxLayout="column">
+  <app-datepicker (startDateEmitter)="listenToStartDate($event)"
+                  (endDateEmitter)="listenToEndDate($event)"></app-datepicker>
+  <div fxFlex fxLayoutAlign="center center">
+    <canvas baseChart
+            [datasets]="chartData"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [legend]="false"
+            chartType="bar">
+    </canvas>
+  </div>
+</div>

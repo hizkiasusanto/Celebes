@@ -3,7 +3,6 @@ const router = express.Router()
 const User = require("../models/user")
 const passport = require("passport")
 const jwt = require("jsonwebtoken")
-const config = require("../config/database")
 
 router.post('/register', (req, res) => {
     let newUser = new User({
@@ -37,30 +36,28 @@ router.post('/authenticate', (req,res) => {
             if(!isMatch) {
                 return res.json({success:false,msg:`Incorrect password`})
             }
-            const token = jwt.sign({user}, config.secret, {
+            const token = jwt.sign({user}, process.env.JWT_SECRET, {
                 expiresIn: 604800 // 1 week
             })
 
             res.json({
                 success:true,
-                token:`Bearer ${token}`,
-                user: {
-                    id: user._id,
-                    name: user.name,
-                    email: user.email,
-                    role: user.role
-                }
+                token:`Bearer ${token}`
             })
         })
     })
 })
 
-router.get('/profile', passport.authenticate('jwt', {session:false}), (req,res,next) => {
+router.get('/profile', User.authenticate(), (req,res,next) => {
     res.json({
         _id: req.user._id,
         name: req.user.name,
         email: req.user.email,
-        role: req.user.role
+        role: req.user.role,
+        dateOfBirth: req.user.dateOfBirth,
+        profilePicUrl: req.user.profilePicUrl,
+        address: req.user.address,
+        gender: req.user.gender
     })
 })
 

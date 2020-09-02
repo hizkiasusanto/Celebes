@@ -1,0 +1,20 @@
+<div class="grid-container" fxLayout="column">
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start start">
+    <h1 class="mat-h1">{{dashboardTitle}}</h1>
+    <button mat-button color="primary" (click)="openAddExpenseFormDialog()">
+      <mat-icon style="margin-right: 5px;" aria-label="Add">library_add</mat-icon>
+      <div class="mat-h3" style="display: inline">Add a new expense</div></button>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-grid-list [cols]="(cardLayout | async )?.columns" rowHeight="500px">
+    <mat-grid-tile [colspan]="(cardLayout | async )?.chart.cols" [rowspan]="(cardLayout | async )?.chart.rows" fxFlex>
+      <app-grid-tile-content [tileContent]="plotDailyExpensesCard"></app-grid-tile-content>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="(cardLayout | async )?.chart.cols" [rowspan]="(cardLayout | async )?.chart.rows" fxFlex>
+      <app-grid-tile-content [tileContent]="plotExpensesByItemCard"></app-grid-tile-content>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="(cardLayout|async)?.table.cols" [rowspan]="(cardLayout|async)?.table.rows" fxFlex>
+      <app-grid-tile-content [tileContent]="listOfExpensesCard"></app-grid-tile-content>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
