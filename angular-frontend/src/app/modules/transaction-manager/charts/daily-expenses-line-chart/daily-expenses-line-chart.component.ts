@@ -44,11 +44,13 @@ export class DailyExpensesLineChartComponent implements OnInit {
   };
 
   constructor(private expensesService: ExpensesService, private dateService: DateService, private snackBar: MatSnackBar) {
-  }
-
-  ngOnInit(): void {
     this.startDate = this.dateService.addDays(this.dateService.today(), -7)
     this.endDate = this.dateService.today();
+  }
+
+  isLoading = false;
+
+  ngOnInit(): void {
     this.expensesService.refreshSubject.subscribe(this.updateChartData);
   }
 
@@ -62,23 +64,29 @@ export class DailyExpensesLineChartComponent implements OnInit {
     if (this.startDate !== undefined) this.updateChartData();
   }
 
+
   updateChartData = () => {
-    this.expensesService.getDailyExpensesInDateRange(this.startDate, this.endDate)
-      .subscribe((res: any) => {
-        if (res.success) {
-          this.expensesData = res.expenses.sort((a,b) => {return new Date(a.date).getTime() - new Date(b.date).getTime()});
-          
-          this.chartData = [{data: this.expensesData.map(x => x.expense)}];
-          this.chartLabels = this.expensesData.map(x => new Date(x.date).toLocaleDateString('en-GB'));
-        } else {
-          this.snackBar.open(res.msg, "Close", {
-            duration: 2000,
-            panelClass: ['error-snackbar'],
-            horizontalPosition: "end"
-          })
-        }
-      })
+    if (!this.isLoading) {
+      this.isLoading = true
+      this.expensesService.getDailyExpensesInDateRange(this.startDate, this.endDate)
+        .subscribe((res: any) => {
+          if (res.success) {
+            this.expensesData = res.expenses.sort((a, b) => {
+              return new Date(a.date).getTime() - new Date(b.date).getTime()
+            });
 
+            this.chartData = [{data: this.expensesData.map(x => x.expense)}];
+            this.chartLabels = this.expensesData.map(x => new Date(x.date).toLocaleDateString('en-GB'));
+          } else {
+            this.snackBar.open(res.msg, "Close", {
+              duration: 2000,
+              panelClass: ['error-snackbar'],
+              horizontalPosition: "end"
+            })
+          }
+          this.isLoading = false;
+        })
+
+    }
   }
-
 }

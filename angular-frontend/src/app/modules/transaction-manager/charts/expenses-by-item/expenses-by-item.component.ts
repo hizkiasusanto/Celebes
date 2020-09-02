@@ -13,15 +13,15 @@ import {RupiahPipe} from "../../../../shared/pipes/rupiah.pipe";
   styleUrls: ['./expenses-by-item.component.scss']
 })
 export class ExpensesByItemComponent implements OnInit {
-  startDate: Date = this.dateService.addDays(this.dateService.today(), -7);
-  endDate: Date = this.dateService.today();
+  startDate: Date;
+  endDate: Date;
 
   expensesData = [];
+  private datasetSubject = new BehaviorSubject(this.expensesData);
 
   public chartData: ChartDataSets[] = [
     {data: this.expensesData.map(x => x.expense),},
   ];
-  private datasetSubject = new BehaviorSubject(this.chartData);
   public chartLabels: Label[] = this.expensesData.map(x => x.item);
   public chartOptions: ChartOptions = {
     responsive: true,
@@ -46,6 +46,8 @@ export class ExpensesByItemComponent implements OnInit {
   };
 
   constructor(private expensesService: ExpensesService, private snackBar: MatSnackBar, private dateService: DateService) {
+    this.startDate = this.dateService.addDays(this.dateService.today(), -7);
+    this.endDate = this.dateService.today();
   }
 
   ngOnInit(): void {
@@ -69,14 +71,19 @@ export class ExpensesByItemComponent implements OnInit {
     this.updateChartData()
   }
 
+  isLoading: boolean = false;
   updateChartData = () => {
-    this.expensesData = [];
-    this.expensesService.findAllDistinctItems(this.startDate, this.endDate).subscribe((res: any) => {
-      if (res.items.length === 0) {
-        this.datasetSubject.next(this.expensesData)
-      }
-      res.items.forEach(this.updateItemData);
-    })
+    if (!this.isLoading) {
+      this.isLoading = true;
+      this.expensesData = [];
+      this.expensesService.findAllDistinctItems(this.startDate, this.endDate).subscribe((res: any) => {
+        if (res.items.length === 0) {
+          this.datasetSubject.next(this.expensesData)
+        }
+        res.items.forEach(this.updateItemData);
+        this.isLoading = false;
+      })
+    }
   }
 
   updateItemData = (item) => {
