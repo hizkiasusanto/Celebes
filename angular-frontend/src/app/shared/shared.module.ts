@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
@@ -13,10 +13,10 @@ import {HomeComponent} from "./components/home/home.component";
 import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ChartsModule} from "ng2-charts";
-import { RupiahPipe } from './pipes/rupiah.pipe';
+import {RupiahPipe} from './pipes/rupiah.pipe';
 
 @NgModule({
-  declarations: [NavbarComponent,FooterComponent,SidenavComponent,HomeComponent, RupiahPipe],
+  declarations: [NavbarComponent, FooterComponent, SidenavComponent, HomeComponent, RupiahPipe],
   imports: [
     CommonModule,
     MaterialModule,
@@ -28,17 +28,22 @@ import { RupiahPipe } from './pipes/rupiah.pipe';
     ReactiveFormsModule,
     ChartsModule
   ],
-    exports: [
-        MaterialModule,
-        FormsModule,
-        ReactiveFormsModule,
-        ChartsModule,
-        NavbarComponent,
-        FooterComponent,
-        SidenavComponent,
-        HomeComponent,
-        RupiahPipe
-    ]
+  exports: [
+    CommonModule,
+    MaterialModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ChartsModule,
+    NavbarComponent,
+    FooterComponent,
+    SidenavComponent,
+    HomeComponent,
+    RupiahPipe
+  ]
 })
 export class SharedModule {
   static forRoot() {
