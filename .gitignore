@@ -51,4 +51,4 @@ mongodb.conf
 *.njsproj
 *.sln
 
-# Courtesy of https://github.com/meanjs/mean/blob/master/.gitignore
+public/
