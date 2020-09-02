@@ -50,5 +50,3 @@ mongodb.conf
 *.ntvs*
 *.njsproj
 *.sln
-
-public/
