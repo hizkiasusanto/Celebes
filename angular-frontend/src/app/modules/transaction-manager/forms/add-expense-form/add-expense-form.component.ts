@@ -1,52 +1,45 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Expense} from "../expense";
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../identity-manager/auth.service";
-import {ExpensesService} from "../services/expenses.service";
+import {Expense} from "../../expense";
+import {AuthService} from "../../../identity-manager/auth.service";
+import {ExpensesService} from "../../services/expenses.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-edit-expense-form',
-  templateUrl: './edit-expense-form.component.html',
-  styleUrls: ['./edit-expense-form.component.scss']
+  selector: 'app-add-expense-form',
+  templateUrl: './add-expense-form.component.html',
+  styleUrls: ['./add-expense-form.component.scss']
 })
-export class EditExpenseFormComponent implements OnInit {
-
-  @Input() expense: Expense;
-  @Input() _id;
-
+export class AddExpenseFormComponent implements OnInit {
   loggedInUser;
   units = ['kg', 'pcs', 'bottles']
 
-  expensesForm: FormGroup;
+  expensesForm: FormGroup = this.formBuilder.group({
+    item: [undefined, [Validators.required]],
+    supplier: [undefined, [Validators.required]],
+    amount: [undefined, [Validators.required]],
+    unit: [this.units[0], [Validators.required]],
+    pricePerUnit: [undefined, [Validators.required]],
+    totalPrice: [undefined, [Validators.required]]
+  })
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private expensesService: ExpensesService,
     private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<EditExpenseFormComponent>
+    private dialogRef: MatDialogRef<AddExpenseFormComponent>
   ) {
     this.authService.getProfile().subscribe(user => {
       this.loggedInUser = user;
     })
-
   }
 
   ngOnInit(): void {
-    this.expensesForm = this.formBuilder.group({
-      item: [this.expense.item, [Validators.required]],
-      supplier: [this.expense.supplier, [Validators.required]],
-      amount: [this.expense.amount, [Validators.required]],
-      unit: [this.expense.unit, [Validators.required]],
-      pricePerUnit: [this.expense.pricePerUnit, [Validators.required]],
-      totalPrice: [this.expense.totalPrice, [Validators.required]]
-    })
   }
 
   private lastChanged: string;
-
   changeLastChanged(controlName: string) {
     this.lastChanged = controlName;
   }
@@ -81,24 +74,17 @@ export class EditExpenseFormComponent implements OnInit {
         unit: this.expensesForm.value.unit,
         pricePerUnit: this.expensesForm.value.pricePerUnit,
         totalPrice: this.expensesForm.value.totalPrice,
-
-        dateOfExpense: this.expense.dateOfExpense,
+        dateOfExpense: new Date(),
         submittedBy: this.loggedInUser.name
       }
-      this.expensesService.editExpense(expense, this.expense['_id']).subscribe((res: any) => {
+      this.expensesService.addExpense(expense).subscribe((res:any) => {
         this.snackBar.open(res.msg, "Close", {
-          duration: 2000,
-          panelClass: [res.success ? 'success-snackbar' : 'error-snackbar'],
-          horizontalPosition: "end"
-        });
+            duration: 2000,
+            panelClass: [res.success ? 'success-snackbar' : 'error-snackbar'],
+            horizontalPosition: "end"
+          });
         this.expensesService.toggleRefresh();
         this.dialogRef.close();
-      }, () => {
-        this.snackBar.open("Something wrong has happened", "Close", {
-          duration: 2000,
-          panelClass: ['error-snackbar'],
-          horizontalPosition: "end"
-        })
       });
     } else {
       return;
