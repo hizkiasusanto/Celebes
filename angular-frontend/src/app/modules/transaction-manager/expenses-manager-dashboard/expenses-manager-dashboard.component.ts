@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AddExpenseFormComponent} from "../add-expense-form/add-expense-form.component";
+import {AddExpenseFormComponent} from "../forms/add-expense-form/add-expense-form.component";
 import {TileContent} from "../tile-content";
 import {ListOfExpensesComponent} from "../list-of-expenses/list-of-expenses.component";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";

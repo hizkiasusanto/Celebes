@@ -6,8 +6,8 @@ import {MatPaginator} from "@angular/material/paginator";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {AuthService} from "../../identity-manager/auth.service";
 import {MatDialog} from "@angular/material/dialog";
-import {EditExpenseFormComponent} from "../edit-expense-form/edit-expense-form.component";
-import {DeleteExpenseFormComponent} from "../delete-expense-form/delete-expense-form.component";
+import {EditExpenseFormComponent} from "../forms/edit-expense-form/edit-expense-form.component";
+import {DeleteExpenseFormComponent} from "../forms/delete-expense-form/delete-expense-form.component";
 
 @Component({
   selector: 'app-list-of-expenses',
