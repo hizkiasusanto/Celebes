@@ -1,8 +1,8 @@
 <div fxFlexFill fxLayout="column">
   <app-datepicker (startDateEmitter)="listenToStartDate($event)"
                   (endDateEmitter)="listenToEndDate($event)"></app-datepicker>
-  <div fxFlex fxLayoutAlign="center center">
-    <canvas baseChart
+  <div fxFlex fxLayoutAlign="center center" *appLoading="isLoading">
+    <canvas *ngIf="chartData" baseChart
             [datasets]="chartData"
             [labels]="chartLabels"
             [options]="chartOptions"

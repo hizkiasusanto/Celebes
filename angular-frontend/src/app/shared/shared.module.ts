@@ -14,9 +14,11 @@ import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ChartsModule} from "ng2-charts";
 import {RupiahPipe} from './pipes/rupiah.pipe';
+import { LoadingComponent } from './components/loading/loading.component';
+import { LoadingDirective } from './directives/loading.directive';
 
 @NgModule({
-  declarations: [NavbarComponent, FooterComponent, SidenavComponent, HomeComponent, RupiahPipe],
+  declarations: [NavbarComponent, FooterComponent, SidenavComponent, HomeComponent, RupiahPipe, LoadingComponent, LoadingDirective],
   imports: [
     CommonModule,
     MaterialModule,
@@ -42,7 +44,8 @@ import {RupiahPipe} from './pipes/rupiah.pipe';
     FooterComponent,
     SidenavComponent,
     HomeComponent,
-    RupiahPipe
+    RupiahPipe,
+    LoadingDirective
   ]
 })
 export class SharedModule {
