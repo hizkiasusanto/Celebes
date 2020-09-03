@@ -5,7 +5,6 @@
   "main": "app.js",
   "repository": "https://github.com/hizkiaadrian/Celebes.git",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
   "dependencies": {
@@ -15,11 +14,11 @@
     "dotenv": "^8.2.0",
     "express": "*",
     "jsonwebtoken": "*",
-    "mongoose": "*",
+    "mongoose": "^5.10.2",
     "passport": "*",
     "passport-jwt": "*"
   },
   "keywords": [],
-  "author": "",
+  "author": "Hizkia Susanto",
   "license": "ISC"
 }
