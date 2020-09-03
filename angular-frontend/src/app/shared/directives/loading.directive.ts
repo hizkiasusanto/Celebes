@@ -22,12 +22,10 @@ export class LoadingDirective {
 
     if (loading)
     {
-      // create and embed an instance of the loading component
       this.loadingComponent = this.viewContainerRef.createComponent(this.loadingFactory);
     }
     else
     {
-      // embed the contents of the host template
       this.viewContainerRef.createEmbeddedView(this.templateRef);
     }
   }
