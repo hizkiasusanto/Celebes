@@ -8,6 +8,7 @@
       <a mat-list-item [routerLink]="['/expensesManager']">Expenses Manager</a>
       <a mat-list-item [routerLink]="['/inventoryManager']">Inventory Manager</a>
       <a mat-list-item [routerLink]="['/profile']">User Profile</a>
+      <a mat-list-item [routerLink]="['/adminDashboard']" *ngIf="userRole !== 'Employee'">Admin Portal</a>
     </mat-nav-list>
   </mat-sidenav>
 </mat-sidenav-container>

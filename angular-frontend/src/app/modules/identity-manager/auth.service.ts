@@ -1,17 +1,28 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {environment} from "../../../environments/environment";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnInit {
   authToken: any;
   user: any;
+  userSubject = new BehaviorSubject(this.user)
   jwtHelper = new JwtHelperService();
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    if (this.isLoggedIn() && this.user === undefined) {
+      this.getProfile().subscribe(res => {
+        this.loadUser(res);
+      })
+    }
+  }
+
+  ngOnInit() {
+  }
 
   registerUser = (user) => {
     let headers = new HttpHeaders({'Content-Type':'application/json'});
@@ -30,16 +41,21 @@ export class AuthService {
   storeUserData = (token, user) => {
     localStorage.setItem('token',token)
     this.authToken = token;
-    this.user = user;
+    this.loadUser(user);
   }
 
   loadToken = () => {
     this.authToken = localStorage.getItem('token')
   }
 
+  loadUser = (user) => {
+    this.user = user;
+    this.userSubject.next(user);
+  }
+
   logout = () => {
     this.authToken = null;
-    this.user = null;
+    this.loadUser(null);
 
     localStorage.clear()
   }
