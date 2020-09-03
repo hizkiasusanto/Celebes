@@ -8,6 +8,7 @@ import {AuthService} from "../../identity-manager/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EditExpenseFormComponent} from "../forms/edit-expense-form/edit-expense-form.component";
 import {DeleteExpenseFormComponent} from "../forms/delete-expense-form/delete-expense-form.component";
+import {DateService} from "../../../shared/services/date.service";
 
 @Component({
   selector: 'app-list-of-expenses',
@@ -31,22 +32,27 @@ export class ListOfExpensesComponent implements OnInit {
 
   isAuthorizedToDelete: boolean;
 
-  constructor(private expensesService: ExpensesService, private authService: AuthService, public dialog: MatDialog){}
+  constructor(
+    private expensesService: ExpensesService,
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private dateService: DateService) {
+  }
 
   ngOnInit(): void {
     this.populateDataSourceWithExpenses();
     this.authService.getProfile().subscribe((profile: any) =>
       this.isAuthorizedToDelete = profile.role !== 'Employee')
     this.expensesService.refreshSubject.subscribe(() =>
-        this.populateDataSourceWithExpenses()
-      )
+      this.populateDataSourceWithExpenses()
+    )
   }
 
   populateDataSourceWithExpenses = () => {
     this.expensesService.getAllExpenses().subscribe((res: any) => {
       this.dataSource = new MatTableDataSource(res.expenses);
       this.dataSource.paginator = this.paginator;
-      this.lastUpdated = new Date();
+      this.lastUpdated = this.dateService.now();
     })
   }
 
