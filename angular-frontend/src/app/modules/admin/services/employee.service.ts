@@ -13,4 +13,7 @@ export class EmployeeService {
 
   getAllUsers = () => this.httpClient.get(`${environment.backendUrl}/users/get-all-users`,
     {headers: this.authService.addAuthorizedHeader()})
+
+  getUserById = (id) => this.httpClient.get(`${environment.backendUrl}/users/get-user/${id}`,
+    {headers: this.authService.addAuthorizedHeader()})
 }

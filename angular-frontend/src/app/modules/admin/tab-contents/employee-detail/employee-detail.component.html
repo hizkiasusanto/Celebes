@@ -1,2 +1,4 @@
-<p>employee-detail works!</p>
-<button (click)="location.back()">Back</button>
+<button (click)="goBack()">Back</button>
+<div *appLoading="!user">
+  {{user.name}} {{user._id}} {{user.approved}}
+</div>
