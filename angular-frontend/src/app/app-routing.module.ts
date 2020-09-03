@@ -12,6 +12,7 @@ import {ExpensesManagerModule} from "./modules/transaction-manager/expenses-mana
 import {ExpensesManagerDashboardComponent} from "./modules/transaction-manager/expenses-manager-dashboard/expenses-manager-dashboard.component";
 import {InventoryManagerModule} from "./modules/inventory-manager/inventory-manager.module";
 import {InventoryManagerDashboardComponent} from "./modules/inventory-manager/inventory-manager-dashboard/inventory-manager-dashboard.component";
+import {ApprovalGuard} from "./modules/identity-manager/approval.guard";
 
 const routes: Routes = [
   {path:'', redirectTo:'/home', pathMatch:'full'},
@@ -19,8 +20,8 @@ const routes: Routes = [
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-  {path:'expensesManager', component: ExpensesManagerDashboardComponent, canActivate: [AuthGuard]},
-  {path:'inventoryManager', component: InventoryManagerDashboardComponent, canActivate: [AuthGuard]},
+  {path:'expensesManager', component: ExpensesManagerDashboardComponent, canActivate: [AuthGuard, ApprovalGuard]},
+  {path:'inventoryManager', component: InventoryManagerDashboardComponent, canActivate: [AuthGuard, ApprovalGuard]},
   {path:'**',redirectTo:'/home'}
 ];
 
