@@ -3,7 +3,8 @@
     <h5 class="mat-h5">Last updated: {{lastUpdated | date: 'short'}}</h5>
     <mat-icon (click)="populateDataSourceWithExpenses()" class="clickable" style="margin: 0 0 12px;">refresh</mat-icon>
   </div>
-  <table mat-table [dataSource]="dataSource" multiTemplateDataRows *appLoading="dataSource === undefined || dataSource.data.length === 0">
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows
+         *appLoading="dataSource === undefined || dataSource.data.length === 0">
 
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef> Date</th>
