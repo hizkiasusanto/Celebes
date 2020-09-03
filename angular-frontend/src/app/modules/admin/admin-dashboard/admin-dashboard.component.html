@@ -1,7 +1,5 @@
-<mat-tab-group>
-  <mat-tab label="Employees">
-    <ng-template matTabContent>
-      <app-employees></app-employees>
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link [routerLink]="'employees'">Employees</a>
+  <a mat-tab-link [routerLink]="'dummy'">Dummy</a>
+</nav>
+<router-outlet></router-outlet>

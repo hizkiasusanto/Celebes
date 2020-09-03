@@ -9,18 +9,13 @@ import {HomeComponent} from "./shared/components/home/home.component";
 import {ApprovalRequiredComponent} from "./shared/components/approval-required/approval-required.component";
 import {UnauthorizedComponent} from "./shared/components/unauthorized/unauthorized.component";
 
-import {IdentityManagerModule} from "./modules/identity-manager/identity-manager.module";
 import {RegisterComponent} from "./modules/identity-manager/register/register.component";
 import {LoginComponent} from "./modules/identity-manager/login/login.component";
 import {ProfileComponent} from "./modules/identity-manager/profile/profile.component";
 
-import {ExpensesManagerModule} from "./modules/transaction-manager/expenses-manager.module";
 import {ExpensesManagerDashboardComponent} from "./modules/transaction-manager/expenses-manager-dashboard/expenses-manager-dashboard.component";
 
 import {InventoryManagerDashboardComponent} from "./modules/inventory-manager/inventory-manager-dashboard/inventory-manager-dashboard.component";
-
-import {AdminModule} from "./modules/admin/admin.module";
-import {AdminDashboardComponent} from "./modules/admin/admin-dashboard/admin-dashboard.component";
 
 
 const routes: Routes = [
@@ -33,24 +28,18 @@ const routes: Routes = [
   {path: 'inventoryManager', component: InventoryManagerDashboardComponent, canActivate: [AuthGuard, ApprovalGuard]},
   {
     path: 'adminDashboard',
-    component: AdminDashboardComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: {roles: ['Admin', 'Manager']}
+    data: {roles: ['Admin', 'Manager']},
+    loadChildren: () => import(`./modules/admin/admin.module`).then(m => m.AdminModule)
   },
   {path: 'approval_required', component: ApprovalRequiredComponent, canActivate: [AuthGuard]},
   {path: 'unauthorized', component: UnauthorizedComponent, canActivate: [AuthGuard]},
-
   {path: '**', redirectTo: '/home'}
+
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes),
-    IdentityManagerModule.forRoot(),
-    ExpensesManagerModule.forRoot(),
-    AdminModule.forRoot(),
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}
