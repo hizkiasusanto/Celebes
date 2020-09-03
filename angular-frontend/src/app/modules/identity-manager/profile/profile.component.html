@@ -13,6 +13,7 @@
     <li>Profile photo: {{user.profilePicUrl === null ? 'Not set yet' : user.profilePicUrl}}</li>
     <li>Date of birth: {{user.dateOfBirth === null ? 'Not set yet' : user.dateOfBirth}}</li>
     <li>Address: {{user.address === null ? 'Not set yet' : user.address}}</li>
-    <li>Gender: {{user.gender === null ? 'Not set yet' : user.gender}}</li>
+    <li>Gender: {{user.gender === 'unassigned' ? 'Not set yet' : user.gender}}</li>
+    <li>Approved: {{user.approved}}</li>
   </ul>
 </div>
