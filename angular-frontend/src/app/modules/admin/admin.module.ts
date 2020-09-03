@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import {SharedModule} from "../../shared/shared.module";
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { EmployeesComponent } from './tab-contents/employees/employees.component';
+import {AdminRoutingModule} from "./admin-routing.module";
+import { DummyComponent } from './tab-contents/dummy/dummy.component';
 
 
 
 @NgModule({
-  declarations: [AdminDashboardComponent, EmployeesComponent],
-  imports: [SharedModule.forRoot()],
+  declarations: [AdminDashboardComponent, EmployeesComponent, DummyComponent],
+  imports: [SharedModule.forRoot(),AdminRoutingModule],
   exports: []
 })
 export class AdminModule {

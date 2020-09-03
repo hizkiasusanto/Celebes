@@ -16,7 +16,6 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingDirective } from './directives/loading.directive';
 import { ApprovalRequiredComponent } from './components/approval-required/approval-required.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [NavbarComponent, FooterComponent, SidenavComponent, HomeComponent, RupiahPipe, LoadingComponent, LoadingDirective, ApprovalRequiredComponent, UnauthorizedComponent],
@@ -29,7 +28,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   ],
   exports: [
     CommonModule,
-    BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
     MaterialModule,
