@@ -11,6 +11,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class EmployeeDetailComponent implements OnInit {
   user;
+  id;
 
   constructor(
     private location: Location,
@@ -20,8 +21,8 @@ export class EmployeeDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.employeeService.getUserById(id).subscribe((res: any) => {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.employeeService.getUserById(this.id).subscribe((res: any) => {
       if (res.success) {
         this.user = res.user;
       } else {
@@ -35,4 +36,15 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   goBack = () => this.location.back()
+
+  approveUser = () => {
+    this.employeeService.approveUser(this.id).subscribe((res: any) => {
+      this.snackBar.open(res.msg, "Close", {
+        duration: 2000,
+        panelClass: [res.success ? 'success-snackbar' : 'error-snackbar'],
+        horizontalPosition: 'end'
+      })
+    })
+    this.goBack()
+  };
 }

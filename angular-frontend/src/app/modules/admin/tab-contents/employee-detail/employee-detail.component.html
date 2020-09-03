@@ -1,4 +1,5 @@
 <button (click)="goBack()">Back</button>
 <div *appLoading="!user">
-  {{user.name}} {{user._id}} {{user.approved}}
+  <p>{{user.name}} {{user._id}}</p>
+  <a mat-raised-button color="primary" *ngIf="!user.approved" (click)="approveUser()">Approve</a>
 </div>

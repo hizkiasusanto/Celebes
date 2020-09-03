@@ -51,6 +51,10 @@ module.exports.getUserById = (id, callback) => {
     User.findById(id, callback)
 }
 
+module.exports.approveUser = (id, callback) => {
+    User.findByIdAndUpdate(id, {approved: true}, callback)
+}
+
 module.exports.getUserByEmail = (email, callback) => {
     User.findOne({email: email}, callback)
 }

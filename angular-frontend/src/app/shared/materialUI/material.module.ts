@@ -24,6 +24,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [],
@@ -53,6 +54,7 @@ import {MatTabsModule} from "@angular/material/tabs";
     MatNativeDateModule,
     MatProgressSpinnerModule,
     MatTabsModule,
+    MatCheckboxModule,
 
     FlexModule,
     LayoutModule
