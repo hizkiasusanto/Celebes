@@ -14,6 +14,7 @@ import {InventoryManagerModule} from "./modules/inventory-manager/inventory-mana
 import {InventoryManagerDashboardComponent} from "./modules/inventory-manager/inventory-manager-dashboard/inventory-manager-dashboard.component";
 import {ApprovalGuard} from "./modules/identity-manager/approval.guard";
 import {ApprovalRequiredComponent} from "./shared/components/approval-required/approval-required.component";
+import {UnauthorizedComponent} from "./shared/components/unauthorized/unauthorized.component";
 
 const routes: Routes = [
   {path:'', redirectTo:'/home', pathMatch:'full'},
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path:'expensesManager', component: ExpensesManagerDashboardComponent, canActivate: [AuthGuard, ApprovalGuard]},
   {path:'inventoryManager', component: InventoryManagerDashboardComponent, canActivate: [AuthGuard, ApprovalGuard]},
   {path:'approval_required', component: ApprovalRequiredComponent, canActivate: [AuthGuard]},
+  {path:'unauthorized', component: UnauthorizedComponent, canActivate: [AuthGuard]},
   {path:'**',redirectTo:'/home'}
 ];
 

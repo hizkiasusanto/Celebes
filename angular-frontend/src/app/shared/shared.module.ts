@@ -17,9 +17,10 @@ import {RupiahPipe} from './pipes/rupiah.pipe';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingDirective } from './directives/loading.directive';
 import { ApprovalRequiredComponent } from './components/approval-required/approval-required.component';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 @NgModule({
-  declarations: [NavbarComponent, FooterComponent, SidenavComponent, HomeComponent, RupiahPipe, LoadingComponent, LoadingDirective, ApprovalRequiredComponent],
+  declarations: [NavbarComponent, FooterComponent, SidenavComponent, HomeComponent, RupiahPipe, LoadingComponent, LoadingDirective, ApprovalRequiredComponent, UnauthorizedComponent],
   imports: [
     CommonModule,
     MaterialModule,
