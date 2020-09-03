@@ -1,0 +1,18 @@
+name: production
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+        check-latest: true
+    - run: npm install
+    - run: |
+        git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.PRODUCTION_APP_NAME }}.git
+    - run: |
+        git fetch --unshallow
+        git push heroku master -f
