@@ -31,9 +31,7 @@ export class AddExpenseFormComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<AddExpenseFormComponent>
   ) {
-    this.authService.getProfile().subscribe(user => {
-      this.loggedInUser = user;
-    })
+    this.authService.userSubject.subscribe(user => this.loggedInUser = user);
   }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {environment} from "../../../environments/environment";
@@ -7,7 +7,7 @@ import {BehaviorSubject} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnInit {
+export class AuthService {
   authToken: any;
   user: any;
   userSubject = new BehaviorSubject(this.user)
@@ -15,13 +15,8 @@ export class AuthService implements OnInit {
 
   constructor(private httpClient: HttpClient) {
     if (this.isLoggedIn() && this.user === undefined) {
-      this.getProfile().subscribe(res => {
-        this.loadUser(res);
-      })
+      this.getProfile().subscribe(res => this.loadUser(res))
     }
-  }
-
-  ngOnInit() {
   }
 
   registerUser = (user) => {
@@ -36,6 +31,10 @@ export class AuthService implements OnInit {
 
   getProfile = () => {
     return this.httpClient.get(`${environment.backendUrl}/users/profile`, {headers: this.addAuthorizedHeader()})
+  }
+
+  getUserRole = () => {
+    return this.user == null ? null : this.user.role;
   }
 
   storeUserData = (token, user) => {

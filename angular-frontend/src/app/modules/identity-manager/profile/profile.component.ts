@@ -14,11 +14,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe(profile => {
-      this.user = profile;
-    }, () => {
-      return false;
-    })
+    this.authService.userSubject.subscribe(user => this.user = user);
   }
 
   processFile(imageInput: any) {

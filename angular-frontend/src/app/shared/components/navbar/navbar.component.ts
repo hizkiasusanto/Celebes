@@ -48,7 +48,7 @@ export class NavbarComponent implements OnInit {
       panelClass: ['success-snackbar'],
       horizontalPosition: "end"
     });
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
     return false;
   }
 

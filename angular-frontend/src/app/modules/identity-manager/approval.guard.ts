@@ -8,10 +8,12 @@ import {catchError, map} from "rxjs/operators";
   providedIn: 'root'
 })
 export class ApprovalGuard implements CanActivate {
+  user;
 
   constructor(
     private authService: AuthService,
     private router: Router) {
+    this.authService.userSubject.subscribe(user => this.user = user)
   }
 
   canActivate(
