@@ -21,4 +21,7 @@ export class EmployeesComponent implements OnInit {
     })
   }
 
+  viewEmployeeDetail = (id) => {
+    console.log(id)
+  }
 }

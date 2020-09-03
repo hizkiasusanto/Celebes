@@ -72,4 +72,14 @@ router.get('/get-all-users', User.authenticate(), (req,res) => {
     })
 })
 
+router.get('/get-user/:id', User.authenticate(), (req, res) => {
+    User.getUserById(req.params.id, (err, user) => {
+        if (err) {
+            res.send({success:false,msg:'Failed to retrieve user'})
+        } else {
+            res.send({success:true,user})
+        }
+    })
+})
+
 module.exports = router

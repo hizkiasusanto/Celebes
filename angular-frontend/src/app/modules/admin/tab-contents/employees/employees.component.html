@@ -1,14 +1,15 @@
 <mat-selection-list *appLoading="!users" [multiple]="false">
   <div mat-subheader>Managers</div>
-  <mat-list-option *ngFor="let manager of managers" [value]="manager._id">
+  <mat-list-option *ngFor="let manager of managers" (click)="viewEmployeeDetail(manager._id)">
     <div mat-line>{{manager.name}}</div>
     <div mat-line>{{manager.role}}</div>
+    <a routerLink="../employee-details/{{manager._id}}">Click</a>
   </mat-list-option>
   <mat-divider></mat-divider>
   <div mat-subheader>Employees</div>
-  <mat-list-option *ngFor="let employee of employees" [value]="employee._id">
+  <mat-list-option *ngFor="let employee of employees" (click)="viewEmployeeDetail(employee._id)">
     <div mat-line>{{employee.name}}</div>
     <div mat-line>{{employee.role}}</div>
+    <a routerLink="../employee-details/{{employee._id}}">Click</a>
   </mat-list-option>
 </mat-selection-list>
-<a [routerLink]="'../employee-detail'">Click me</a>
