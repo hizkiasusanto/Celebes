@@ -18,7 +18,12 @@ export class ApprovalGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authService.getProfile().pipe(map((user:any) => {
-      return !(user.role === 'Employee' && !user.approved);
+      if (user.role === 'Employee' && !user.approved) {
+        this.router.navigate(['/approval_required']);
+        return false;
+      } else {
+        return true;
+      }
     }), catchError(() => {
       this.router.navigate(['/home']);
       return of(false);
