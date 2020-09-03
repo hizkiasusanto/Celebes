@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {SharedModule} from "../../shared/shared.module";
 import { InventoryManagerDashboardComponent } from './inventory-manager-dashboard/inventory-manager-dashboard.component';
 
@@ -7,7 +6,6 @@ import { InventoryManagerDashboardComponent } from './inventory-manager-dashboar
 @NgModule({
   declarations: [InventoryManagerDashboardComponent],
   imports: [
-    CommonModule,
     SharedModule.forRoot()
   ],
   exports: []
