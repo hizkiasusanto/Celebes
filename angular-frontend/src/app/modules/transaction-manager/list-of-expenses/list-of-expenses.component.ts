@@ -41,8 +41,11 @@ export class ListOfExpensesComponent implements OnInit {
 
   ngOnInit(): void {
     this.populateDataSourceWithExpenses();
-    this.authService.getProfile().subscribe((profile: any) =>
-      this.isAuthorizedToDelete = profile.role !== 'Employee')
+    this.authService.userSubject.subscribe(user => {
+      if (user) {
+        this.isAuthorizedToDelete = this.authService.getUserRole() !== 'Employee'
+      }
+    })
     this.expensesService.refreshSubject.subscribe(() =>
       this.populateDataSourceWithExpenses()
     )

@@ -28,9 +28,7 @@ export class EditExpenseFormComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<EditExpenseFormComponent>
   ) {
-    this.authService.getProfile().subscribe(user => {
-      this.loggedInUser = user;
-    })
+    this.authService.userSubject.subscribe(user => this.loggedInUser = user);
 
   }
 

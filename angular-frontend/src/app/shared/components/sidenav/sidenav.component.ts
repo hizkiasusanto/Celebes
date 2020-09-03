@@ -22,14 +22,13 @@ export class SidenavComponent implements OnChanges {
     );
 
   userRole: string;
-  getUserRole(user) {
-    if(user) this.userRole = user.role;
-  }
 
   constructor(private breakpointObserver: BreakpointObserver,
               private authService: AuthService,
               public router: Router) {
-    this.authService.userSubject.subscribe(user => this.getUserRole(user))
+    this.authService.userSubject.subscribe((user) => {
+      if (user) this.userRole = this.authService.getUserRole()
+    })
   }
 
   ngOnChanges() {
