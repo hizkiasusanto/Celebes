@@ -16,4 +16,7 @@ export class EmployeeService {
 
   getUserById = (id) => this.httpClient.get(`${environment.backendUrl}/users/get-user/${id}`,
     {headers: this.authService.addAuthorizedHeader()})
+
+  approveUser = (_id) => this.httpClient.patch(`${environment.backendUrl}/users/approve-user/${_id}`, {},
+    {headers: this.authService.addAuthorizedHeader()})
 }

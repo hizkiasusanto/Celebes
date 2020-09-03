@@ -10,6 +10,7 @@
   <mat-list-option *ngFor="let employee of employees" (click)="viewEmployeeDetail(employee._id)">
     <div mat-line>{{employee.name}}</div>
     <div mat-line>{{employee.role}}</div>
+    <div mat-line *ngIf="!employee.approved"><strong>Need approval</strong></div>
     <a routerLink="../employee-details/{{employee._id}}">Click</a>
   </mat-list-option>
 </mat-selection-list>

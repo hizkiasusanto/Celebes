@@ -82,4 +82,18 @@ router.get('/get-user/:id', User.authenticate(), (req, res) => {
     })
 })
 
+router.patch('/approve-user/:_id', User.authenticate(), (req, res) => {
+    if (req.user.role !== 'Manager' && req.user.role !== 'Admin') {
+        res.send({success:false,msg:'You are not authorized to approve users'})
+    } else {
+        User.approveUser(req.params._id, (err, user) => {
+            if (err) {
+                res.send({success: false, msg: 'Failed to approve user'})
+            } else {
+                res.send({success: true, msg: `Account named ${user.name} approved successfully`})
+            }
+        })
+    }
+})
+
 module.exports = router
