@@ -62,4 +62,14 @@ router.get('/profile', User.authenticate(), (req,res) => {
     })
 })
 
+router.get('/get-all-users', User.authenticate(), (req,res) => {
+    User.getAllUsers((err, users) => {
+        if (err) {
+            res.send({success:false,msg:'Failed to retrieve users'})
+        } else {
+            res.send({success:true,users})
+        }
+    })
+})
+
 module.exports = router
