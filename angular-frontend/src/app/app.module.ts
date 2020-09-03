@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {NgModule} from '@angular/core';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {SharedModule} from "./shared/shared.module";
 
 import {IdentityManagerModule} from "./modules/identity-manager/identity-manager.module";
@@ -11,14 +11,15 @@ import {InventoryManagerModule} from "./modules/inventory-manager/inventory-mana
   declarations: [
     AppComponent
   ],
-    imports: [
-        AppRoutingModule,
-        SharedModule.forRoot(),
-        IdentityManagerModule.forRoot(),
-        ExpensesManagerModule.forRoot(),
-        InventoryManagerModule.forRoot(),
-    ],
+  imports: [
+    AppRoutingModule,
+    SharedModule.forRoot(),
+    IdentityManagerModule.forRoot(),
+    ExpensesManagerModule.forRoot(),
+    InventoryManagerModule.forRoot(),
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

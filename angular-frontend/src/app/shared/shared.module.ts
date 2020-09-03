@@ -1,7 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {BrowserModule} from "@angular/platform-browser";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 
 import {MaterialModule} from "./materialUI/material.module";
@@ -18,25 +16,21 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingDirective } from './directives/loading.directive';
 import { ApprovalRequiredComponent } from './components/approval-required/approval-required.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [NavbarComponent, FooterComponent, SidenavComponent, HomeComponent, RupiahPipe, LoadingComponent, LoadingDirective, ApprovalRequiredComponent, UnauthorizedComponent],
   imports: [
     CommonModule,
     MaterialModule,
-    BrowserModule,
-    BrowserAnimationsModule,
     HttpClientModule,
     RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
     ChartsModule
   ],
   exports: [
     CommonModule,
-    MaterialModule,
-    BrowserModule,
     BrowserAnimationsModule,
+    MaterialModule,
     HttpClientModule,
     MaterialModule,
     FormsModule,
