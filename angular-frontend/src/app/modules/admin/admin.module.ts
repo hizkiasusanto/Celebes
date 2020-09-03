@@ -4,11 +4,12 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { EmployeesComponent } from './tab-contents/employees/employees.component';
 import {AdminRoutingModule} from "./admin-routing.module";
 import { DummyComponent } from './tab-contents/dummy/dummy.component';
+import {EmployeeDetailComponent} from "./tab-contents/employee-detail/employee-detail.component";
 
 
 
 @NgModule({
-  declarations: [AdminDashboardComponent, EmployeesComponent, DummyComponent],
+  declarations: [AdminDashboardComponent, EmployeesComponent, DummyComponent, EmployeeDetailComponent],
   imports: [SharedModule.forRoot(),AdminRoutingModule],
   exports: []
 })
