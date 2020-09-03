@@ -13,7 +13,7 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeService.getAllUsers().subscribe((res:any) => {
-      console.table(res.users);
+      this.users = res.users;
     })
   }
 
