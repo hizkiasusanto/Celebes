@@ -1,3 +1,3 @@
-<div *appLoading="!name && isLoggedIn">
+<div *appLoading="isLoggedIn() && !name">
   <h1>Welcome {{name}}</h1>
 </div>

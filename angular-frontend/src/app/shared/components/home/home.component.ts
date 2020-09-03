@@ -7,18 +7,19 @@ import {AuthService} from "../../../modules/identity-manager/auth.service";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  isLoggedIn: boolean = false;
   name: String;
 
   constructor(
     private authService: AuthService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    if (this.authService.isLoggedIn()) {
-      this.isLoggedIn = true;
+    if (this.isLoggedIn()) {
       this.authService.userSubject.subscribe(user => this.name = user == null ? '' : user.name);
     }
   }
+
+  isLoggedIn = () => this.authService.isLoggedIn()
 
 }
