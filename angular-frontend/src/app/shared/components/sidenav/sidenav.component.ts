@@ -21,9 +21,16 @@ export class SidenavComponent implements OnChanges {
       shareReplay()
     );
 
+  userRole: string;
+  getUserRole(user) {
+    if(user) this.userRole = user.role;
+  }
+
   constructor(private breakpointObserver: BreakpointObserver,
               private authService: AuthService,
-              public router: Router) { }
+              public router: Router) {
+    this.authService.userSubject.subscribe(user => this.getUserRole(user))
+  }
 
   ngOnChanges() {
     if (this.sidenav) {
