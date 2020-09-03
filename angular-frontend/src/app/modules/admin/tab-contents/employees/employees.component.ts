@@ -8,12 +8,16 @@ import {EmployeeService} from "../../services/employee.service";
 })
 export class EmployeesComponent implements OnInit {
   users: any[];
+  managers: any[];
+  employees: any[];
 
   constructor(private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this.employeeService.getAllUsers().subscribe((res:any) => {
       this.users = res.users;
+      this.managers = this.users.filter(x => x.role !== 'Employee')
+      this.employees = this.users.filter(x => x.role === 'Employee')
     })
   }
 
