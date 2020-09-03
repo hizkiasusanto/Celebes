@@ -34,8 +34,12 @@ const UserSchema = mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: ['M','F'],
-        default: 'M'
+        enum: ['M','F','unassigned'],
+        default: 'unassigned'
+    },
+    approved: {
+        type: Boolean,
+        default: false
     }
 })
 

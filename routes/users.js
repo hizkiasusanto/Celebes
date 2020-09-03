@@ -1,7 +1,6 @@
 const express = require("express")
 const router = express.Router()
 const User = require("../models/user")
-const passport = require("passport")
 const jwt = require("jsonwebtoken")
 
 router.post('/register', (req, res) => {
@@ -48,7 +47,7 @@ router.post('/authenticate', (req,res) => {
     })
 })
 
-router.get('/profile', User.authenticate(), (req,res,next) => {
+router.get('/profile', User.authenticate(), (req,res) => {
     res.json({
         _id: req.user._id,
         name: req.user.name,
@@ -57,7 +56,8 @@ router.get('/profile', User.authenticate(), (req,res,next) => {
         dateOfBirth: req.user.dateOfBirth,
         profilePicUrl: req.user.profilePicUrl,
         address: req.user.address,
-        gender: req.user.gender
+        gender: req.user.gender,
+        approved: req.user.approved
     })
 })
 
