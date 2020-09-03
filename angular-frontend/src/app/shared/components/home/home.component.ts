@@ -7,6 +7,7 @@ import {AuthService} from "../../../modules/identity-manager/auth.service";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  isLoggedIn: boolean = false;
   name: String;
 
   constructor(
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
+      this.isLoggedIn = true;
       this.authService.getProfile().subscribe((profile: any) => this.name = profile.name);
     }
   }
