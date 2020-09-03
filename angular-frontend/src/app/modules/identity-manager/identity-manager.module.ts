@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {RegisterComponent} from "./register/register.component";
 import {LoginComponent} from "./login/login.component";
 import {ProfileComponent} from "./profile/profile.component";
-import {AuthGuard} from "./auth.guard";
 import {AuthService} from "./auth.service";
 import {SharedModule} from "../../shared/shared.module";
+import {AuthGuard} from "./auth.guard";
+import {ApprovalGuard} from "./approval.guard";
+import {RoleGuard} from "./role.guard";
 
 @NgModule({
   declarations: [LoginComponent,RegisterComponent,ProfileComponent],
   imports: [
-    CommonModule,
     SharedModule.forRoot()
   ],
   exports: [
@@ -25,6 +25,8 @@ export class IdentityManagerModule {
       ngModule: IdentityManagerModule,
       providers: [
         AuthGuard,
+        ApprovalGuard,
+        RoleGuard,
         AuthService
       ]
     }

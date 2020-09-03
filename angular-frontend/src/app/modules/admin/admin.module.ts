@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {SharedModule} from "../../shared/shared.module";
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  declarations: [AdminDashboardComponent],
+  imports: [SharedModule.forRoot()],
+  exports: []
 })
-export class AdminModule { }
+export class AdminModule {
+  static forRoot() {
+    return {
+      ngModule: AdminModule
+    }
+  }
+}

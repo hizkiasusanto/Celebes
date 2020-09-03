@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ExpensesManagerDashboardComponent } from './expenses-manager-dashboard/expenses-manager-dashboard.component';
 import {SharedModule} from "../../shared/shared.module";
 import { AddExpenseFormComponent } from './forms/add-expense-form/add-expense-form.component';
@@ -26,7 +25,6 @@ import { DeleteExpenseFormComponent } from './forms/delete-expense-form/delete-e
     DeleteExpenseFormComponent
   ],
   imports: [
-    CommonModule,
     SharedModule.forRoot()
   ],
   exports: [
