@@ -23,6 +23,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [],
@@ -51,6 +52,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
+    MatTabsModule,
 
     FlexModule,
     LayoutModule
