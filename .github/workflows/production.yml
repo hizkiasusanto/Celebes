@@ -1,5 +1,11 @@
 name: production
 
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Production tags'
+
 jobs:
   build:
     runs-on: ubuntu-latest
