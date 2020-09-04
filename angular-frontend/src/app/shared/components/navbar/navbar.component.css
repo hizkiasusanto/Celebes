@@ -1,17 +1,16 @@
-/* Error: Can't find stylesheet to import.
- *   ,
- * 1 | @import "~src/styles";
- *   |         ^^^^^^^^^^^^^
- *   '
- *   navbar.component.scss 1:9  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import \"~src/styles\";\d\a   \2502          ^^^^^^^^^^^^^\a   \2575 \a   navbar.component.scss 1:9  root stylesheet";
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 30;
 }
+
+a {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.navbar {
+  justify-content: space-between;
+}
+
+/*# sourceMappingURL=navbar.component.css.map */
