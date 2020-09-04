@@ -90,10 +90,20 @@ router.patch('/approve-user/:_id', User.authenticate(), (req, res) => {
             if (err) {
                 res.send({success: false, msg: 'Failed to approve user'})
             } else {
-                res.send({success: true, msg: `Account named ${user.name} approved successfully`})
+                res.send({success: true, msg: `Account ${user.name} approved successfully`})
             }
         })
     }
+})
+
+router.patch('/update-job-title/:_id', User.authenticate(), (req, res) => {
+    User.updateJobTitle(req.params._id, req.body.jobTitle, (err) => {
+        if (err) {
+            res.send({success: false, msg: 'Failed to update job title'})
+        } else {
+            res.send({success: true, msg: 'Job title edited successfully'})
+        }
+    })
 })
 
 module.exports = router

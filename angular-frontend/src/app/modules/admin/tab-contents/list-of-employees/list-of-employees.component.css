@@ -1,0 +1,9 @@
+.need-approval {
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+.need-approval:hover {
+  background-color: rgba(255, 0, 0, 0.6);
+}
+
+/*# sourceMappingURL=list-of-employees.component.css.map */

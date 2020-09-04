@@ -19,4 +19,7 @@ export class EmployeeService {
 
   approveUser = (_id) => this.httpClient.patch(`${environment.backendUrl}/users/approve-user/${_id}`, {},
     {headers: this.authService.addAuthorizedHeader()})
+
+  updateJobTitle = (_id, newJobTitle) => this.httpClient.patch(`${environment.backendUrl}/users/update-job-title/${_id}`,
+    {jobTitle: newJobTitle}, {headers: this.authService.addAuthorizedHeader()})
 }
