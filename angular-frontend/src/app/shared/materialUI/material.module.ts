@@ -25,6 +25,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatBadgeModule} from "@angular/material/badge";
 
 @NgModule({
   declarations: [],
@@ -55,6 +56,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatProgressSpinnerModule,
     MatTabsModule,
     MatCheckboxModule,
+    MatBadgeModule,
 
     FlexModule,
     LayoutModule

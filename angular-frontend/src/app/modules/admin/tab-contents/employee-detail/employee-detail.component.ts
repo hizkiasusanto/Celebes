@@ -13,6 +13,9 @@ export class EmployeeDetailComponent implements OnInit {
   user;
   id;
 
+  jobTitleReadonly: boolean = true;
+  newJobTitle: string;
+
   constructor(
     private location: Location,
     private activatedRoute: ActivatedRoute,
@@ -25,6 +28,7 @@ export class EmployeeDetailComponent implements OnInit {
     this.employeeService.getUserById(this.id).subscribe((res: any) => {
       if (res.success) {
         this.user = res.user;
+        this.newJobTitle = res.user.jobTitle || 'Unassigned'
       } else {
         this.snackBar.open(res.msg, "Close", {
           duration: 2000,
@@ -47,4 +51,18 @@ export class EmployeeDetailComponent implements OnInit {
     })
     this.goBack()
   };
+
+  updateJobTitle = () => {
+    this.employeeService.updateJobTitle(this.id, this.newJobTitle).subscribe((res: any) => {
+      this.snackBar.open(res.msg, "Close", {
+        duration: 2000,
+        panelClass: [res.success ? 'success-snackbar' : 'error-snackbar'],
+        horizontalPosition: 'end'
+      })
+      if (res.success) {
+        this.goBack()
+      }
+    })
+  }
+
 }

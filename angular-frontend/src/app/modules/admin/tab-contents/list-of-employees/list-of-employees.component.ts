@@ -3,11 +3,11 @@ import {EmployeeService} from "../../services/employee.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-employees',
-  templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.scss']
+  selector: 'app-list-of-employees',
+  templateUrl: './list-of-employees.component.html',
+  styleUrls: ['./list-of-employees.component.scss']
 })
-export class EmployeesComponent implements OnInit {
+export class ListOfEmployeesComponent implements OnInit {
   users: any[];
   managers: any[];
   employees: any[];
@@ -22,8 +22,7 @@ export class EmployeesComponent implements OnInit {
     })
   }
 
-  viewEmployeeDetail = (id) => {
-    console.log(`employee-details/${id}`)
-    console.log(this.router.url)
+  viewEmployeeDetails = (id) => {
+    this.router.navigate([`adminDashboard/employee-details/${id}`])
   }
 }

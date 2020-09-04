@@ -37,6 +37,10 @@ const UserSchema = mongoose.Schema({
         enum: ['M','F','unassigned'],
         default: 'unassigned'
     },
+    jobTitle: {
+        type: String,
+        default: null
+    },
     approved: {
         type: Boolean,
         default: false
@@ -47,17 +51,15 @@ const User = module.exports = mongoose.model("User",UserSchema)
 
 module.exports.getAllUsers = (callback) => User.find({}, callback)
 
-module.exports.getUserById = (id, callback) => {
-    User.findById(id, callback)
-}
+module.exports.getUserById = (id, callback) => User.findById(id, callback)
 
-module.exports.approveUser = (id, callback) => {
+module.exports.approveUser = (id, callback) =>
     User.findByIdAndUpdate(id, {approved: true}, callback)
-}
 
-module.exports.getUserByEmail = (email, callback) => {
-    User.findOne({email: email}, callback)
-}
+module.exports.updateJobTitle = (id, newJobTitle, callback) =>
+    User.findByIdAndUpdate(id, {jobTitle: newJobTitle}, callback)
+
+module.exports.getUserByEmail = (email, callback) => User.findOne({email: email}, callback)
 
 module.exports.addUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {

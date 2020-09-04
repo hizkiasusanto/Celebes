@@ -1,5 +1,44 @@
-<button (click)="goBack()">Back</button>
-<div *appLoading="!user">
-  <p>{{user.name}} {{user._id}}</p>
-  <a mat-raised-button color="primary" *ngIf="!user.approved" (click)="approveUser()">Approve</a>
+<div *appLoading="!user" fxLayout="column" fxLayoutAlign="start center">
+
+  <mat-card fxFlex>
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <mat-card-header fxLayoutAlign="center center">
+        <img mat-card-avatar [src]="user.profilePicUrl || './assets/default_avatar.png'" alt="Profile pic"
+             class="profile-pic">
+        <mat-card-title>{{user.name}}</mat-card-title>
+        <mat-card-subtitle>{{user.role}}</mat-card-subtitle>
+      </mat-card-header>
+      <div fxLayoutGap="20px" class="buttons">
+        <a mat-raised-button color="primary" *ngIf="!user.approved" (click)="approveUser()">Approve</a>
+        <a mat-raised-button color="primary" *ngIf="user.approved" (click)="updateJobTitle()"
+           [disabled]="newJobTitle === 'Unassigned' || newJobTitle === user.jobTitle">Submit changes</a>
+        <a mat-stroked-button color="warn" (click)="goBack()">Back</a></div>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <form fxLayout="column" fxLayoutGap="10px">
+        <mat-form-field>
+          <mat-label>Job title</mat-label>
+          <input matInput [(ngModel)]="newJobTitle" name="newJobTitle" [readonly]="jobTitleReadonly">
+          <mat-icon matSuffix (click)="jobTitleReadonly = !jobTitleReadonly" class="edit">edit</mat-icon>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput type="text" [value]="user.email" readonly/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Date of birth</mat-label>
+          <input matInput [value]="(user.dateOfBirth | date:'d MMMM yyyy') || 'Not set yet'" readonly>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput [value]="user.address || 'Not set yet'" readonly>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Gender</mat-label>
+          <input matInput [value]="user.gender | titlecase" readonly>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -61,10 +61,8 @@ module.exports.getDailyExpenses = (date, callback) => {
     Expense.find({dateOfExpense: {$gte: date, $lte: new Date(date.getTime() + oneDay)}}, callback)
 }
 
-module.exports.getExpenseByItem = (item, startDate, endDate, callback) => {
+module.exports.getExpenseByItem = (item, startDate, endDate, callback) =>
     Expense.find({item: item, dateOfExpense: {$gte: startDate, $lte: endDate}}, callback)
-}
 
-module.exports.findAllDistinctItems = (startDate, endDate, callback) => {
+module.exports.findAllDistinctItems = (startDate, endDate, callback) =>
     Expense.distinct('item', {dateOfExpense: {$gte: startDate, $lte: endDate}}, callback)
-}
