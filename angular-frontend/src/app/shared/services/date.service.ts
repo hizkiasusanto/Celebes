@@ -9,12 +9,12 @@ export class DateService {
   constructor() {
   }
 
-  now = () => new Date();
+  now = () : Date => new Date();
 
-  today = () => this.removeTime(new Date());
+  today = () : Date => this.removeTime(new Date());
 
-  addDays = (date: Date, day: number) => new Date(date.getTime() + day * this.ticksInADay)
+  addDays = (date: Date, day: number) : Date => new Date(date.getTime() + day * this.ticksInADay)
 
-  removeTime = (date: Date) => new Date(date.setHours(0,0,0));
+  removeTime = (date: Date) : Date => new Date(date.setHours(0,0,0));
 
 }

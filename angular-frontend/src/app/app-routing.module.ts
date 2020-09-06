@@ -8,9 +8,10 @@ import {RoleGuard} from "./modules/identity-manager/guards/role.guard";
 import {HomeComponent} from "./shared/components/home/home.component";
 import {ApprovalRequiredComponent} from "./shared/components/approval-required/approval-required.component";
 import {UnauthorizedComponent} from "./shared/components/unauthorized/unauthorized.component";
+import {PageNotFoundComponent} from "./shared/components/page-not-found/page-not-found.component";
 
 import {ExpensesManagerDashboardComponent} from "./modules/transaction-manager/expenses-manager-dashboard/expenses-manager-dashboard.component";
-import {PageNotFoundComponent} from "./shared/components/page-not-found/page-not-found.component";
+
 import {Role} from "./modules/identity-manager/types/role";
 
 
