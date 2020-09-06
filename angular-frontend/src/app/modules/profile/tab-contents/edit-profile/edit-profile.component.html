@@ -3,10 +3,12 @@
     <h2>Edit profile</h2>
     <mat-form-field appearance="standard">
       <mat-label>Date of birth</mat-label>
-      <input matInput formControlName="dateOfBirth" type="text"/>
+      <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
       <mat-error
         *ngIf="editProfileForm.get('dateOfBirth').hasError('required')">
-        Date of birth is required
+        DoB is required
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="standard">

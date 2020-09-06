@@ -4,11 +4,27 @@ import {MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ProfileService} from "../../services/profile.service";
 import {AuthService} from "../../../identity-manager/services/auth.service";
-
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MomentDateAdapter} from "@angular/material-moment-adapter";
+const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'D MMMM YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss']
+  styleUrls: ['./edit-profile.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class EditProfileComponent implements OnInit {
   @Input() user;
@@ -25,7 +41,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
     this.editProfileForm = this.formBuilder.group({
       jobTitle: [this.user.jobTitle, [Validators.required]],
-      dateOfBirth: [this.user.dateOfBirth, [Validators.required]],
+      dateOfBirth: [new Date(this.user.dateOfBirth), [Validators.required]],
       address: [this.user.address, [Validators.required]]
     })
   }
@@ -34,7 +50,11 @@ export class EditProfileComponent implements OnInit {
     if (this.editProfileForm.valid) {
       let newData = {
         jobTitle: this.editProfileForm.value.jobTitle,
-        dateOfBirth: this.editProfileForm.value.dateOfBirth,
+        dateOfBirth: {
+          date: this.editProfileForm.value.dateOfBirth.date(),
+          month: this.editProfileForm.value.dateOfBirth.month(),
+          year: this.editProfileForm.value.dateOfBirth.year()
+        },
         address: this.editProfileForm.value.address
       }
       this.profileService.editProfile(this.user._id, newData).subscribe((res: any) => {
