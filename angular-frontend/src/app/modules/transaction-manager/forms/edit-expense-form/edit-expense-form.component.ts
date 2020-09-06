@@ -5,6 +5,7 @@ import {AuthService} from "../../../identity-manager/auth.service";
 import {ExpensesService} from "../../services/expenses.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
+import {PriceCalculatorService} from "../../services/price-calculator.service";
 
 @Component({
   selector: 'app-edit-expense-form',
@@ -26,7 +27,8 @@ export class EditExpenseFormComponent implements OnInit {
     private authService: AuthService,
     private expensesService: ExpensesService,
     private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<EditExpenseFormComponent>
+    private dialogRef: MatDialogRef<EditExpenseFormComponent>,
+    private priceCalculatorService: PriceCalculatorService
   ) {}
 
   ngOnInit(): void {
@@ -41,35 +43,16 @@ export class EditExpenseFormComponent implements OnInit {
     })
   }
 
-  ngOnDestroy(): void {
-    this.authService.userSubject.unsubscribe();
-}
-
   private lastChanged: string;
   changeLastChanged(controlName: string) {
     this.lastChanged = controlName;
   }
 
-  onAmountChange() {
-    if (this.lastChanged == 'amount') {
-      if (this.expensesForm.value.pricePerUnit) {
-        this.expensesForm.patchValue({'totalPrice': this.expensesForm.value.amount * this.expensesForm.value.pricePerUnit})
-      } else if (this.expensesForm.value.totalPrice) {
-        this.expensesForm.patchValue({'pricePerUnit': this.expensesForm.value.totalPrice / this.expensesForm.value.amount})
-      }
-    }
-  }
+  onAmountChange = () => this.priceCalculatorService.onAmountChange(this.expensesForm, this.lastChanged)
 
-  onPricePerUnitChange() {
-    if (this.lastChanged == 'pricePerUnit')
-      this.expensesForm.patchValue({'totalPrice': this.expensesForm.value.pricePerUnit * this.expensesForm.value.amount})
-  }
+  onPricePerUnitChange = () => this.priceCalculatorService.onPricePerUnitChange(this.expensesForm, this.lastChanged)
 
-  onTotalPriceChange() {
-    if (this.lastChanged == 'totalPrice' && this.expensesForm.value.amount) {
-      this.expensesForm.patchValue({'pricePerUnit': this.expensesForm.value.totalPrice / this.expensesForm.value.amount})
-    }
-  }
+  onTotalPriceChange = () => this.priceCalculatorService.onTotalPriceChange(this.expensesForm, this.lastChanged)
 
   submit() {
     if (this.expensesForm.valid) {
