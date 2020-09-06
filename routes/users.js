@@ -107,4 +107,14 @@ router.patch('/update-job-title/:_id', User.authenticate(), (req, res) => {
     })
 })
 
+router.patch('/edit-profile/:_id', User.authenticate(), (req, res) => {
+    User.editProfile(req.params._id, req.body.newData, (err, user) => {
+        if (err) {
+            res.send({success: false, msg: 'Failed to edit profile'})
+        } else {
+            res.send({success: true, user})
+        }
+    })
+})
+
 module.exports = router

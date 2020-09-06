@@ -1,1 +1,32 @@
-<p>edit-profile works!</p>
+<div fxFill fxLayoutAlign="center center">
+  <form [formGroup]="editProfileForm" (ngSubmit)="submit()" fxLayout="column" fxFlex="100%" fxFlex.gt-md="70%">
+    <h2>Edit profile</h2>
+    <mat-form-field appearance="standard">
+      <mat-label>Date of birth</mat-label>
+      <input matInput formControlName="dateOfBirth" type="text"/>
+      <mat-error
+        *ngIf="editProfileForm.get('dateOfBirth').hasError('required')">
+        Date of birth is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Job title</mat-label>
+      <input matInput formControlName="jobTitle" type="text"/>
+      <mat-error
+        *ngIf="editProfileForm.get('jobTitle').hasError('required')">
+        Job title is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address" type="text"/>
+      <mat-error
+        *ngIf="editProfileForm.get('address').hasError('required')">
+        Address is required
+      </mat-error>
+    </mat-form-field>
+    <div fxLayoutAlign="center">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>
+</div>
