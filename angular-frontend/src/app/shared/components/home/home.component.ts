@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../../modules/identity-manager/auth.service";
 
 @Component({
@@ -15,9 +15,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.isLoggedIn()) {
-      this.authService.userSubject.subscribe(user => this.name = user == null ? '' : user.name);
-    }
+    this.authService.userSubject.subscribe(user => this.name = user == null ? '' : user.name);
   }
 
   isLoggedIn = () => this.authService.isLoggedIn()

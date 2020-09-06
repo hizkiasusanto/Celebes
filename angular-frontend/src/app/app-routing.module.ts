@@ -11,11 +11,8 @@ import {UnauthorizedComponent} from "./shared/components/unauthorized/unauthoriz
 
 import {RegisterComponent} from "./modules/identity-manager/register/register.component";
 import {LoginComponent} from "./modules/identity-manager/login/login.component";
-import {ProfileComponent} from "./modules/identity-manager/profile/profile.component";
 
 import {ExpensesManagerDashboardComponent} from "./modules/transaction-manager/expenses-manager-dashboard/expenses-manager-dashboard.component";
-
-import {InventoryManagerDashboardComponent} from "./modules/inventory-manager/inventory-manager-dashboard/inventory-manager-dashboard.component";
 
 
 const routes: Routes = [
@@ -23,9 +20,11 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'profile',
+    canActivate: [AuthGuard],
+    loadChildren: () => import(`./modules/profile/profile.module`).then(m => m.ProfileModule)
+  },
   {path: 'expensesManager', component: ExpensesManagerDashboardComponent, canActivate: [AuthGuard, ApprovalGuard]},
-  {path: 'inventoryManager', component: InventoryManagerDashboardComponent, canActivate: [AuthGuard, ApprovalGuard]},
   {
     path: 'adminDashboard',
     canActivate: [AuthGuard, RoleGuard],
