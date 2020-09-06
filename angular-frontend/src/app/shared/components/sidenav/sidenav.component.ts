@@ -21,19 +21,11 @@ export class SidenavComponent implements OnInit, OnChanges {
       shareReplay()
     );
 
-  userRole: string;
-
   constructor(private breakpointObserver: BreakpointObserver,
               private authService: AuthService,
-              public router: Router) {
+              public router: Router) {}
 
-  }
-
-  ngOnInit() {
-    this.authService.userSubject.subscribe((user) => {
-      if (user) this.userRole = this.authService.getUserRole()
-    })
-  }
+  ngOnInit() {}
 
   ngOnChanges() {
     if (this.sidenav) {
@@ -45,7 +37,5 @@ export class SidenavComponent implements OnInit, OnChanges {
     }
   }
 
-  isLoggedIn = () => {
-    return this.authService.isLoggedIn()
-  }
+  isLoggedIn = () => this.authService.isLoggedIn()
 }
