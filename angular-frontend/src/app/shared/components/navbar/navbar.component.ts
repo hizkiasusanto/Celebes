@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
   @Output()
   openSidenav: EventEmitter<boolean> = new EventEmitter();
 
-  clickMenu() {
+  clickMenu() : void {
     this.openSidenav.emit(true);
   }
 
@@ -37,16 +37,15 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.userSubject.subscribe((user) => {
+    this.authService.userSubject.subscribe(user => {
       if (user) this.userRole = this.authService.getUserRole()
     })
   }
 
-  isLoggedIn = () => {
-    return this.authService.isLoggedIn()
-  }
+  isLoggedIn = () : boolean => this.authService.isLoggedIn()
 
-  onLogoutClick = () => {
+
+  onLogoutClick = () : void => {
     this.authService.logout();
     this.snackBar.open("Logged out successfully", "Close", {
       duration: 2000,
@@ -54,7 +53,7 @@ export class NavbarComponent implements OnInit {
       horizontalPosition: "end"
     });
     this.router.navigate(['/']);
-    return false;
+    return;
   }
 
 }

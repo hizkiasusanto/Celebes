@@ -19,7 +19,17 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [NavbarComponent, FooterComponent, SidenavComponent, HomeComponent, RupiahPipe, LoadingComponent, LoadingDirective, ApprovalRequiredComponent, UnauthorizedComponent, PageNotFoundComponent],
+  declarations: [
+    NavbarComponent,
+    FooterComponent,
+    SidenavComponent,
+    HomeComponent,
+    RupiahPipe,
+    LoadingComponent,
+    LoadingDirective,
+    ApprovalRequiredComponent,
+    UnauthorizedComponent,
+    PageNotFoundComponent],
   imports: [
     CommonModule,
     MaterialModule,

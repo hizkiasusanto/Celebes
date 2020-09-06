@@ -18,6 +18,6 @@ export class HomeComponent implements OnInit {
     this.authService.userSubject.subscribe(user => this.name = user == null ? '' : user.name);
   }
 
-  isLoggedIn = () => this.authService.isLoggedIn()
+  isLoggedIn = () : boolean => this.authService.isLoggedIn()
 
 }

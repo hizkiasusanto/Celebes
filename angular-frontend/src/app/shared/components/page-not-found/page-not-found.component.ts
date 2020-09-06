@@ -13,5 +13,5 @@ export class PageNotFoundComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goBack = () => this.location.back()
+  goBack = () : void => this.location.back()
 }

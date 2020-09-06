@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  appBrand = 'Celebes';
+  appBrand: string = 'Celebes';
   isSidenavOpen: boolean;
 
   constructor() {

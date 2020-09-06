@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, ViewChild} from '@angular/core';
 import {Observable} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit, OnChanges {
+export class SidenavComponent implements OnChanges {
   @ViewChild('sidenav') public sidenav: MatSidenav
   @Input() public isSidenavOpen: boolean;
 
@@ -25,9 +25,7 @@ export class SidenavComponent implements OnInit, OnChanges {
               private authService: AuthService,
               public router: Router) {}
 
-  ngOnInit() {}
-
-  ngOnChanges() {
+  ngOnChanges() : void {
     if (this.sidenav) {
       if (this.isSidenavOpen) {
         this.sidenav.open()
@@ -37,5 +35,5 @@ export class SidenavComponent implements OnInit, OnChanges {
     }
   }
 
-  isLoggedIn = () => this.authService.isLoggedIn()
+  isLoggedIn = () : boolean => this.authService.isLoggedIn()
 }
