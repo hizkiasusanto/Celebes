@@ -30,11 +30,10 @@ export class AddExpenseFormComponent implements OnInit {
     private expensesService: ExpensesService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<AddExpenseFormComponent>
-  ) {
-    this.authService.userSubject.subscribe(user => this.loggedInUser = user);
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.authService.userSubject.subscribe(user => this.loggedInUser = user);
   }
 
   private lastChanged: string;

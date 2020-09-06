@@ -27,12 +27,10 @@ export class EditExpenseFormComponent implements OnInit {
     private expensesService: ExpensesService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<EditExpenseFormComponent>
-  ) {
-    this.authService.userSubject.subscribe(user => this.loggedInUser = user);
-
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.authService.userSubject.subscribe(user => this.loggedInUser = user);
     this.expensesForm = this.formBuilder.group({
       item: [this.expense.item, [Validators.required]],
       supplier: [this.expense.supplier, [Validators.required]],
@@ -43,8 +41,11 @@ export class EditExpenseFormComponent implements OnInit {
     })
   }
 
-  private lastChanged: string;
+  ngOnDestroy(): void {
+    this.authService.userSubject.unsubscribe();
+}
 
+  private lastChanged: string;
   changeLastChanged(controlName: string) {
     this.lastChanged = controlName;
   }

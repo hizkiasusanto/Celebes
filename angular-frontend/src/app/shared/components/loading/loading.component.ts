@@ -8,15 +8,7 @@ import {Component, OnInit} from '@angular/core';
 export class LoadingComponent implements OnInit {
   dots = ''
 
-  constructor() {
-    window.setInterval(() => {
-      if (this.dots.length < 3) {
-        this.dots += '.'
-      } else {
-        this.dots = ''
-      }
-    }, 500)
-  }
+  constructor() {}
 
   ngOnInit(): void {
   }
