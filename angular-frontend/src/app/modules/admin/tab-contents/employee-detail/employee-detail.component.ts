@@ -37,10 +37,8 @@ export class EmployeeDetailComponent implements OnInit {
           new DateOnly(this.user.dateOfBirth).displayDate();
         this.newJobTitle = res.user.jobTitle;
       } else {
-        this.snackBar.open(res.msg, "Close", {
-          duration: 2000,
-          panelClass: ['error-snackbar'],
-          horizontalPosition: "end"
+        this.snackBar.open(res.msg, "", {
+          panelClass: ['error-snackbar']
         })
       }
     })
@@ -50,10 +48,8 @@ export class EmployeeDetailComponent implements OnInit {
 
   approveUser = () : void => {
     this.employeeService.approveUser(this.id).subscribe((res: BackendResponse) => {
-      this.snackBar.open(res.msg, "Close", {
-        duration: 2000,
-        panelClass: [res.success ? 'success-snackbar' : 'error-snackbar'],
-        horizontalPosition: 'end'
+      this.snackBar.open(res.msg, "", {
+        panelClass: [res.success ? 'success-snackbar' : 'error-snackbar']
       })
     })
     this.goBack()
@@ -61,10 +57,8 @@ export class EmployeeDetailComponent implements OnInit {
 
   updateJobTitle = () : void => {
     this.employeeService.updateJobTitle(this.id, this.newJobTitle).subscribe((res: BackendResponse) => {
-      this.snackBar.open(res.msg, "Close", {
-        duration: 2000,
-        panelClass: [res.success ? 'success-snackbar' : 'error-snackbar'],
-        horizontalPosition: 'end'
+      this.snackBar.open(res.msg, "", {
+        panelClass: [res.success ? 'success-snackbar' : 'error-snackbar']
       })
       if (res.success) {
         this.goBack()

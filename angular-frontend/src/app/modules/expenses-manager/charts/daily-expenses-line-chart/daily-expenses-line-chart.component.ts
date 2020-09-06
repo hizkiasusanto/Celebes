@@ -78,10 +78,8 @@ export class DailyExpensesLineChartComponent implements OnInit {
             this.chartData = [{data: this.expensesData.map(x => x.expense)}];
             this.chartLabels = this.expensesData.map(x => new Date(x.date).toLocaleDateString('en-GB'));
           } else {
-            this.snackBar.open(res.msg, "Close", {
-              duration: 2000,
-              panelClass: ['error-snackbar'],
-              horizontalPosition: "end"
+            this.snackBar.open(res.msg, "", {
+              panelClass: ['error-snackbar']
             })
           }
           this.isLoading = false;

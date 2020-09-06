@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
-import {BackendResponse} from "../../../shared/types/backendresponse";
-import {RegisterFormData} from "../types/user";
+import {BackendResponse} from "../../../../shared/types/backendresponse";
+import {RegisterFormData} from "../../types/user";
 
 @Component({
   selector: 'app-register',
@@ -31,10 +31,8 @@ export class RegisterComponent implements OnInit {
 
   submit() : void {
     if (!this.isFormValid()) {
-      this.snackBar.open("Invalid registration form!", "Close",{
-        duration: 2000,
-        panelClass: ['error-snackbar'],
-        horizontalPosition: "end"
+      this.snackBar.open("Invalid registration form!", "",{
+        panelClass: ['error-snackbar']
       })
       return
     }
@@ -46,17 +44,13 @@ export class RegisterComponent implements OnInit {
     }
     this.authService.registerUser(user).subscribe((res: BackendResponse) => {
       if (res.success) {
-        this.snackBar.open(res.msg, "Close", {
-          duration: 2000,
-          panelClass: ['success-snackbar'],
-          horizontalPosition: "end"
+        this.snackBar.open(res.msg, "", {
+          panelClass: ['success-snackbar']
         });
         this.router.navigate(['identity/login']);
       } else {
-        this.snackBar.open(res.msg, "Close", {
-          duration: 2000,
-          panelClass: ['error-snackbar'],
-          horizontalPosition: "end"
+        this.snackBar.open(res.msg, "", {
+          panelClass: ['error-snackbar']
         });
       }
 

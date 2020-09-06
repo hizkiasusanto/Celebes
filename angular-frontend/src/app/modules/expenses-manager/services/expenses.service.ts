@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {AuthService} from "../../identity-manager/services/auth.service";
-import {Expense} from "../expense";
+import {Expense} from "../types/expense";
 import {environment} from "../../../../environments/environment";
 import {BehaviorSubject} from "rxjs";
 
