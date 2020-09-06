@@ -16,9 +16,10 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingDirective } from './directives/loading.directive';
 import { ApprovalRequiredComponent } from './components/approval-required/approval-required.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [NavbarComponent, FooterComponent, SidenavComponent, HomeComponent, RupiahPipe, LoadingComponent, LoadingDirective, ApprovalRequiredComponent, UnauthorizedComponent],
+  declarations: [NavbarComponent, FooterComponent, SidenavComponent, HomeComponent, RupiahPipe, LoadingComponent, LoadingDirective, ApprovalRequiredComponent, UnauthorizedComponent, PageNotFoundComponent],
   imports: [
     CommonModule,
     MaterialModule,

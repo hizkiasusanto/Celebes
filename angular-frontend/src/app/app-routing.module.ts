@@ -10,6 +10,7 @@ import {ApprovalRequiredComponent} from "./shared/components/approval-required/a
 import {UnauthorizedComponent} from "./shared/components/unauthorized/unauthorized.component";
 
 import {ExpensesManagerDashboardComponent} from "./modules/transaction-manager/expenses-manager-dashboard/expenses-manager-dashboard.component";
+import {PageNotFoundComponent} from "./shared/components/page-not-found/page-not-found.component";
 
 
 const routes: Routes = [
@@ -31,7 +32,7 @@ const routes: Routes = [
   },
   {path: 'approval_required', component: ApprovalRequiredComponent, canActivate: [AuthGuard]},
   {path: 'unauthorized', component: UnauthorizedComponent, canActivate: [AuthGuard]},
-  {path: '**', redirectTo: '/home'}
+  {path: '**', component: PageNotFoundComponent}
 
 ];
 
