@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, ViewChild} from '@angular/core';
 import {Observable} from "rxjs";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {BreakpointObserver} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
 import {AuthService} from "../../../modules/identity-manager/services/auth.service";
 import {MatSidenav} from "@angular/material/sidenav";
@@ -15,7 +15,7 @@ export class SidenavComponent implements OnChanges {
   @ViewChild('sidenav') public sidenav: MatSidenav
   @Input() public isSidenavOpen: boolean;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 768px)')
     .pipe(
       map(result => result.matches),
       shareReplay()

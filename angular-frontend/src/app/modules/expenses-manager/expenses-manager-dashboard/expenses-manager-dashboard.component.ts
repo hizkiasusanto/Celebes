@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {AddExpenseFormComponent} from "../forms/add-expense-form/add-expense-form.component";
 import {TileContent} from "../types/tile-content";
 import {ListOfExpensesComponent} from "../list-of-expenses/list-of-expenses.component";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {BreakpointObserver} from "@angular/cdk/layout";
 import {map} from "rxjs/operators";
 import {DailyExpensesLineChartComponent} from "../charts/daily-expenses-line-chart/daily-expenses-line-chart.component";
 import {ExpensesByItemComponent} from "../charts/expenses-by-item/expenses-by-item.component";
@@ -20,21 +20,12 @@ export class ExpensesManagerDashboardComponent {
   plotExpensesByItemCard: TileContent ={component:ExpensesByItemComponent, title: "Expenses by item"};
   listOfExpensesCard: TileContent = {component:ListOfExpensesComponent, title: "List of expenses"};
 
-  cardLayout = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+  cardLayout = this.breakpointObserver.observe('(max-width: 768px)').pipe(
     map(({matches}) => {
       if (matches) {
-        return {
-          columns: 2,
-          chart: {cols: 2, rows: 1},
-          table: {cols: 2, rows: 2}
-        }
+        return {columns: 2, chart: {cols: 2, rows: 1}, table: {cols: 2, rows: 2}}
       }
-
-      return {
-        columns: 2,
-        chart: {cols: 1, rows: 1},
-        table: {cols: 2, rows: 2}
-      }
+      return {columns: 2, chart: {cols: 1, rows: 1}, table: {cols: 2, rows: 2}}
     }));
 
   openAddExpenseFormDialog(): void {

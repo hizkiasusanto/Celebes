@@ -3,7 +3,7 @@ import {AuthService} from "../../../modules/identity-manager/services/auth.servi
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {BreakpointObserver} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
 
 @Component({
@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
     this.openSidenav.emit(true);
   }
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 768px)')
     .pipe(
       map(result => result.matches),
       shareReplay()
