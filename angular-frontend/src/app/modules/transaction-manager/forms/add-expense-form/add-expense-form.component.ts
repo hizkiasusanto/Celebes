@@ -5,6 +5,7 @@ import {AuthService} from "../../../identity-manager/auth.service";
 import {ExpensesService} from "../../services/expenses.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
+import {PriceCalculatorService} from "../../services/price-calculator.service";
 
 @Component({
   selector: 'app-add-expense-form',
@@ -29,38 +30,26 @@ export class AddExpenseFormComponent implements OnInit {
     private authService: AuthService,
     private expensesService: ExpensesService,
     private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<AddExpenseFormComponent>
-  ) {}
+    private dialogRef: MatDialogRef<AddExpenseFormComponent>,
+    private priceCalculatorService: PriceCalculatorService
+  ) {
+  }
 
   ngOnInit(): void {
     this.authService.userSubject.subscribe(user => this.loggedInUser = user);
   }
 
   private lastChanged: string;
+
   changeLastChanged(controlName: string) {
     this.lastChanged = controlName;
   }
 
-  onAmountChange() {
-    if (this.lastChanged == 'amount') {
-      if (this.expensesForm.value.pricePerUnit) {
-        this.expensesForm.patchValue({'totalPrice': this.expensesForm.value.amount * this.expensesForm.value.pricePerUnit})
-      } else if (this.expensesForm.value.totalPrice) {
-        this.expensesForm.patchValue({'pricePerUnit': this.expensesForm.value.totalPrice / this.expensesForm.value.amount})
-      }
-    }
-  }
+  onAmountChange = () => this.priceCalculatorService.onAmountChange(this.expensesForm, this.lastChanged)
 
-  onPricePerUnitChange() {
-    if (this.lastChanged == 'pricePerUnit')
-      this.expensesForm.patchValue({'totalPrice': this.expensesForm.value.pricePerUnit * this.expensesForm.value.amount})
-  }
+  onPricePerUnitChange = () => this.priceCalculatorService.onPricePerUnitChange(this.expensesForm, this.lastChanged)
 
-  onTotalPriceChange() {
-    if (this.lastChanged == 'totalPrice' && this.expensesForm.value.amount) {
-      this.expensesForm.patchValue({'pricePerUnit': this.expensesForm.value.totalPrice / this.expensesForm.value.amount})
-    }
-  }
+  onTotalPriceChange = () => this.priceCalculatorService.onTotalPriceChange(this.expensesForm, this.lastChanged)
 
   submit() {
     if (this.expensesForm.valid) {
@@ -74,12 +63,12 @@ export class AddExpenseFormComponent implements OnInit {
         dateOfExpense: new Date(),
         submittedBy: this.loggedInUser.name
       }
-      this.expensesService.addExpense(expense).subscribe((res:any) => {
+      this.expensesService.addExpense(expense).subscribe((res: any) => {
         this.snackBar.open(res.msg, "Close", {
-            duration: 2000,
-            panelClass: [res.success ? 'success-snackbar' : 'error-snackbar'],
-            horizontalPosition: "end"
-          });
+          duration: 2000,
+          panelClass: [res.success ? 'success-snackbar' : 'error-snackbar'],
+          horizontalPosition: "end"
+        });
         this.expensesService.toggleRefresh();
         this.dialogRef.close();
       });

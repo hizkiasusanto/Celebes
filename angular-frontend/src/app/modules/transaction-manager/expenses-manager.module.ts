@@ -22,7 +22,7 @@ import { DeleteExpenseFormComponent } from './forms/delete-expense-form/delete-e
     ExpensesByItemComponent,
     EditExpenseFormComponent,
     DatepickerComponent,
-    DeleteExpenseFormComponent
+    DeleteExpenseFormComponent,
   ],
   imports: [
     SharedModule.forRoot()
