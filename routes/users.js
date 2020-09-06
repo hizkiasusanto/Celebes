@@ -55,6 +55,7 @@ router.get('/profile', User.authenticate(), (req,res) => {
         name: req.user.name,
         email: req.user.email,
         role: req.user.role,
+        jobTitle: req.user.jobTitle,
         dateOfBirth: req.user.dateOfBirth,
         profilePicUrl: req.user.profilePicUrl,
         address: req.user.address,
