@@ -16,8 +16,8 @@
       <a *ngIf="isLoggedIn() && userRole !== 'Employee'" [routerLink]="['/adminDashboard']" mat-button>Admin Portal</a>
       <a *ngIf="isLoggedIn()" [routerLink]="['/profile']" mat-button>Profile</a>
       <a (click)="onLogoutClick()" *ngIf="isLoggedIn()" mat-button> Logout </a>
-      <a *ngIf="!isLoggedIn()" [routerLink]="['/login']" mat-button> Login </a>
-      <a *ngIf="!isLoggedIn()" [routerLink]="['/register']" mat-button> Register </a>
+      <a *ngIf="!isLoggedIn()" [routerLink]="['/identity/login']" mat-button> Login </a>
+      <a *ngIf="!isLoggedIn()" [routerLink]="['/identity/register']" mat-button> Register </a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
