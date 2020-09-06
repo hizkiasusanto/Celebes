@@ -1,4 +1,5 @@
 import {Role} from "./role";
+import {DateOnly} from "../../../shared/types/date";
 
 export class User {
   _id: string
@@ -6,11 +7,7 @@ export class User {
   email: string
   role: Role
   address?: string
-  dateOfBirth?: {
-    year: number,
-    month: number,
-    date: number
-  }
+  dateOfBirth?: DateOnly
   profilePicUrl?: string
   jobTitle: string
   approved: boolean
