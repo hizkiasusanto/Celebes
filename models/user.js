@@ -21,7 +21,7 @@ const UserSchema = mongoose.Schema({
         required: true
     },
     dateOfBirth: {
-        type: Date,
+        type: Object,
         default: null
     },
     address: {
