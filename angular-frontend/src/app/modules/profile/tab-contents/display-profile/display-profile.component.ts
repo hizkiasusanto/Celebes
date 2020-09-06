@@ -1,42 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../../identity-manager/services/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EditProfileComponent} from "../edit-profile/edit-profile.component";
-import {DatePipe} from "@angular/common";
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
-import {MomentDateAdapter} from "@angular/material-moment-adapter";
-import {DEFAULT_DATE_FORMATS} from "../../../../shared/config/datepicker-format";
+import {User} from "../../../identity-manager/types/user";
+import {DateOnly} from "../../../../shared/types/date";
 
 @Component({
   selector: 'app-display-profile',
   templateUrl: './display-profile.component.html',
   styleUrls: ['./display-profile.component.scss'],
-  providers: [
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: DEFAULT_DATE_FORMATS},
-  ],
 })
 export class DisplayProfileComponent implements OnInit {
-  user: any;
+  user: User;
+  dateOfBirthInputString: string;
 
   showAlert = true;
 
   constructor(
     private authService: AuthService,
     public dialog: MatDialog,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.authService.userSubject.subscribe(user => {
       this.user = user;
-      if (user && this.user.dateOfBirth) {
-      this.user.dateOfBirth = new DatePipe('en-GB').transform(new Date(this.user.dateOfBirth.year,this.user.dateOfBirth.month,this.user.dateOfBirth.date),'d MMMM yyyy')
-    }});
+      if (user) {
+        this.dateOfBirthInputString = this.user.dateOfBirth === null ? 'Not set yet' :
+          new DateOnly(this.user.dateOfBirth).displayDate();
+      }
+    });
   }
 
-  closeAlert = () => this.showAlert = false;
+  closeAlert = (): void => {
+    this.showAlert = false
+  }
 
-  editProfile = () => {
+  editProfile = (): void => {
     let dialog = this.dialog.open(EditProfileComponent, {
       width: '500px',
     });

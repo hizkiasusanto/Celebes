@@ -1,3 +1,4 @@
+import * as moment from 'moment'
 
 export class DateOnly {
   date: number
@@ -10,7 +11,24 @@ export class DateOnly {
     this.year = json.year
   }
 
-  displayDate() : string {
-    return new Date(this.year,this.month,this.date).toLocaleString('en-GB',{year: 'numeric', month: 'long', day: 'numeric'})}
+  displayDate(): string {
+    return this.toDate().toLocaleString('en-GB', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }
 
+  toDate(): Date {
+    return new Date(this.year, this.month, this.date);
+  }
+
+}
+
+export function convertToDateOnly(date: moment.Moment) : DateOnly {
+  return new DateOnly({
+    date: date.date(),
+    month: date.month(),
+    year: date.year()
+  })
 }

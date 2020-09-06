@@ -7,6 +7,8 @@ import {AuthService} from "../../../identity-manager/services/auth.service";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DEFAULT_DATE_FORMATS} from "../../../../shared/config/datepicker-format";
+import {convertToDateOnly, DateOnly} from "../../../../shared/types/date";
+import {BackendResponse} from "../../../../shared/types/backendresponse";
 
 @Component({
   selector: 'app-edit-profile',
@@ -32,7 +34,8 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
     this.editProfileForm = this.formBuilder.group({
       jobTitle: [this.user.jobTitle, [Validators.required]],
-      dateOfBirth: [new Date(this.user.dateOfBirth), [Validators.required]],
+      dateOfBirth: [this.user.dateOfBirth === null ? null :
+        new DateOnly(this.user.dateOfBirth).toDate(), [Validators.required]],
       address: [this.user.address, [Validators.required]]
     })
   }
@@ -41,14 +44,10 @@ export class EditProfileComponent implements OnInit {
     if (this.editProfileForm.valid) {
       let newData = {
         jobTitle: this.editProfileForm.value.jobTitle,
-        dateOfBirth: {
-          date: this.editProfileForm.value.dateOfBirth.date(),
-          month: this.editProfileForm.value.dateOfBirth.month(),
-          year: this.editProfileForm.value.dateOfBirth.year()
-        },
+        dateOfBirth: convertToDateOnly(this.editProfileForm.value.dateOfBirth),
         address: this.editProfileForm.value.address
       }
-      this.profileService.editProfile(this.user._id, newData).subscribe((res: any) => {
+      this.profileService.editProfile(this.user._id, newData).subscribe((res: BackendResponse) => {
         if (res.success) {
           this.authService.userSubject.next(res.user)
           this.snackBar.open("Profile edited successfully","Close", {
