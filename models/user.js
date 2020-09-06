@@ -17,7 +17,7 @@ const UserSchema = mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['Admin','Manager','Employee'],
+        enum: ['Admin', 'Manager', 'Employee'],
         required: true
     },
     dateOfBirth: {
@@ -42,7 +42,7 @@ const UserSchema = mongoose.Schema({
     }
 })
 
-const User = module.exports = mongoose.model("User",UserSchema)
+const User = module.exports = mongoose.model("User", UserSchema)
 
 module.exports.getAllUsers = (callback) => User.find({}, callback)
 
@@ -53,6 +53,14 @@ module.exports.approveUser = (id, callback) =>
 
 module.exports.updateJobTitle = (id, newJobTitle, callback) =>
     User.findByIdAndUpdate(id, {jobTitle: newJobTitle}, callback)
+
+module.exports.editProfile = (id, newData, callback) => {
+    User.findByIdAndUpdate(id, {
+        jobTitle: newData.jobTitle,
+        dateOfBirth: newData.dateOfBirth,
+        address: newData.address
+    }, {new : true}, callback)
+}
 
 module.exports.getUserByEmail = (email, callback) => User.findOne({email: email}, callback)
 
@@ -67,8 +75,8 @@ module.exports.addUser = (newUser, callback) => {
 }
 
 module.exports.comparePassword = (passwordInput, hash, callback) => {
-    bcrypt.compare(passwordInput,hash, (err, isMatch) => {
-        if(err) throw err
+    bcrypt.compare(passwordInput, hash, (err, isMatch) => {
+        if (err) throw err
         callback(null, isMatch)
     })
 }

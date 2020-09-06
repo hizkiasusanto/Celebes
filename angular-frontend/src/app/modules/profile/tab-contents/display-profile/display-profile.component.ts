@@ -29,7 +29,5 @@ export class DisplayProfileComponent implements OnInit {
       width: '500px',
     });
     dialog.componentInstance.user = this.user;
-
-    dialog.afterClosed().subscribe(() => window.location.reload())
   }
 }
