@@ -50,18 +50,10 @@ export class EditProfileComponent implements OnInit {
       this.profileService.editProfile(this.user._id, newData).subscribe((res: BackendResponse) => {
         if (res.success) {
           this.authService.userSubject.next(res.user)
-          this.snackBar.open("Profile edited successfully","Close", {
-            duration: 2000,
-            panelClass: ['success-snackbar'],
-            horizontalPosition: "end"
-          })
+          this.snackBar.open("Profile edited successfully","", {panelClass: ['success-snackbar']})
           this.dialogRef.close()
         } else {
-          this.snackBar.open(res.msg, "Close", {
-            duration: 2000,
-            panelClass: ['error-snackbar'],
-            horizontalPosition: "end"
-          })
+          this.snackBar.open(res.msg, "", {panelClass: ['error-snackbar']})
         }
       })
     }

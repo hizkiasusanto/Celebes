@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Expense} from "../../expense";
+import {Expense} from "../../types/expense";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../identity-manager/services/auth.service";
 import {ExpensesService} from "../../services/expenses.service";
@@ -68,18 +68,14 @@ export class EditExpenseFormComponent implements OnInit {
         submittedBy: this.loggedInUser.name
       }
       this.expensesService.editExpense(expense, this.expense['_id']).subscribe((res: any) => {
-        this.snackBar.open(res.msg, "Close", {
-          duration: 2000,
+        this.snackBar.open(res.msg, "", {
           panelClass: [res.success ? 'success-snackbar' : 'error-snackbar'],
-          horizontalPosition: "end"
         });
         this.expensesService.toggleRefresh();
         this.dialogRef.close();
       }, () => {
-        this.snackBar.open("Something wrong has happened", "Close", {
-          duration: 2000,
-          panelClass: ['error-snackbar'],
-          horizontalPosition: "end"
+        this.snackBar.open("Something wrong has happened", "", {
+          panelClass: ['error-snackbar']
         })
       });
     } else {

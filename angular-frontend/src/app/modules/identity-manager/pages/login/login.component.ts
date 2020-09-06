@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
-import {AuthService} from "../services/auth.service";
-import {LoginFormData} from "../types/user";
-import {BackendResponse} from "../../../shared/types/backendresponse";
+import {AuthService} from "../../services/auth.service";
+import {LoginFormData} from "../../types/user";
+import {BackendResponse} from "../../../../shared/types/backendresponse";
 
 @Component({
   selector: 'app-login',
@@ -38,18 +38,14 @@ export class LoginComponent implements OnInit {
     this.authService.authenticateUser(user).subscribe((res:BackendResponse) => {
       if (res.success) {
         this.authService.storeUserData(res.token, res.user);
-        this.snackBar.open("You are now logged in", "Close",{
-            duration: 2000,
-            panelClass: ['success-snackbar'],
-            horizontalPosition: "end"
+        this.snackBar.open("You are now logged in",'',{
+            panelClass: ['success-snackbar']
           }
         )
         this.router.navigate(['home'])
       } else {
-        this.snackBar.open(res.msg, "Close", {
-          duration: 2000,
-          panelClass: ['error-snackbar'],
-          horizontalPosition: "end"
+        this.snackBar.open(res.msg, "", {
+          panelClass: ['error-snackbar']
         });
         this.router.navigate(['identity/login']);
       }

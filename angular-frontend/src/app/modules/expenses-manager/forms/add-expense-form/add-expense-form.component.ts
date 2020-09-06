@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Expense} from "../../expense";
+import {Expense} from "../../types/expense";
 import {AuthService} from "../../../identity-manager/services/auth.service";
 import {ExpensesService} from "../../services/expenses.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -64,10 +64,8 @@ export class AddExpenseFormComponent implements OnInit {
         submittedBy: this.loggedInUser.name
       }
       this.expensesService.addExpense(expense).subscribe((res: any) => {
-        this.snackBar.open(res.msg, "Close", {
-          duration: 2000,
-          panelClass: [res.success ? 'success-snackbar' : 'error-snackbar'],
-          horizontalPosition: "end"
+        this.snackBar.open(res.msg, "", {
+          panelClass: [res.success ? 'success-snackbar' : 'error-snackbar']
         });
         this.expensesService.toggleRefresh();
         this.dialogRef.close();

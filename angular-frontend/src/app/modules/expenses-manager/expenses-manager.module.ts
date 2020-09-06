@@ -4,7 +4,7 @@ import {SharedModule} from "../../shared/shared.module";
 import { AddExpenseFormComponent } from './forms/add-expense-form/add-expense-form.component';
 import { ListOfExpensesComponent } from './list-of-expenses/list-of-expenses.component';
 import {GridTileContentComponent} from './partials/grid-tile-content/grid-tile-content.component';
-import {AnchorDirective} from "./anchor.directive";
+import {AnchorDirective} from "./directives/anchor.directive";
 import { DailyExpensesLineChartComponent } from './charts/daily-expenses-line-chart/daily-expenses-line-chart.component';
 import { ExpensesByItemComponent } from './charts/expenses-by-item/expenses-by-item.component';
 import { EditExpenseFormComponent } from './forms/edit-expense-form/edit-expense-form.component';

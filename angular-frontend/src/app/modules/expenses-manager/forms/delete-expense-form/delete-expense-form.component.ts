@@ -27,18 +27,14 @@ export class DeleteExpenseFormComponent implements OnInit {
   confirmDelete() {
     this.expensesService.deleteExpense(this._id).subscribe((res: any) => {
       if (res.success) {
-        this.snackBar.open("Expense deleted successfully", "Close", {
-          duration: 2000,
-          panelClass: ['success-snackbar'],
-          horizontalPosition: "end"
+        this.snackBar.open("Expense deleted successfully", "", {
+          panelClass: ['success-snackbar']
         })
         this.expensesService.toggleRefresh();
         this.dialogRef.close();
       } else {
-        this.snackBar.open(res.msg, "Close", {
-          duration: 2000,
-          panelClass: ['error-snackbar'],
-          horizontalPosition: "end"
+        this.snackBar.open(res.msg, "", {
+          panelClass: ['error-snackbar']
         })
       }
     });

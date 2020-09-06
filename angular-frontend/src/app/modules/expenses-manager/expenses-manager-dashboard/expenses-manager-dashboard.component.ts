@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {AddExpenseFormComponent} from "../forms/add-expense-form/add-expense-form.component";
-import {TileContent} from "../tile-content";
+import {TileContent} from "../types/tile-content";
 import {ListOfExpensesComponent} from "../list-of-expenses/list-of-expenses.component";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map} from "rxjs/operators";

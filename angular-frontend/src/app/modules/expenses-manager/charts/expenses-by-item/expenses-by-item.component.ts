@@ -96,10 +96,8 @@ export class ExpensesByItemComponent implements OnInit {
           this.expensesData[indexOfExisting].expense = res.expense;
         }
       } else {
-        this.snackBar.open(res.msg, "Close", {
-          duration: 2000,
-          panelClass: ['error-snackbar'],
-          horizontalPosition: "end"
+        this.snackBar.open(res.msg, "", {
+          panelClass: ['error-snackbar']
         })
       }
       this.datasetSubject.next(this.expensesData);
