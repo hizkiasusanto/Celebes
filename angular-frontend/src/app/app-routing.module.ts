@@ -11,6 +11,7 @@ import {UnauthorizedComponent} from "./shared/components/unauthorized/unauthoriz
 
 import {ExpensesManagerDashboardComponent} from "./modules/transaction-manager/expenses-manager-dashboard/expenses-manager-dashboard.component";
 import {PageNotFoundComponent} from "./shared/components/page-not-found/page-not-found.component";
+import {Role} from "./modules/identity-manager/types/role";
 
 
 const routes: Routes = [
@@ -27,7 +28,7 @@ const routes: Routes = [
   {
     path: 'adminDashboard',
     canActivate: [AuthGuard, RoleGuard],
-    data: {roles: ['Admin', 'Manager']},
+    data: {roles: [Role.Admin, Role.Manager]},
     loadChildren: () => import(`./modules/admin/admin.module`).then(m => m.AdminModule)
   },
   {path: 'approval_required', component: ApprovalRequiredComponent, canActivate: [AuthGuard]},
