@@ -3,6 +3,7 @@ import {FormControl, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
+import {BackendResponse} from "../../../shared/types/backendresponse";
 
 @Component({
   selector: 'app-register',
@@ -42,16 +43,16 @@ export class RegisterComponent implements OnInit {
       email: this.email.value,
       password: this.password.value
     }
-    this.authService.registerUser(user).subscribe((res:any) => {
+    this.authService.registerUser(user).subscribe((res: BackendResponse) => {
       if (res.success) {
-        this.snackBar.open(res['msg'], "Close", {
+        this.snackBar.open(res.msg, "Close", {
           duration: 2000,
           panelClass: ['success-snackbar'],
           horizontalPosition: "end"
         });
         this.router.navigate(['identity/login']);
       } else {
-        this.snackBar.open(res['msg'], "Close", {
+        this.snackBar.open(res.msg, "Close", {
           duration: 2000,
           panelClass: ['error-snackbar'],
           horizontalPosition: "end"
