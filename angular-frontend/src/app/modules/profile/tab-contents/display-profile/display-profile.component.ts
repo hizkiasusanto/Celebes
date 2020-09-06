@@ -9,11 +9,15 @@ import {AuthService} from "../../../identity-manager/services/auth.service";
 export class DisplayProfileComponent implements OnInit {
   user: any;
 
-  constructor(
-    private authService: AuthService
-  ) { }
+  showAlert = true;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.userSubject.subscribe(user => this.user = user);
   }
+
+  closeAlert = () => this.showAlert = false;
+
+  editProfile = () => console.log("Navigate")
 }

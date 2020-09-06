@@ -1,12 +1,36 @@
-<div fxFill *appLoading="!user">
-  <ul>
-    <li>Name: {{user.name}}</li>
-    <li>Email: {{user.email}}</li>
-    <li>Role: {{user.role}}</li>
-    <li>Profile photo: {{user.profilePicUrl === null ? 'Not set yet' : user.profilePicUrl}}</li>
-    <li>Date of birth: {{user.dateOfBirth === null ? 'Not set yet' : user.dateOfBirth}}</li>
-    <li>Address: {{user.address === null ? 'Not set yet' : user.address}}</li>
-    <li>Gender: {{user.gender === 'unassigned' ? 'Not set yet' : user.gender}}</li>
-    <li>Approved: {{user.approved}}</li>
-  </ul>
+<div fxFlex *appLoading="!user" style="padding: 40px">
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start end" style="margin-bottom: 20px">
+    <img [src]="user.profilePicUrl || './assets/default_avatar.png'" alt="Profile pic"
+         class="profile-pic">
+    <div fxLayout="column">
+      <div class="name">{{user.name}}</div>
+      <div class="job-title">{{user.jobTitle || user.role}}</div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div fxLayout="column" fxLayoutGap="30px" style="padding-top: 30px">
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start end">
+      <mat-icon>email</mat-icon>
+      <div>{{user.email}}</div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start end">
+      <mat-icon>cake</mat-icon>
+      <div>{{user.dateOfBirth || 'Not set yet'}}</div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start end">
+      <mat-icon>cake</mat-icon>
+      <div>{{user.dateOfBirth || 'Not set yet'}}</div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start end">
+      <mat-icon>location_city</mat-icon>
+      <div>{{user.address || 'Not set yet'}}</div>
+    </div>
+    <div fxLayoutAlign="start">
+    <a mat-raised-button color="primary" (click)="editProfile()">Edit Profile</a>
+    </div>
+    <div class="alert mat-elevation-z8" *ngIf="!user.approved && showAlert">
+      <div>Your account has not been approved. Please contact your manager</div>
+      <mat-icon (click)="closeAlert()" class="clickable">close</mat-icon>
+    </div>
+  </div>
 </div>

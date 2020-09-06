@@ -32,11 +32,6 @@ const UserSchema = mongoose.Schema({
         type: String,
         default: null
     },
-    gender: {
-        type: String,
-        enum: ['M','F','unassigned'],
-        default: 'unassigned'
-    },
     jobTitle: {
         type: String,
         default: null

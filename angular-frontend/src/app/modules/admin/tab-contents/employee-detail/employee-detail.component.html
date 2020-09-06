@@ -11,7 +11,7 @@
       <div fxLayoutGap="20px" class="buttons">
         <a mat-raised-button color="primary" *ngIf="!user.approved" (click)="approveUser()">Approve</a>
         <a mat-raised-button color="primary" *ngIf="user.approved" (click)="updateJobTitle()"
-           [disabled]="newJobTitle === 'Unassigned' || newJobTitle === user.jobTitle">Submit changes</a>
+           [disabled]="newJobTitle === user.role || newJobTitle === user.jobTitle">Submit changes</a>
         <a mat-stroked-button color="warn" (click)="goBack()">Back</a></div>
     </div>
     <mat-divider></mat-divider>
@@ -33,10 +33,6 @@
         <mat-form-field>
           <mat-label>Address</mat-label>
           <input matInput [value]="user.address || 'Not set yet'" readonly>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Gender</mat-label>
-          <input matInput [value]="user.gender | titlecase" readonly>
         </mat-form-field>
       </form>
     </mat-card-content>
