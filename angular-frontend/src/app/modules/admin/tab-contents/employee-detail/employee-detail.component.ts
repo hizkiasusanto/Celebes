@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from "@angular/common";
+import {DatePipe, Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {EmployeeService} from "../../services/employee.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -28,6 +28,7 @@ export class EmployeeDetailComponent implements OnInit {
     this.employeeService.getUserById(this.id).subscribe((res: any) => {
       if (res.success) {
         this.user = res.user;
+        this.user.dateOfBirth = res.user.dateOfBirth === null ? null : new DatePipe('en-GB').transform(new Date(this.user.dateOfBirth.year,this.user.dateOfBirth.month,this.user.dateOfBirth.date),'d MMMM yyyy')
         this.newJobTitle = res.user.jobTitle || res.user.role;
       } else {
         this.snackBar.open(res.msg, "Close", {
