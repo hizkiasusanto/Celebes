@@ -10,7 +10,7 @@ import {ApprovalRequiredComponent} from "./shared/components/approval-required/a
 import {UnauthorizedComponent} from "./shared/components/unauthorized/unauthorized.component";
 import {PageNotFoundComponent} from "./shared/components/page-not-found/page-not-found.component";
 
-import {ExpensesManagerDashboardComponent} from "./modules/transaction-manager/expenses-manager-dashboard/expenses-manager-dashboard.component";
+import {ExpensesManagerDashboardComponent} from "./modules/expenses-manager/expenses-manager-dashboard/expenses-manager-dashboard.component";
 
 import {Role} from "./modules/identity-manager/types/role";
 
