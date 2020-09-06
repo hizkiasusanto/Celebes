@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../../identity-manager/services/auth.service";
+import {MatDialog} from "@angular/material/dialog";
+import {EditProfileComponent} from "../edit-profile/edit-profile.component";
 
 @Component({
   selector: 'app-display-profile',
@@ -11,7 +13,10 @@ export class DisplayProfileComponent implements OnInit {
 
   showAlert = true;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
     this.authService.userSubject.subscribe(user => this.user = user);
@@ -19,5 +24,12 @@ export class DisplayProfileComponent implements OnInit {
 
   closeAlert = () => this.showAlert = false;
 
-  editProfile = () => console.log("Navigate")
+  editProfile = () => {
+    let dialog = this.dialog.open(EditProfileComponent, {
+      width: '500px',
+    });
+    dialog.componentInstance.user = this.user;
+
+    dialog.afterClosed().subscribe(() => window.location.reload())
+  }
 }
