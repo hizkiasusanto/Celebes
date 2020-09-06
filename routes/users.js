@@ -8,7 +8,8 @@ router.post('/register', (req, res) => {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        role: 'Employee'
+        role: 'Employee',
+        jobTitle: 'Employee'
     })
 
     User.addUser(newUser, (err) => {
@@ -57,7 +58,6 @@ router.get('/profile', User.authenticate(), (req,res) => {
         dateOfBirth: req.user.dateOfBirth,
         profilePicUrl: req.user.profilePicUrl,
         address: req.user.address,
-        gender: req.user.gender,
         approved: req.user.approved
     })
 })

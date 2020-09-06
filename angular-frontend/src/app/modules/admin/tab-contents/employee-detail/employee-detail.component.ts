@@ -28,7 +28,7 @@ export class EmployeeDetailComponent implements OnInit {
     this.employeeService.getUserById(this.id).subscribe((res: any) => {
       if (res.success) {
         this.user = res.user;
-        this.newJobTitle = res.user.jobTitle || 'Unassigned'
+        this.newJobTitle = res.user.jobTitle || res.user.role;
       } else {
         this.snackBar.open(res.msg, "Close", {
           duration: 2000,
