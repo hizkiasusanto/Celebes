@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
-import {AuthService} from "../auth.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           panelClass: ['error-snackbar'],
           horizontalPosition: "end"
         });
-        this.router.navigate(['login']);
+        this.router.navigate(['identity/login']);
       }
     })
   }

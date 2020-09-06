@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {AuthService} from "../auth.service";
+import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
           panelClass: ['success-snackbar'],
           horizontalPosition: "end"
         });
-        this.router.navigate(['/login']);
+        this.router.navigate(['identity/login']);
       } else {
         this.snackBar.open(res['msg'], "Close", {
           duration: 2000,

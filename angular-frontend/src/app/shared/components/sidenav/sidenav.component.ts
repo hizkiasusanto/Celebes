@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {Observable} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
-import {AuthService} from "../../../modules/identity-manager/auth.service";
+import {AuthService} from "../../../modules/identity-manager/services/auth.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import {Router} from "@angular/router";
 

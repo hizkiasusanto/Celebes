@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Expense} from "../../expense";
-import {AuthService} from "../../../identity-manager/auth.service";
+import {AuthService} from "../../../identity-manager/services/auth.service";
 import {ExpensesService} from "../../services/expenses.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
