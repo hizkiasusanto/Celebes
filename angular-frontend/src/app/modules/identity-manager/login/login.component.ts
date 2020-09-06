@@ -3,6 +3,8 @@ import {FormControl, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {AuthService} from "../services/auth.service";
+import {LoginFormData} from "../types/user";
+import {BackendResponse} from "../../../shared/types/backendresponse";
 
 @Component({
   selector: 'app-login',
@@ -28,12 +30,12 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    const user = {
+    const user: LoginFormData = {
       email: this.email.value,
       password: this.password.value
     }
 
-    this.authService.authenticateUser(user).subscribe((res:any) => {
+    this.authService.authenticateUser(user).subscribe((res:BackendResponse) => {
       if (res.success) {
         this.authService.storeUserData(res.token, res.user);
         this.snackBar.open("You are now logged in", "Close",{
