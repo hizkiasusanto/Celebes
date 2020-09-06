@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  submit() {
+  submit() : void {
     const user: LoginFormData = {
       email: this.email.value,
       password: this.password.value

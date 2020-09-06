@@ -1,8 +1,10 @@
+import {Role} from "./role";
+
 export class User {
   _id: string
   name: string
   email: string
-  role: string
+  role: Role
   address?: string
   dateOfBirth?: {
     year: number,

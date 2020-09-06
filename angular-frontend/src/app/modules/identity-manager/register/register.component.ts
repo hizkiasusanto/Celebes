@@ -4,6 +4,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 import {BackendResponse} from "../../../shared/types/backendresponse";
+import {RegisterFormData} from "../types/user";
 
 @Component({
   selector: 'app-register',
@@ -28,7 +29,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  submit() {
+  submit() : void {
     if (!this.isFormValid()) {
       this.snackBar.open("Invalid registration form!", "Close",{
         duration: 2000,
@@ -38,7 +39,7 @@ export class RegisterComponent implements OnInit {
       return
     }
 
-    const user = {
+    const user : RegisterFormData = {
       name: this.name.value,
       email: this.email.value,
       password: this.password.value
