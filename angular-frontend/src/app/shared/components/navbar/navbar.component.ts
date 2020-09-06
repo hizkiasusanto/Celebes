@@ -12,6 +12,8 @@ import {map, shareReplay} from "rxjs/operators";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  userRole: string;
+
   @Input() appBrand: string
 
   @Output()
@@ -35,6 +37,9 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.authService.userSubject.subscribe((user) => {
+      if (user) this.userRole = this.authService.getUserRole()
+    })
   }
 
   isLoggedIn = () => {
