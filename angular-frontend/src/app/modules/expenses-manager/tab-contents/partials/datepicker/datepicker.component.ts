@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {DateService} from "../../../../shared/services/date.service";
+import {DateService} from "../../../../../shared/services/date.service";
 
 @Component({
   selector: 'app-datepicker',
@@ -11,9 +11,9 @@ export class DatepickerComponent implements OnInit {
   @Output() startDateEmitter = new EventEmitter<Date>();
   @Output() endDateEmitter = new EventEmitter<Date>();
 
-  today = this.timeService.today();
-  lastWeek = this.timeService.addDays(this.today, -7);
-  lastMonth = this.timeService.addDays(this.today, -30);
+  today = this.dateService.today();
+  lastWeek = this.dateService.addDays(this.today, -7);
+  lastMonth = this.dateService.addDays(this.today, -30);
 
   datePickerForm: FormGroup = this.formBuilder.group({
     mode: ['week'],
@@ -21,7 +21,7 @@ export class DatepickerComponent implements OnInit {
     endDate: [{value:this.today,disabled:true}]
   });
 
-  constructor(private formBuilder: FormBuilder, private timeService: DateService) {
+  constructor(private formBuilder: FormBuilder, private dateService: DateService) {
 
   }
 

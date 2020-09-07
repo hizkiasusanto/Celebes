@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ExpensesService} from "../../services/expenses.service";
+import {ExpensesService} from "../../../services/expenses.service";
 import {ChartDataSets, ChartOptions} from "chart.js";
 import {Label} from "ng2-charts";
 import {BehaviorSubject} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {DateService} from "../../../../shared/services/date.service";
-import {RupiahPipe} from "../../../../shared/pipes/rupiah.pipe";
+import {DateService} from "../../../../../shared/services/date.service";
+import {RupiahPipe} from "../../../../../shared/pipes/rupiah.pipe";
 
 @Component({
   selector: 'app-expenses-by-item',
@@ -19,9 +19,7 @@ export class ExpensesByItemComponent implements OnInit {
   expensesData = [];
   private datasetSubject = new BehaviorSubject(this.expensesData);
 
-  public chartData: ChartDataSets[] = [
-    {data: this.expensesData.map(x => x.expense),},
-  ];
+  public chartData: ChartDataSets[] = [{data: this.expensesData.map(x => x.expense)}];
   public chartLabels: Label[] = this.expensesData.map(x => x.item);
   public chartOptions: ChartOptions = {
     responsive: true,
@@ -37,9 +35,7 @@ export class ExpensesByItemComponent implements OnInit {
         ticks: {
           beginAtZero: true,
           maxTicksLimit: 10,
-          callback: function (value) {
-            return new RupiahPipe().transform(value).toString();
-          }
+          callback: (value: number) => new RupiahPipe().transform(value)
         }
       }]
     }

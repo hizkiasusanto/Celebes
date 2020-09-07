@@ -18,6 +18,8 @@ import {ApprovalRequiredComponent} from './components/approval-required/approval
 import {UnauthorizedComponent} from './components/unauthorized/unauthorized.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
+import {AnchorDirective} from "./directives/anchor.directive";
+import {GridTileContentComponent} from "./partials/grid-tile-content/grid-tile-content.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +32,10 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
     LoadingDirective,
     ApprovalRequiredComponent,
     UnauthorizedComponent,
-    PageNotFoundComponent],
+    PageNotFoundComponent,
+    AnchorDirective,
+    GridTileContentComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,

@@ -1,35 +1,33 @@
 import { NgModule } from '@angular/core';
 import { ExpensesManagerDashboardComponent } from './expenses-manager-dashboard/expenses-manager-dashboard.component';
+import {ExpensesManagerRoutingModule} from "./expenses-manager-routing.module";
 import {SharedModule} from "../../shared/shared.module";
-import { AddExpenseFormComponent } from './forms/add-expense-form/add-expense-form.component';
-import { ListOfExpensesComponent } from './list-of-expenses/list-of-expenses.component';
-import {GridTileContentComponent} from './partials/grid-tile-content/grid-tile-content.component';
-import {AnchorDirective} from "./directives/anchor.directive";
-import { DailyExpensesLineChartComponent } from './charts/daily-expenses-line-chart/daily-expenses-line-chart.component';
-import { ExpensesByItemComponent } from './charts/expenses-by-item/expenses-by-item.component';
-import { EditExpenseFormComponent } from './forms/edit-expense-form/edit-expense-form.component';
-import { DatepickerComponent } from './partials/datepicker/datepicker.component';
-import { DeleteExpenseFormComponent } from './forms/delete-expense-form/delete-expense-form.component';
+import { AddExpenseFormComponent } from './tab-contents/forms/add-expense-form/add-expense-form.component';
+import { ListOfExpensesComponent } from './tab-contents/list-of-expenses/list-of-expenses.component';
+import { DailyExpensesLineChartComponent } from './tab-contents/charts/daily-expenses-line-chart/daily-expenses-line-chart.component';
+import { ExpensesByItemComponent } from './tab-contents/charts/expenses-by-item/expenses-by-item.component';
+import { EditExpenseFormComponent } from './tab-contents/forms/edit-expense-form/edit-expense-form.component';
+import { DatepickerComponent } from './tab-contents/partials/datepicker/datepicker.component';
+import { DeleteExpenseFormComponent } from './tab-contents/forms/delete-expense-form/delete-expense-form.component';
+import { ExpensesChartsComponent } from './tab-contents/charts/expenses-charts.component';
 
 @NgModule({
   declarations: [
     ExpensesManagerDashboardComponent,
     AddExpenseFormComponent,
     ListOfExpensesComponent,
-    GridTileContentComponent,
-    AnchorDirective,
     DailyExpensesLineChartComponent,
     ExpensesByItemComponent,
     EditExpenseFormComponent,
     DatepickerComponent,
     DeleteExpenseFormComponent,
+    ExpensesChartsComponent,
   ],
   imports: [
-    SharedModule.forRoot()
+    SharedModule.forRoot(),
+    ExpensesManagerRoutingModule,
   ],
-  exports: [
-    ExpensesManagerDashboardComponent
-  ]
+  exports: []
 })
 export class ExpensesManagerModule {
   static forRoot() {

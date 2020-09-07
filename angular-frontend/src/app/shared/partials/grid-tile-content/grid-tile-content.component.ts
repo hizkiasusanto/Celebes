@@ -1,6 +1,6 @@
 import {Component, ComponentFactoryResolver, Input, OnInit, ViewChild} from '@angular/core';
-import {AnchorDirective} from "../../directives/anchor.directive";
-import {TileContent} from "../../types/tile-content";
+import {AnchorDirective} from "../../directives/anchor.directive"
+import {TileContent} from "../../../modules/expenses-manager/types/tile-content";
 
 @Component({
   selector: 'app-grid-tile-content',

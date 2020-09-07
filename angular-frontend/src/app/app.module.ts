@@ -18,7 +18,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     AppRoutingModule,
     SharedModule.forRoot(),
     IdentityManagerModule.forRoot(),
-    ExpensesManagerModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
