@@ -27,4 +27,16 @@
   cursor: pointer;
 }
 
+.mb-20px {
+  margin-bottom: 20px;
+}
+
+.pt-30px {
+  padding-top: 30px;
+}
+
+.p-40px {
+  padding: 40px;
+}
+
 /*# sourceMappingURL=display-profile.component.css.map */

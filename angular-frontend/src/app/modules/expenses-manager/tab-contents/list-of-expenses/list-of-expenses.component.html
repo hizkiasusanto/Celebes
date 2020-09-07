@@ -1,4 +1,5 @@
 <div fxFlex fxLayout="column">
+  <h5 class="mat-h3 last-updated">Last updated: {{lastUpdated | date: 'short'}}</h5>
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows
          *appLoading="dataSource === undefined || dataSource.data.length === 0">
 
@@ -41,11 +42,11 @@
         <div class="expanded-row" [@detailExpand]="row == expandedRow ? 'expanded' : 'collapsed'"
              fxLayout="row" fxLayoutAlign="space-evenly center">
           <div class="expanded-detail">
-            <div style="margin-bottom: 5px;">Expense ID: {{row._id}}</div>
+            <div class="expense-id">Expense ID: {{row._id}}</div>
             <div>Invoice ID: {{row.invoice_id == null ? 'No invoice ID' : row.invoice_id}}</div>
           </div>
           <div fxLayout="row">
-            <button mat-mini-fab color="primary" aria-label="Edit" style="margin-right: 4px;"
+            <button mat-mini-fab color="primary" aria-label="Edit" class="mr-4px"
                     (click)="openEditExpenseFormDialog(row)">
               <mat-icon>edit</mat-icon>
             </button>
@@ -70,8 +71,5 @@
       <td class="mat-cell" [colSpan]="displayedColumns.length">No data</td>
     </tr>
   </table>
-  <div fxLayout="row" fxLayoutAlign="space-between center">
-    <h5 class="mat-h3">Last updated: {{lastUpdated | date: 'short'}}</h5>
-    <mat-paginator [pageSizeOptions]="[5, 10]" [pageSize]="10"></mat-paginator>
-  </div>
+  <mat-paginator [pageSizeOptions]="[5, 10]" [pageSize]="10"></mat-paginator>
 </div>

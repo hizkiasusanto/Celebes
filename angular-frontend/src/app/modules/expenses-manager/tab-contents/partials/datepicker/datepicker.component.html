@@ -1,7 +1,7 @@
 <div fxLayout="column">
   <form [formGroup]="datePickerForm">
     <mat-radio-group formControlName="mode" aria-label="Select an option" fxLayout="row" fxLayoutGap="10px"
-                     style="margin-left: 5px;" (ngModelChange)="updateDateRangeAndToggleFormDisable()">
+                     class="ml-5px" (ngModelChange)="updateDateRangeAndToggleFormDisable()">
       <mat-radio-button [checked]="datePickerForm.get('mode').value === datepickerMode.ThisWeek" [value]="datepickerMode.ThisWeek">This week
       </mat-radio-button>
       <mat-radio-button [value]="datepickerMode.ThisMonth">This month</mat-radio-button>

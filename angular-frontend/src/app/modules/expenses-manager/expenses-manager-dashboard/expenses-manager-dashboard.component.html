@@ -1,7 +1,10 @@
+<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
 <h1>{{dashboardTitle}}</h1>
 <button mat-button color="primary" (click)="openAddExpenseFormDialog()">
-  <mat-icon style="margin-right: 5px;" aria-label="Add">library_add</mat-icon>
-  <div class="mat-h3" style="display: inline">Add a new expense</div></button>
+  <mat-icon aria-label="Add">library_add</mat-icon>
+  <div class="mat-h3">Add a new expense</div>
+</button>
+</div>
 <nav mat-tab-nav-bar>
   <a mat-tab-link [routerLink]="'list-of-expenses'" [active]="router.url.endsWith('list-of-expenses')">List of Expenses</a>
   <a mat-tab-link [routerLink]="'charts'" [active]="router.url.endsWith('charts')">Charts</a>
