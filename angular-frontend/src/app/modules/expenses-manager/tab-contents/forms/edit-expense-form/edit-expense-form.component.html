@@ -17,28 +17,27 @@
         Supplier is required
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="standard">
-      <mat-label>Amount</mat-label>
-      <input matInput formControlName="amount"
-             (focus)="changeLastChanged('amount')"
-             (ngModelChange)="onAmountChange()" type="number"/>
-      <mat-error
-        *ngIf="expensesForm.get('amount').hasError('required')">
-        Amount is required
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="standard">
-      <mat-label>Unit</mat-label>
-      <mat-select formControlName="unit">
-        <mat-option *ngFor="let unit of units" [value]="unit">
-          {{unit}}
-        </mat-option>
-      </mat-select>
-      <mat-error
-        *ngIf="expensesForm.get('unit').hasError('required')">
-        Unit is required
-      </mat-error>
-    </mat-form-field>
+    <div fxLayout="row" fxLayoutGap="15px">
+      <mat-form-field appearance="standard" fxFlex>
+        <mat-label>Amount</mat-label>
+        <input matInput formControlName="amount"
+               (focus)="changeLastChanged('amount')"
+               (ngModelChange)="onAmountChange()" type="number"/>
+        <mat-error
+          *ngIf="expensesForm.get('amount').hasError('required')">
+          Amount is required
+        </mat-error>
+      </mat-form-field>
+      <div class="auto-width">
+        <mat-form-field appearance="standard">
+          <mat-select formControlName="unit">
+            <mat-option *ngFor="let unit of unitsOfMeasurement" [value]="unit">
+              {{unit}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
     <mat-form-field appearance="standard">
       <mat-label>Price per unit</mat-label>
       <input matInput formControlName="pricePerUnit"
