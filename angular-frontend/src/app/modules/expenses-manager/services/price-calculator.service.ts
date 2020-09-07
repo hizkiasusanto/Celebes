@@ -14,7 +14,7 @@ export class PriceCalculatorService {
       if (form.value.pricePerUnit) {
         form.patchValue({'totalPrice': form.value.amount * form.value.pricePerUnit})
       } else if (form.value.totalPrice) {
-        form.patchValue({'pricePerUnit': form.value.totalPrice / form.value.amount})
+        form.patchValue({'pricePerUnit': Math.round(form.value.totalPrice / form.value.amount)})
       }
     }
   }
@@ -27,7 +27,7 @@ export class PriceCalculatorService {
 
   onTotalPriceChange = (form: FormGroup, lastChanged: string) => {
     if (lastChanged === 'totalPrice' && form.value.amount) {
-      form.patchValue({'pricePerUnit': form.value.totalPrice / form.value.amount})
+      form.patchValue({'pricePerUnit': Math.round(form.value.totalPrice / form.value.amount)})
     }
   }
 }

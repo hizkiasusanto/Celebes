@@ -4,13 +4,13 @@
       <mat-card-title>Login</mat-card-title>
     </mat-card-header>
     <form (ngSubmit)="submit()" fxLayoutAlign="center" fxLayout="column">
-      <mat-form-field appearance="standard">
+      <mat-form-field>
         <mat-label>Email</mat-label>
         <input matInput [formControl]="email" type="text"/>
         <mat-error *ngIf="email.touched && email.errors?.required">Email cannot be empty</mat-error>
         <mat-error *ngIf="email.touched && email.errors?.email">Invalid email</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="standard">
+      <mat-form-field>
         <mat-label>Password</mat-label>
         <input matInput [formControl]="password" [type]="hidePassword ? 'password' : 'text'"/>
         <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
