@@ -1,5 +1,6 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="start center">
-  <app-datepicker></app-datepicker>
-  <app-daily-expenses-line-chart class="chart"></app-daily-expenses-line-chart>
-  <app-expenses-by-item class="chart"></app-expenses-by-item>
+  <app-datepicker (startDateEmitter)="listenToStartDate($event)"
+                  (endDateEmitter)="listenToEndDate($event)"></app-datepicker>
+  <app-daily-expenses-line-chart class="chart" [startDate]="startDate" [endDate]="endDate"></app-daily-expenses-line-chart>
+  <app-expenses-by-item class="chart" [startDate]="startDate" [endDate]="endDate"></app-expenses-by-item>
 </div>

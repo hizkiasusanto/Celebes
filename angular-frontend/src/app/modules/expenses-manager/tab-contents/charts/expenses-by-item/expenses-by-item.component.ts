@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {ExpensesService} from "../../../services/expenses.service";
 import {ChartDataSets, ChartOptions} from "chart.js";
 import {Label} from "ng2-charts";
 import {BehaviorSubject} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {DateService} from "../../../../../shared/services/date.service";
 import {RupiahPipe} from "../../../../../shared/pipes/rupiah.pipe";
 import {BackendResponse} from "../../../../../shared/types/backendresponse";
 
@@ -13,11 +12,12 @@ import {BackendResponse} from "../../../../../shared/types/backendresponse";
   templateUrl: './expenses-by-item.component.html',
   styleUrls: ['./expenses-by-item.component.scss']
 })
-export class ExpensesByItemComponent implements OnInit {
-  startDate: Date;
-  endDate: Date;
+export class ExpensesByItemComponent implements OnInit, OnChanges {
+  @Input() startDate: Date;
+  @Input() endDate: Date;
+  isLoading: boolean = false;
 
-  expensesData = [];
+  expensesData: {item: string, expense: number}[] = [];
   private datasetSubject = new BehaviorSubject(this.expensesData);
 
   public chartData: ChartDataSets[] = [{data: this.expensesData.map(x => x.expense)}];
@@ -42,10 +42,7 @@ export class ExpensesByItemComponent implements OnInit {
     }
   };
 
-  constructor(private expensesService: ExpensesService, private snackBar: MatSnackBar, private dateService: DateService) {
-    this.startDate = this.dateService.addDays(this.dateService.today(), -7);
-    this.endDate = this.dateService.today();
-  }
+  constructor(private expensesService: ExpensesService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.datasetSubject.asObservable().subscribe(() => {
@@ -55,20 +52,12 @@ export class ExpensesByItemComponent implements OnInit {
       }];
       this.chartLabels = this.expensesData.map(x => x.item);
     })
-    this.expensesService.refreshSubject.subscribe(this.updateChartData);
   }
 
-  listenToStartDate = ($event) : void => {
-    this.startDate = $event;
-    this.updateChartData()
+  ngOnChanges() : void {
+    if (this.startDate && this.endDate) this.updateChartData()
   }
 
-  listenToEndDate = ($event) : void => {
-    this.endDate = $event;
-    this.updateChartData()
-  }
-
-  isLoading: boolean = false;
   updateChartData = () : void => {
     if (!this.isLoading) {
       this.isLoading = true;
