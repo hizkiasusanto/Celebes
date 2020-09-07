@@ -20,6 +20,7 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
 import {AnchorDirective} from "./directives/anchor.directive";
 import {GridTileContentComponent} from "./partials/grid-tile-content/grid-tile-content.component";
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import {GridTileContentComponent} from "./partials/grid-tile-content/grid-tile-c
     LoadingDirective
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500, horizontalPosition: "end"}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500, horizontalPosition: "end"}},
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: "standard"}}
   ]
 })
 export class SharedModule {

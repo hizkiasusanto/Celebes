@@ -2,7 +2,7 @@
   <form [formGroup]="expensesForm" (ngSubmit)="submit()" fxLayout="column" fxFlex="100%" fxFlex.gt-md="70%"
         autocomplete="off">
     <h2>Add a new expense</h2>
-    <mat-form-field appearance="standard">
+    <mat-form-field>
       <mat-label>Item</mat-label>
       <input matInput formControlName="item" type="text"/>
       <mat-error
@@ -10,7 +10,7 @@
         Item is required
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="standard">
+    <mat-form-field>
       <mat-label>Supplier</mat-label>
       <input matInput formControlName="supplier" type="text"/>
       <mat-error
@@ -19,7 +19,7 @@
       </mat-error>
     </mat-form-field>
     <div fxLayout="row" fxLayoutGap="15px">
-      <mat-form-field appearance="standard" fxFlex>
+      <mat-form-field fxFlex>
         <mat-label>Amount</mat-label>
         <input matInput formControlName="amount"
                (focus)="changeLastChanged('amount')"
@@ -30,7 +30,7 @@
         </mat-error>
       </mat-form-field>
       <div class="auto-width">
-      <mat-form-field appearance="standard">
+      <mat-form-field>
         <mat-select formControlName="unit">
           <mat-option *ngFor="let unit of unitsOfMeasurement" [value]="unit">
             {{unit}}
@@ -39,7 +39,7 @@
       </mat-form-field>
       </div>
     </div>
-    <mat-form-field appearance="standard">
+    <mat-form-field>
       <mat-label>Price per unit</mat-label>
       <input matInput formControlName="pricePerUnit"
              (focus)="changeLastChanged('pricePerUnit')"
@@ -49,7 +49,7 @@
         Price per unit is required
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="standard">
+    <mat-form-field>
       <mat-label>Total price</mat-label>
       <input matInput formControlName="totalPrice"
              (focus)="changeLastChanged('totalPrice')"

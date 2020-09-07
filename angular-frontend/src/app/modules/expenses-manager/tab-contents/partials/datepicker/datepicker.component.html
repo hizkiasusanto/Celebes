@@ -8,13 +8,13 @@
       <mat-radio-button [value]="datepickerMode.Custom">Custom</mat-radio-button>
     </mat-radio-group>
     <div fxLayout="row" fxLayoutAlign="space-evenly">
-      <mat-form-field appearance="standard">
+      <mat-form-field>
         <mat-label>Start date</mat-label>
         <input matInput formControlName="startDate" [matDatepicker]="startDatePicker" (ngModelChange)="emitStartDateInput()">
         <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #startDatePicker></mat-datepicker>
       </mat-form-field>
-      <mat-form-field appearance="standard">
+      <mat-form-field>
         <mat-label>End date</mat-label>
         <input matInput formControlName="endDate" [matDatepicker]="endDatePicker" (ngModelChange)="emitEndDateInput()">
         <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
