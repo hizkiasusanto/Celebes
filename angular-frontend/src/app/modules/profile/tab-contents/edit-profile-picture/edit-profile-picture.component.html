@@ -1,1 +1,15 @@
-<p>edit-profile-picture works!</p>
+<h2>Edit profile picture</h2>
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+
+  <div class="container">
+<img [src]="imageToUpload || user.profilePicUrl || './assets/default_avatar.png'" alt="Profile pic" class="profile-pic"/>
+    <a mat-mini-fab (click)="inputFile.click()" class="edit-icon" color="primary"><mat-icon>edit</mat-icon></a>
+  </div>
+<input style="display: none" #inputFile type="file" (change)="selectFile($event)" accept="image/jpeg, image/png" />
+
+  <div fxLayout="row" fxLayoutGap="10px">
+  <a mat-flat-button color="primary" *ngIf="imageToUpload" (click)="uploadFile()">Upload</a>
+  <a mat-stroked-button color="warn" *ngIf="imageToUpload" (click)="cancel()">Cancel</a>
+  </div>
+  <div *ngIf="errorMessage" style="color: red">{{errorMessage}}</div>
+</div>

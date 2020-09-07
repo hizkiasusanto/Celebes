@@ -45,7 +45,8 @@ export class DisplayProfileComponent implements OnInit {
   }
 
   editProfilePicture = () : void => {
-    this.dialog.open(EditProfilePictureComponent,
-      {width: '500px'})
+    let dialog = this.dialog.open(EditProfilePictureComponent,
+      {width: '500px'});
+    dialog.componentInstance.user = this.user;
   }
 }
