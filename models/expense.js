@@ -15,6 +15,7 @@ const ExpenseSchema = mongoose.Schema({
     },
     unit: {
         type: String,
+        enum: ['kg','pcs','gram','cc','ml','buah'],
         required: true
     },
     pricePerUnit: {
