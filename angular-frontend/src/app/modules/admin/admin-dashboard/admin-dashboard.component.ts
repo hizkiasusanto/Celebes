@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
+  dashboardTitle: string = "Admin Portal";
 
   constructor(public router: Router) { }
 
