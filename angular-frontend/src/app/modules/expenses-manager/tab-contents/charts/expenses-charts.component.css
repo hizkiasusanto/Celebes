@@ -1,3 +1,6 @@
-
+.chart {
+  width: 100%;
+  max-width: 700px;
+}
 
 /*# sourceMappingURL=expenses-charts.component.css.map */

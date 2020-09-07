@@ -1,13 +1,13 @@
-<div fxLayout="column">
+<div fxLayout="column" class="pt-20px">
   <form [formGroup]="datePickerForm">
-    <mat-radio-group formControlName="mode" aria-label="Select an option" fxLayout="row" fxLayoutGap="10px"
-                     class="ml-5px" (ngModelChange)="updateDateRangeAndToggleFormDisable()">
+    <mat-radio-group formControlName="mode" aria-label="Select an option" fxLayout="row" fxLayoutGap="40px"
+                    fxLayoutAlign="center" class="ml-5px" (ngModelChange)="updateDateRangeAndToggleFormDisable()">
       <mat-radio-button [checked]="datePickerForm.get('mode').value === datepickerMode.ThisWeek" [value]="datepickerMode.ThisWeek">This week
       </mat-radio-button>
       <mat-radio-button [value]="datepickerMode.ThisMonth">This month</mat-radio-button>
       <mat-radio-button [value]="datepickerMode.Custom">Custom</mat-radio-button>
     </mat-radio-group>
-    <div fxLayout="row" fxLayoutAlign="space-evenly">
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center">
       <mat-form-field>
         <mat-label>Start date</mat-label>
         <input matInput formControlName="startDate" [matDatepicker]="startDatePicker" (ngModelChange)="emitStartDateInput()">
