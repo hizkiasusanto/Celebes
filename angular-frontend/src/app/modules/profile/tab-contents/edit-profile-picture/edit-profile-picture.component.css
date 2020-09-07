@@ -1,3 +1,17 @@
+.profile-pic {
+  width: 200px;
+  height: auto;
+  display: block;
+}
 
+.container {
+  position: relative;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 
 /*# sourceMappingURL=edit-profile-picture.component.css.map */

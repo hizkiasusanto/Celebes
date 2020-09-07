@@ -9,6 +9,7 @@ import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DEFAULT_DATE_FORMATS} from "../../../../shared/config/datepicker-format";
 import {convertToDateOnly, DateOnly} from "../../../../shared/types/date";
 import {BackendResponse} from "../../../../shared/types/backendresponse";
+import {User} from "../../../identity-manager/types/user";
 
 @Component({
   selector: 'app-edit-profile',
@@ -20,7 +21,7 @@ import {BackendResponse} from "../../../../shared/types/backendresponse";
   ],
 })
 export class EditProfileComponent implements OnInit {
-  @Input() user;
+  @Input() user: User;
   editProfileForm: FormGroup;
 
   constructor(
