@@ -6,7 +6,7 @@ import {DecimalPipe} from "@angular/common";
 })
 export class RupiahPipe implements PipeTransform {
 
-  transform(value: number, ...args: unknown[]): String {
+  transform(value: number | string, ...args: unknown[]): string {
     return `Rp ${new DecimalPipe('en-US').transform(value, '')}`;
   }
 

@@ -2,10 +2,10 @@
   <form [formGroup]="datePickerForm">
     <mat-radio-group formControlName="mode" aria-label="Select an option" fxLayout="row" fxLayoutGap="10px"
                      style="margin-left: 5px;" (ngModelChange)="updateDateRangeAndToggleFormDisable()">
-      <mat-radio-button [checked]="datePickerForm.get('mode').value === 'week'" value="week">This week
+      <mat-radio-button [checked]="datePickerForm.get('mode').value === datepickerMode.ThisWeek" [value]="datepickerMode.ThisWeek">This week
       </mat-radio-button>
-      <mat-radio-button value="month">This month</mat-radio-button>
-      <mat-radio-button value="custom">Custom</mat-radio-button>
+      <mat-radio-button [value]="datepickerMode.ThisMonth">This month</mat-radio-button>
+      <mat-radio-button [value]="datepickerMode.Custom">Custom</mat-radio-button>
     </mat-radio-group>
     <div fxLayout="row" fxLayoutAlign="space-evenly">
       <mat-form-field appearance="standard">

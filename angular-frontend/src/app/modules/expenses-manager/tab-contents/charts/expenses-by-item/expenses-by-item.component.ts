@@ -6,6 +6,7 @@ import {BehaviorSubject} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {DateService} from "../../../../../shared/services/date.service";
 import {RupiahPipe} from "../../../../../shared/pipes/rupiah.pipe";
+import {BackendResponse} from "../../../../../shared/types/backendresponse";
 
 @Component({
   selector: 'app-expenses-by-item',
@@ -57,33 +58,39 @@ export class ExpensesByItemComponent implements OnInit {
     this.expensesService.refreshSubject.subscribe(this.updateChartData);
   }
 
-  listenToStartDate = ($event) => {
+  listenToStartDate = ($event) : void => {
     this.startDate = $event;
     this.updateChartData()
   }
 
-  listenToEndDate = ($event) => {
+  listenToEndDate = ($event) : void => {
     this.endDate = $event;
     this.updateChartData()
   }
 
   isLoading: boolean = false;
-  updateChartData = () => {
+  updateChartData = () : void => {
     if (!this.isLoading) {
       this.isLoading = true;
       this.expensesData = [];
-      this.expensesService.findAllDistinctItems(this.startDate, this.endDate).subscribe((res: any) => {
-        if (res.items.length === 0) {
+      this.expensesService.findAllDistinctItems(this.startDate, this.endDate).subscribe((res: BackendResponse) => {
+        if (res.success) {
+          if (res.items.length === 0) {
+            this.datasetSubject.next(this.expensesData)
+          }
+          res.items.forEach(this.updateItemData);
+          this.isLoading = false;
+        } else {
+          this.snackBar.open(res.msg, '', {panelClass:['error-snackbar']})
           this.datasetSubject.next(this.expensesData)
+          this.isLoading = false;
         }
-        res.items.forEach(this.updateItemData);
-        this.isLoading = false;
       })
     }
   }
 
-  updateItemData = (item) => {
-    this.expensesService.getExpensesByItem(item, this.startDate, this.endDate).subscribe((res: any) => {
+  updateItemData = (item: string) : void => {
+    this.expensesService.getExpensesByItem(item, this.startDate, this.endDate).subscribe((res: BackendResponse) => {
       if (res.success) {
         let indexOfExisting = this.expensesData.map(e => e.item).indexOf(item);
         if (indexOfExisting == -1) {
@@ -92,9 +99,7 @@ export class ExpensesByItemComponent implements OnInit {
           this.expensesData[indexOfExisting].expense = res.expense;
         }
       } else {
-        this.snackBar.open(res.msg, "", {
-          panelClass: ['error-snackbar']
-        })
+        this.snackBar.open(res.msg, "", {panelClass: ['error-snackbar']})
       }
       this.datasetSubject.next(this.expensesData);
     })

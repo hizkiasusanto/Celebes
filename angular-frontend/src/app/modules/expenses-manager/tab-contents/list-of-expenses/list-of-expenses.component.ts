@@ -9,6 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditExpenseFormComponent} from "../forms/edit-expense-form/edit-expense-form.component";
 import {DeleteExpenseFormComponent} from "../forms/delete-expense-form/delete-expense-form.component";
 import {DateService} from "../../../../shared/services/date.service";
+import {Role} from "../../../identity-manager/types/role";
 
 @Component({
   selector: 'app-list-of-expenses',
@@ -26,7 +27,7 @@ export class ListOfExpensesComponent implements OnInit {
   displayedColumns: string[] = ['date', 'item', 'supplier', 'amount', 'pricePerUnit', 'totalPrice', 'submittedBy'];
   lastUpdated: Date;
   dataSource: MatTableDataSource<Expense>;
-  expandedRow: Expense | null;
+  expandedRow?: Expense;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -43,7 +44,7 @@ export class ListOfExpensesComponent implements OnInit {
     this.populateDataSourceWithExpenses();
     this.authService.userSubject.subscribe(user => {
       if (user) {
-        this.isAuthorizedToDelete = this.authService.getUserRole() !== 'Employee'
+        this.isAuthorizedToDelete = this.authService.getUserRole() !== Role.Employee
       }
     })
     this.expensesService.refreshSubject.subscribe(() =>
@@ -68,7 +69,7 @@ export class ListOfExpensesComponent implements OnInit {
     dialog.afterClosed().subscribe(this.populateDataSourceWithExpenses);
   }
 
-  openDeleteExpenseFormDialog(id: Expense): void {
+  openDeleteExpenseFormDialog(id: string): void {
     let dialog = this.dialog.open(DeleteExpenseFormComponent, {
       width: '500px',
     });

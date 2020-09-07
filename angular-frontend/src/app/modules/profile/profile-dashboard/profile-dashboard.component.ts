@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./profile-dashboard.component.scss']
 })
 export class ProfileDashboardComponent implements OnInit {
+  dashboardTitle: string = "Your Profile";
 
   constructor(public router: Router) { }
 
