@@ -5,10 +5,11 @@ import { ProfileDashboardComponent } from './profile-dashboard/profile-dashboard
 import {SharedModule} from "../../shared/shared.module";
 import { DisplayProfileComponent } from './tab-contents/display-profile/display-profile.component';
 import { EditProfileComponent } from './tab-contents/edit-profile/edit-profile.component';
+import { EditProfilePictureComponent } from './tab-contents/edit-profile-picture/edit-profile-picture.component';
 
 
 @NgModule({
-  declarations: [ProfileDashboardComponent, DisplayProfileComponent, EditProfileComponent],
+  declarations: [ProfileDashboardComponent, DisplayProfileComponent, EditProfileComponent, EditProfilePictureComponent],
   imports: [SharedModule.forRoot(), ProfileRoutingModule]
 })
 export class ProfileModule {

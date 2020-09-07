@@ -4,6 +4,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditProfileComponent} from "../edit-profile/edit-profile.component";
 import {User} from "../../../identity-manager/types/user";
 import {DateOnly} from "../../../../shared/types/date";
+import {EditProfilePictureComponent} from "../edit-profile-picture/edit-profile-picture.component";
 
 @Component({
   selector: 'app-display-profile',
@@ -41,5 +42,10 @@ export class DisplayProfileComponent implements OnInit {
       width: '500px',
     });
     dialog.componentInstance.user = this.user;
+  }
+
+  editProfilePicture = () : void => {
+    this.dialog.open(EditProfilePictureComponent,
+      {width: '500px'})
   }
 }
