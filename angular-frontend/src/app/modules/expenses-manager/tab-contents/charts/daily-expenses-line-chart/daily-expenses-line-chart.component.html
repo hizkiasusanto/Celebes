@@ -1,4 +1,4 @@
-<div fxFlexFill fxLayout="column">
+<div fxFlex fxLayout="column">
   <app-datepicker (startDateEmitter)="listenToStartDate($event)"
                   (endDateEmitter)="listenToEndDate($event)"></app-datepicker>
   <div fxFlex fxLayoutAlign="center center" *appLoading="isLoading">

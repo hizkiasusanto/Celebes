@@ -10,22 +10,26 @@ import {ApprovalRequiredComponent} from "./shared/components/approval-required/a
 import {UnauthorizedComponent} from "./shared/components/unauthorized/unauthorized.component";
 import {PageNotFoundComponent} from "./shared/components/page-not-found/page-not-found.component";
 
-import {ExpensesManagerDashboardComponent} from "./modules/expenses-manager/expenses-manager-dashboard/expenses-manager-dashboard.component";
-
 import {Role} from "./modules/identity-manager/types/role";
 
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  {path: 'identity',
+  {
+    path: 'identity',
     loadChildren: () => import(`./modules/identity-manager/identity-manager.module`).then(m => m.IdentityManagerModule)
   },
-  {path: 'profile',
+  {
+    path: 'profile',
     canActivate: [AuthGuard],
     loadChildren: () => import(`./modules/profile/profile.module`).then(m => m.ProfileModule)
   },
-  {path: 'expensesManager', component: ExpensesManagerDashboardComponent, canActivate: [AuthGuard, ApprovalGuard]},
+  {
+    path: 'expensesManager',
+    canActivate: [AuthGuard, ApprovalGuard],
+    loadChildren: () => import(`./modules/expenses-manager/expenses-manager.module`).then(m => m.ExpensesManagerModule)
+  },
   {
     path: 'adminDashboard',
     canActivate: [AuthGuard, RoleGuard],
@@ -42,4 +46,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

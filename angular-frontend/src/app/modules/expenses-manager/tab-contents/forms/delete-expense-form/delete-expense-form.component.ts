@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
-import {ExpensesService} from "../../services/expenses.service";
+import {ExpensesService} from "../../../services/expenses.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({

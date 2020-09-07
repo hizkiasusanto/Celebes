@@ -1,14 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Expense} from "../types/expense";
+import {Expense} from "../../types/expense";
 import {MatTableDataSource} from "@angular/material/table";
-import {ExpensesService} from "../services/expenses.service";
+import {ExpensesService} from "../../services/expenses.service";
 import {MatPaginator} from "@angular/material/paginator";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {AuthService} from "../../identity-manager/services/auth.service";
+import {AuthService} from "../../../identity-manager/services/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EditExpenseFormComponent} from "../forms/edit-expense-form/edit-expense-form.component";
 import {DeleteExpenseFormComponent} from "../forms/delete-expense-form/delete-expense-form.component";
-import {DateService} from "../../../shared/services/date.service";
+import {DateService} from "../../../../shared/services/date.service";
 
 @Component({
   selector: 'app-list-of-expenses',
