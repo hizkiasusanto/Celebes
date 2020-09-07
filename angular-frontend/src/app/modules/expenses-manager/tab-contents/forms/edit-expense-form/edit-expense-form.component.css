@@ -1,3 +1,11 @@
+::ng-deep .auto-width .mat-form-field,
+::ng-deep .auto-width .mat-form-field-infix {
+  width: auto !important;
+}
 
+::ng-deep .auto-width .mat-select-value {
+  max-width: 100%;
+  width: auto;
+}
 
 /*# sourceMappingURL=edit-expense-form.component.css.map */

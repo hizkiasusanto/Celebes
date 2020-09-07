@@ -6,6 +6,8 @@ import {ExpensesService} from "../../../services/expenses.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
 import {PriceCalculatorService} from "../../../services/price-calculator.service";
+import {User} from "../../../../identity-manager/types/user";
+import {UnitOfMeasurement} from "../../../../../shared/types/unit-of-measurement";
 
 @Component({
   selector: 'app-edit-expense-form',
@@ -15,10 +17,12 @@ import {PriceCalculatorService} from "../../../services/price-calculator.service
 export class EditExpenseFormComponent implements OnInit {
 
   @Input() expense: Expense;
-  @Input() _id;
+  @Input() _id: string;
 
-  loggedInUser;
-  units = ['kg', 'pcs', 'bottles']
+  loggedInUser: User;
+  get unitsOfMeasurement() : Array<string> {
+    return Object.values(UnitOfMeasurement)
+  }
 
   expensesForm: FormGroup;
 

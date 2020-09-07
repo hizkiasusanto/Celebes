@@ -6,6 +6,8 @@ import {ExpensesService} from "../../../services/expenses.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
 import {PriceCalculatorService} from "../../../services/price-calculator.service";
+import {UnitOfMeasurement} from "../../../../../shared/types/unit-of-measurement";
+import {User} from "../../../../identity-manager/types/user";
 
 @Component({
   selector: 'app-add-expense-form',
@@ -13,14 +15,16 @@ import {PriceCalculatorService} from "../../../services/price-calculator.service
   styleUrls: ['./add-expense-form.component.scss']
 })
 export class AddExpenseFormComponent implements OnInit {
-  loggedInUser;
-  units = ['kg', 'pcs', 'bottles']
+  loggedInUser: User;
+  get unitsOfMeasurement() : Array<string> {
+    return Object.values(UnitOfMeasurement)
+  }
 
   expensesForm: FormGroup = this.formBuilder.group({
     item: [undefined, [Validators.required]],
     supplier: [undefined, [Validators.required]],
     amount: [undefined, [Validators.required]],
-    unit: [this.units[0], [Validators.required]],
+    unit: [UnitOfMeasurement.Kg],
     pricePerUnit: [undefined, [Validators.required]],
     totalPrice: [undefined, [Validators.required]]
   })
