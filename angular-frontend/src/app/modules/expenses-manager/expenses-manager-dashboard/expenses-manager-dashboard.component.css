@@ -1,3 +1,9 @@
+button mat-icon {
+  margin-right: 5px;
+}
 
+button .mat-h3 {
+  display: inline;
+}
 
 /*# sourceMappingURL=expenses-manager-dashboard.component.css.map */

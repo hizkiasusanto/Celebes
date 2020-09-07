@@ -2,6 +2,10 @@ table {
   width: 100%;
 }
 
+.last-updated {
+  margin: 20px 0 0 20px;
+}
+
 .mat-form-field {
   font-size: 14px;
   width: 100%;
@@ -30,6 +34,14 @@ td, th {
 .expanded-detail {
   padding: 10px 0;
   margin: 50px 0;
+}
+
+.expense-id {
+  margin-bottom: 5px;
+}
+
+.mr-4px {
+  margin-right: 4px;
 }
 
 /*# sourceMappingURL=list-of-expenses.component.css.map */

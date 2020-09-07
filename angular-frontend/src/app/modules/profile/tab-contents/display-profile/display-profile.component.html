@@ -1,5 +1,5 @@
-<div fxFlex *appLoading="!user" style="padding: 40px">
-  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start end" style="margin-bottom: 20px">
+<div fxFlex *appLoading="!user" class="p-40px">
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start end" class="mb-20px">
     <img [src]="user.profilePicUrl || './assets/default_avatar.png'" alt="Profile pic"
          class="profile-pic">
     <div fxLayout="column">
@@ -8,7 +8,7 @@
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div fxLayout="column" fxLayoutGap="30px" style="padding-top: 30px">
+  <div fxLayout="column" fxLayoutGap="30px" class="pt-30px">
     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start end">
       <mat-icon>email</mat-icon>
       <div>{{user.email}}</div>
