@@ -38,9 +38,9 @@ app.use(bodyParser.json())
 
 app.use(passport.initialize({}))
 app.use(passport.session({}))
-require("./config/passport")(passport)
+require("./api/middlewares/authentication")(passport)
 
-app.use('/api', require('./routes'))
+app.use('/api', require('./api/routes'))
 
 app.get('/',(req,res) => {
     res.send(`Invalid endpoint`)

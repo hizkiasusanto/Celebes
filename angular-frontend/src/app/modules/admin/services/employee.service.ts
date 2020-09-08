@@ -14,15 +14,15 @@ export class EmployeeService {
   }
 
   getAllUsers = (): Observable<BackendResponse> => this.httpClient.get<BackendResponse>
-  (`${environment.backendUrl}/users/get-all-users`, {headers: this.authService.addAuthorizedHeader()})
+  (`${environment.backendUrl}/admin/get-all-users`, {headers: this.authService.addAuthorizedHeader()})
 
   getUserById = (_id: string): Observable<BackendResponse> => this.httpClient.get<BackendResponse>
-  (`${environment.backendUrl}/users/get-user/${_id}`, {headers: this.authService.addAuthorizedHeader()})
+  (`${environment.backendUrl}/admin/get-user/${_id}`, {headers: this.authService.addAuthorizedHeader()})
 
   approveUser = (_id: string): Observable<BackendResponse> => this.httpClient.patch<BackendResponse>
-  (`${environment.backendUrl}/users/approve-user/${_id}`, {}, {headers: this.authService.addAuthorizedHeader()})
+  (`${environment.backendUrl}/admin/approve-user/${_id}`, {}, {headers: this.authService.addAuthorizedHeader()})
 
   updateJobTitle = (_id: string, newJobTitle: string) : Observable<BackendResponse> => this.httpClient.patch<BackendResponse>
-  (`${environment.backendUrl}/users/update-job-title/${_id}`, {jobTitle: newJobTitle},
+  (`${environment.backendUrl}/admin/update-job-title/${_id}`, {jobTitle: newJobTitle},
     {headers: this.authService.addAuthorizedHeader()})
 }

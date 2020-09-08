@@ -1,9 +1,10 @@
 const express = require("express")
 const router = express.Router()
 const Expense = require("../models/expense")
-const User = require("../models/user")
+const {authenticate} = require('../middlewares/authentication')
+const {permit} = require("../middlewares/authorization")
 
-router.post('/add-expense', User.authenticate(), (req, res) => {
+router.post('/add-expense', authenticate(), (req, res) => {
     let newExpense = new Expense({
         item: req.body.item,
         supplier: req.body.supplier,
@@ -23,7 +24,7 @@ router.post('/add-expense', User.authenticate(), (req, res) => {
     })
 })
 
-router.patch('/edit-expense/:_id', User.authenticate(), (req, res) => {
+router.patch('/edit-expense/:_id', authenticate(), (req, res) => {
     let updatedExpense = new Expense({
         item: req.body.expense.item,
         supplier: req.body.expense.supplier,
@@ -44,7 +45,7 @@ router.patch('/edit-expense/:_id', User.authenticate(), (req, res) => {
     )
 })
 
-router.get('/get-all-expenses', User.authenticate(), (req, res) => {
+router.get('/get-all-expenses', authenticate(), (req, res) => {
     Expense.getAllExpenses((err, expenses) => {
         if (err) {
             res.send({success: false, msg: 'Failed to retrieve expenses'});
@@ -54,7 +55,7 @@ router.get('/get-all-expenses', User.authenticate(), (req, res) => {
     })
 })
 
-router.get('/get-daily-expenses-in-range', User.authenticate(), (req, res) => {
+router.get('/get-daily-expenses-in-range', authenticate(), (req, res) => {
     let sent = false;
 
     let expenses = [];
@@ -86,7 +87,7 @@ router.get('/get-daily-expenses-in-range', User.authenticate(), (req, res) => {
     })
 })
 
-router.get('/get-expenses-by-item/:item', User.authenticate(), (req, res) => {
+router.get('/get-expenses-by-item/:item', authenticate(), (req, res) => {
     let startDate = new Date(req.query.startDate);
     let endDate = new Date(new Date(req.query.endDate).getTime() + 60*60*24*1000);
     Expense.getExpenseByItem(req.params.item, startDate,endDate,(err, expenses) => {
@@ -102,7 +103,7 @@ router.get('/get-expenses-by-item/:item', User.authenticate(), (req, res) => {
     })
 })
 
-router.get('/find-all-distinct-items', User.authenticate(), (req, res) => {
+router.get('/find-all-distinct-items', authenticate(), (req, res) => {
     let startDate = new Date(req.query.startDate);
     let endDate = new Date(new Date(req.query.endDate).getTime() + 60*60*24*1000);
     Expense.findAllDistinctItems(startDate, endDate, (err, items) => {
@@ -114,7 +115,7 @@ router.get('/find-all-distinct-items', User.authenticate(), (req, res) => {
     })
 })
 
-router.delete('/delete-expense/:_id', User.authenticate(), (req, res) => {
+router.delete('/delete-expense/:_id', authenticate(), permit('Admin','Manager'), (req, res) => {
     Expense.deleteExpenseById(req.params._id, (err,expense) => {
         if (err) {
             res.send({success:false, msg: 'Failed to delete expense'})

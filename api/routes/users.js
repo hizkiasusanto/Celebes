@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const User = require("../models/user")
 const jwt = require("jsonwebtoken")
+const {authenticate} = require('../middlewares/authentication')
 
 router.post('/register', (req, res) => {
     let newUser = new User({
@@ -49,7 +50,7 @@ router.post('/authenticate', (req,res) => {
     })
 })
 
-router.get('/profile', User.authenticate(), (req,res) => {
+router.get('/profile', authenticate(), (req,res) => {
     res.json({
         _id: req.user._id,
         name: req.user.name,
@@ -63,51 +64,7 @@ router.get('/profile', User.authenticate(), (req,res) => {
     })
 })
 
-router.get('/get-all-users', User.authenticate(), (req,res) => {
-    User.getAllUsers((err, users) => {
-        if (err) {
-            res.send({success:false,msg:'Failed to retrieve users'})
-        } else {
-            res.send({success:true,users})
-        }
-    })
-})
-
-router.get('/get-user/:id', User.authenticate(), (req, res) => {
-    User.getUserById(req.params.id, (err, user) => {
-        if (err) {
-            res.send({success:false,msg:'Failed to retrieve user'})
-        } else {
-            res.send({success:true,user})
-        }
-    })
-})
-
-router.patch('/approve-user/:_id', User.authenticate(), (req, res) => {
-    if (req.user.role !== 'Manager' && req.user.role !== 'Admin') {
-        res.send({success:false,msg:'You are not authorized to approve users'})
-    } else {
-        User.approveUser(req.params._id, (err, user) => {
-            if (err) {
-                res.send({success: false, msg: 'Failed to approve user'})
-            } else {
-                res.send({success: true, msg: `Account ${user.name} approved successfully`})
-            }
-        })
-    }
-})
-
-router.patch('/update-job-title/:_id', User.authenticate(), (req, res) => {
-    User.updateJobTitle(req.params._id, req.body.jobTitle, (err) => {
-        if (err) {
-            res.send({success: false, msg: 'Failed to update job title'})
-        } else {
-            res.send({success: true, msg: 'Job title edited successfully'})
-        }
-    })
-})
-
-router.patch('/edit-profile/:_id', User.authenticate(), (req, res) => {
+router.patch('/edit-profile/:_id', authenticate(), (req, res) => {
     User.editProfile(req.params._id, req.body.newData, (err, user) => {
         if (err) {
             res.send({success: false, msg: 'Failed to edit profile'})

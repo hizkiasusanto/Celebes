@@ -44,30 +44,6 @@ const UserSchema = mongoose.Schema({
 
 const User = module.exports = mongoose.model("User", UserSchema)
 
-module.exports.getAllUsers = (callback) => User.find({}, callback)
-
-module.exports.getUserById = (id, callback) => User.findById(id, callback)
-
-module.exports.approveUser = (id, callback) =>
-    User.findByIdAndUpdate(id, {approved: true}, callback)
-
-module.exports.updateJobTitle = (id, newJobTitle, callback) =>
-    User.findByIdAndUpdate(id, {jobTitle: newJobTitle}, callback)
-
-module.exports.editProfile = (id, newData, callback) => {
-    User.findByIdAndUpdate(id, {
-        jobTitle: newData.jobTitle,
-        dateOfBirth: newData.dateOfBirth,
-        address: newData.address
-    }, {new : true}, callback)
-}
-
-module.exports.editProfilePicture = (id, newProfilePicUrl, callback) => {
-    User.findByIdAndUpdate(id, {profilePicUrl: newProfilePicUrl}, {new: true}, callback)
-}
-
-module.exports.getUserByEmail = (email, callback) => User.findOne({email: email}, callback)
-
 module.exports.addUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -85,4 +61,28 @@ module.exports.comparePassword = (passwordInput, hash, callback) => {
     })
 }
 
-module.exports.authenticate = () => require('passport').authenticate('jwt', {session: false});
+module.exports.getAllUsers = (callback) => User.find({}, callback)
+
+module.exports.getUserById = (id, callback) => User.findById(id, callback)
+
+module.exports.getUserByEmail = (email, callback) => User.findOne({email: email}, callback)
+
+module.exports.editProfile = (id, newData, callback) => {
+    User.findByIdAndUpdate(id, {
+        jobTitle: newData.jobTitle,
+        dateOfBirth: newData.dateOfBirth,
+        address: newData.address
+    }, {new : true}, callback)
+}
+
+module.exports.editProfilePicture = (id, newProfilePicUrl, callback) => {
+    User.findByIdAndUpdate(id, {profilePicUrl: newProfilePicUrl}, {new: true}, callback)
+}
+
+module.exports.updateJobTitle = (id, newJobTitle, callback) =>
+    User.findByIdAndUpdate(id, {jobTitle: newJobTitle}, callback)
+
+module.exports.approveUser = (id, callback) =>
+    User.findByIdAndUpdate(id, {approved: true}, callback)
+
+

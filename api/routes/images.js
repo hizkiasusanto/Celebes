@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const User = require("../models/user")
+const {authenticate} = require('../middlewares/authentication')
 const multer = require('multer')
 
 const {promisify} = require('util')
@@ -29,7 +30,7 @@ const upload = (subfolder) => multer({
     }
 })
 
-router.post('/upload-profile-picture', User.authenticate(),
+router.post('/upload-profile-picture', authenticate(),
     upload(`profile-pictures/`).single('profilePicture'),
     (req, res) => {
         User.getUserById(req.user._id, (err, user) => {
