@@ -1,7 +1,10 @@
 .profile-pic {
   width: 200px;
-  height: auto;
+  height: 200px;
   display: block;
+  background-color: black;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .container {

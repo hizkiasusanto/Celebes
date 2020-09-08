@@ -5,6 +5,8 @@ import {EditProfileComponent} from "../edit-profile/edit-profile.component";
 import {User} from "../../../identity-manager/types/user";
 import {DateOnly} from "../../../../shared/types/date";
 import {EditProfilePictureComponent} from "../edit-profile-picture/edit-profile-picture.component";
+import {environment} from "../../../../../environments/environment";
+import {ImagesService} from "../../../../shared/services/images.service";
 
 @Component({
   selector: 'app-display-profile',
@@ -14,11 +16,13 @@ import {EditProfilePictureComponent} from "../edit-profile-picture/edit-profile-
 export class DisplayProfileComponent implements OnInit {
   user: User;
   dateOfBirthInputString: string;
+  imgsrc: string;
 
   showAlert = true;
 
   constructor(
     private authService: AuthService,
+    private imagesService: ImagesService,
     public dialog: MatDialog,
   ) {
   }
@@ -29,6 +33,9 @@ export class DisplayProfileComponent implements OnInit {
       if (user) {
         this.dateOfBirthInputString = this.user.dateOfBirth === null ? 'Not set yet' :
           new DateOnly(this.user.dateOfBirth).displayDate();
+        if (user.profilePicUrl) {
+          this.imgsrc = this.imagesService.getProfilePicture(user.profilePicUrl);
+        }
       }
     });
   }

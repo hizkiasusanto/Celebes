@@ -32,6 +32,7 @@ if (process.env.NODE_ENV !== undefined && process.env.NODE_ENV !== 'production')
 }
 
 app.use(express.static(path.join(__dirname,`public`)))
+app.use('/uploads',express.static(path.join(__dirname,`uploads`)))
 
 app.use(bodyParser.json())
 

@@ -1,7 +1,9 @@
 .profile-pic {
   width: 120px;
   height: 120px;
-  display: block;
+  object-fit: cover;
+  background-color: black;
+  border-radius: 50%;
 }
 
 .name {
@@ -28,10 +30,6 @@
   cursor: pointer;
 }
 
-.edit-icon {
-  position: absolute; bottom:0;right:0
-}
-
 .mb-20px {
   margin-bottom: 20px;
 }
@@ -42,8 +40,4 @@
 
 .p-40px {
   padding: 40px;
-}
-
-.container {
-  position: relative;
 }

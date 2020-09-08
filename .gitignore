@@ -18,3 +18,7 @@ app/tests/coverage/
 .idea/
 coverage/
 data
+
+uploads/profile-pictures/*.jpg
+uploads/profile-pictures/*.jpeg
+uploads/profile-pictures/*.png
