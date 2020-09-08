@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpEvent} from "@angular/common/http";
 import {AuthService} from "../../modules/identity-manager/services/auth.service";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
-import {BackendResponse} from "../types/backendresponse";
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +15,10 @@ export class ImagesService {
     return `${environment.profilePicDirectoryUrl}/${profilePicUrl}`
   }
 
-  uploadProfilePicture(file: File) : Observable<BackendResponse> {
+  uploadProfilePicture(file: File) : Observable<HttpEvent<any>> {
     const formData = new FormData();
     formData.append('profilePicture', file, file.name);
-    return this.httpClient.post<BackendResponse>(`${environment.backendUrl}/images/upload-profile-picture`,formData,
-      {headers: this.authService.addAuthorizedHeaderNonJson()})
+    return this.httpClient.post(`${environment.backendUrl}/images/upload-profile-picture`,formData,
+      {headers: this.authService.addAuthorizedHeaderNonJson(), reportProgress: true, observe: "events"})
   }
 }

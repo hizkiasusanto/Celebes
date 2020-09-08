@@ -17,4 +17,8 @@
   right: 0;
 }
 
+.input-profile-pic {
+  display: none;
+}
+
 /*# sourceMappingURL=edit-profile-picture.component.css.map */

@@ -2,9 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../../../identity-manager/types/user";
 import {MatDialogRef} from "@angular/material/dialog";
 import {ImagesService} from "../../../../shared/services/images.service";
-import {BackendResponse} from "../../../../shared/types/backendresponse";
 import {AuthService} from "../../../identity-manager/services/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {HttpEventType} from "@angular/common/http";
+import {BackendResponse} from "../../../../shared/types/backendresponse";
 
 @Component({
   selector: 'app-edit-profile-picture',
@@ -17,7 +18,8 @@ export class EditProfilePictureComponent implements OnInit {
   fileToUpload: File
   imageToUpload: string | ArrayBuffer;
 
-  errorMessage: string;
+  isLoading: boolean = false;
+  uploadProgress: number = 0;
 
   constructor(
     private imagesService: ImagesService,
@@ -34,20 +36,18 @@ export class EditProfilePictureComponent implements OnInit {
 
   selectFile = event => {
     if (!event.target.files[0] || event.target.files[0].length == 0) {
-      this.errorMessage = 'You must select an image';
-      setTimeout(() => this.errorMessage = '', 2000);
+
+      this.snackBar.open("You must select an image","",{panelClass:['error-snackbar']})
       return;
     }
 
     if(event.target.files[0].type.match(/image\/*/) == null) {
-      this.errorMessage = "Only images are supported";
-      setTimeout(() => this.errorMessage = "", 2000);
+      this.snackBar.open("Only images are supported","",{panelClass:['error-snackbar']})
       return;
     }
 
     if(event.target.files[0].size > (1 << 20)) {
-      this.errorMessage = "File size must be less than 1MB";
-      setTimeout(() => this.errorMessage = "", 2000);
+      this.snackBar.open("File size must be less than 1MB","",{panelClass:['error-snackbar']})
       return;
     }
 
@@ -60,13 +60,22 @@ export class EditProfilePictureComponent implements OnInit {
   }
 
   uploadFile = () : void => {
-    this.imagesService.uploadProfilePicture(this.fileToUpload).subscribe((res:BackendResponse) => {
-      if (res.success) {
-        this.authService.userSubject.next(res.user)
-        this.snackBar.open("Profile picture edited successfully","", {panelClass: ['success-snackbar']})
-        this.dialogRef.close()
-      } else {
-        this.snackBar.open(res.msg, "", {panelClass: ['error-snackbar']})
+    this.imagesService.uploadProfilePicture(this.fileToUpload).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.uploadProgress = Math.round(event.loaded/event.total * 100);
+        if (event.loaded === event.total) {
+          this.isLoading = true
+        }
+      } else if (event.type === HttpEventType.Response) {
+        this.isLoading = false
+        let res: BackendResponse = event.body;
+        if (res.success) {
+          this.authService.userSubject.next(res.user)
+          this.snackBar.open("Profile picture edited successfully","", {panelClass: ['success-snackbar']})
+          this.dialogRef.close()
+        } else {
+          this.snackBar.open(res.msg, "", {panelClass: ['error-snackbar']})
+        }
       }
     })
   }
