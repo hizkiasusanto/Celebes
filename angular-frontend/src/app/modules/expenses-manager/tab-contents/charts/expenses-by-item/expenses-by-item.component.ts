@@ -67,13 +67,12 @@ export class ExpensesByItemComponent implements OnInit, OnChanges {
           if (res.items.length === 0) {
             this.datasetSubject.next(this.expensesData)
           }
-          res.items.forEach(this.updateItemData);
-          this.isLoading = false;
+          res.items.forEach(item => this.updateItemData(item));
         } else {
           this.snackBar.open(res.msg, '', {panelClass:['error-snackbar']})
           this.datasetSubject.next(this.expensesData)
-          this.isLoading = false;
         }
+        this.isLoading = false;
       })
     }
   }

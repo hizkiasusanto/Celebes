@@ -12,15 +12,11 @@ export class DateOnly {
   }
 
   displayDate(): string {
-    return this.toDate().toLocaleString('en-GB', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
+    return this.toDate().format('D MMMM yyyy')
   }
 
-  toDate(): Date {
-    return new Date(this.year, this.month, this.date);
+  toDate(): moment.Moment {
+    return moment([this.year,this.month,this.date]);
   }
 
 }

@@ -5,6 +5,7 @@ import {Label} from "ng2-charts";
 import {DateService} from "../../../../../shared/services/date.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {RupiahPipe} from "../../../../../shared/pipes/rupiah.pipe";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-daily-expenses-line-chart',
@@ -14,7 +15,7 @@ import {RupiahPipe} from "../../../../../shared/pipes/rupiah.pipe";
 export class DailyExpensesLineChartComponent implements OnInit, OnChanges {
   @Input() startDate: Date;
   @Input() endDate: Date;
-  isLoading = false;
+  isLoading: boolean = false;
 
   expensesData: { date: Date, expense: number }[] = [];
 
@@ -63,10 +64,7 @@ export class DailyExpensesLineChartComponent implements OnInit, OnChanges {
           if (res.success) {
             this.expensesData = res.expenses.sort(sortByDate);
             this.chartData = [{data: this.expensesData.map(x => x.expense)}];
-            this.chartLabels = this.expensesData.map(x => new Date(x.date).toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'short'
-            }));
+            this.chartLabels = this.expensesData.map(x => moment(x.date).format('D MMM'));
           } else {
             this.snackBar.open(res.msg, "", {
               panelClass: ['error-snackbar']
@@ -79,4 +77,4 @@ export class DailyExpensesLineChartComponent implements OnInit, OnChanges {
   }
 }
 
-const sortByDate = (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+const sortByDate : Function = (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()

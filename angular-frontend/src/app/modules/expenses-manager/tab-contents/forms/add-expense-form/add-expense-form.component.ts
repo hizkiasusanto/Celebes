@@ -8,6 +8,7 @@ import {MatDialogRef} from "@angular/material/dialog";
 import {PriceCalculatorService} from "../../../services/price-calculator.service";
 import {UnitOfMeasurement} from "../../../../../shared/types/unit-of-measurement";
 import {User} from "../../../../identity-manager/types/user";
+import {BackendResponse} from "../../../../../shared/types/backendresponse";
 
 @Component({
   selector: 'app-add-expense-form',
@@ -16,6 +17,7 @@ import {User} from "../../../../identity-manager/types/user";
 })
 export class AddExpenseFormComponent implements OnInit {
   loggedInUser: User;
+  isSubmitting: boolean = false;
   get unitsOfMeasurement() : Array<string> {
     return Object.values(UnitOfMeasurement)
   }
@@ -45,17 +47,17 @@ export class AddExpenseFormComponent implements OnInit {
 
   private lastChanged: string;
 
-  changeLastChanged(controlName: string) {
+  changeLastChanged(controlName: string) : void {
     this.lastChanged = controlName;
   }
 
-  onAmountChange = () => this.priceCalculatorService.onAmountChange(this.expensesForm, this.lastChanged)
+  onAmountChange = () : void => this.priceCalculatorService.onAmountChange(this.expensesForm, this.lastChanged)
 
-  onPricePerUnitChange = () => this.priceCalculatorService.onPricePerUnitChange(this.expensesForm, this.lastChanged)
+  onPricePerUnitChange = () : void => this.priceCalculatorService.onPricePerUnitChange(this.expensesForm, this.lastChanged)
 
-  onTotalPriceChange = () => this.priceCalculatorService.onTotalPriceChange(this.expensesForm, this.lastChanged)
+  onTotalPriceChange = () : void => this.priceCalculatorService.onTotalPriceChange(this.expensesForm, this.lastChanged)
 
-  submit() {
+  submit() : void {
     if (this.expensesForm.valid) {
       let expense = <Expense>{
         item: this.expensesForm.value.item,
@@ -67,7 +69,8 @@ export class AddExpenseFormComponent implements OnInit {
         dateOfExpense: new Date(),
         submittedBy: this.loggedInUser.name
       }
-      this.expensesService.addExpense(expense).subscribe((res: any) => {
+      this.isSubmitting = true;
+      this.expensesService.addExpense(expense).subscribe((res: BackendResponse) => {
         this.snackBar.open(res.msg, "", {
           panelClass: [res.success ? 'success-snackbar' : 'error-snackbar']
         });

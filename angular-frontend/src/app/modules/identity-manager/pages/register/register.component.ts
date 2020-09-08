@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
   hidePassword: boolean = true;
+  isSubmitting: boolean = false;
 
   constructor(private snackBar: MatSnackBar,
               private authService: AuthService,
@@ -37,6 +38,7 @@ export class RegisterComponent implements OnInit {
       return
     }
 
+    this.isSubmitting = true;
     const user : RegisterFormData = {
       name: this.name.value,
       email: this.email.value,
@@ -52,6 +54,7 @@ export class RegisterComponent implements OnInit {
         this.snackBar.open(res.msg, "", {
           panelClass: ['error-snackbar']
         });
+        this.isSubmitting = false;
       }
 
     });

@@ -9,9 +9,9 @@
         <mat-card-subtitle>{{user.role}}</mat-card-subtitle>
       </mat-card-header>
       <div fxLayoutGap="20px" class="buttons">
-        <a mat-raised-button color="primary" *ngIf="!user.approved" (click)="approveUser()">Approve</a>
-        <a mat-raised-button color="primary" *ngIf="user.approved" (click)="updateJobTitle()"
-           [disabled]="newJobTitle === user.jobTitle">Submit changes</a>
+        <button mat-raised-button color="primary" *ngIf="!user.approved" (click)="approveUser()">Approve</button>
+        <button mat-raised-button color="primary" *ngIf="user.approved" (click)="updateJobTitle()"
+           [disabled]="newJobTitle === user.jobTitle">Submit changes</button>
         <a mat-stroked-button color="warn" (click)="goBack()">Back</a></div>
     </div>
     <mat-divider></mat-divider>
@@ -37,4 +37,5 @@
       </form>
     </mat-card-content>
   </mat-card>
+  <div *appLoading="isSubmitting"></div>
 </div>

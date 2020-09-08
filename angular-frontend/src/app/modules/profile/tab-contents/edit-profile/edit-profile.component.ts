@@ -23,6 +23,7 @@ import {User} from "../../../identity-manager/types/user";
 export class EditProfileComponent implements OnInit {
   @Input() user: User;
   editProfileForm: FormGroup;
+  submitting: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,6 +44,7 @@ export class EditProfileComponent implements OnInit {
 
   submit() {
     if (this.editProfileForm.valid) {
+      this.submitting = true;
       let newData = {
         jobTitle: this.editProfileForm.value.jobTitle,
         dateOfBirth: convertToDateOnly(this.editProfileForm.value.dateOfBirth),
@@ -54,6 +56,7 @@ export class EditProfileComponent implements OnInit {
           this.snackBar.open("Profile edited successfully","", {panelClass: ['success-snackbar']})
           this.dialogRef.close()
         } else {
+          this.submitting = false;
           this.snackBar.open(res.msg, "", {panelClass: ['error-snackbar']})
         }
       })

@@ -18,6 +18,7 @@ export class EditProfilePictureComponent implements OnInit {
   fileToUpload: File
   imageToUpload: string | ArrayBuffer;
 
+  isUploading: boolean = false;
   isLoading: boolean = false;
   uploadProgress: number = 0;
 
@@ -60,10 +61,12 @@ export class EditProfilePictureComponent implements OnInit {
   }
 
   uploadFile = () : void => {
+    this.isUploading = true;
     this.imagesService.uploadProfilePicture(this.fileToUpload).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         this.uploadProgress = Math.round(event.loaded/event.total * 100);
         if (event.loaded === event.total) {
+          this.isUploading = false;
           this.isLoading = true
         }
       } else if (event.type === HttpEventType.Response) {

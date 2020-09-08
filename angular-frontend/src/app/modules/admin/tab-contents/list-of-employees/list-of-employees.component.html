@@ -2,7 +2,7 @@
   <div mat-subheader>Managers</div>
   <mat-list-option *ngFor="let manager of managers" (click)="viewEmployeeDetails(manager._id)">
     <div mat-line>{{manager.name}}</div>
-    <div mat-line>{{manager.role}}</div>
+    <div mat-line>{{manager.jobTitle || manager.role}}</div>
   </mat-list-option>
   <mat-divider></mat-divider>
   <div mat-subheader>Employees</div>
@@ -10,6 +10,6 @@
                    [class.need-approval]="!employee.approved"
                    [matBadge]="employee.approved ? null : '*'" matBadgeColor="warn">
     <div mat-line>{{employee.name}}</div>
-    <div mat-line>{{employee.role}}</div>
+    <div mat-line>{{employee.jobTitle || employee.role}}</div>
   </mat-list-option>
 </mat-selection-list>
