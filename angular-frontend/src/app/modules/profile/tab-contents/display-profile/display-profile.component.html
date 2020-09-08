@@ -1,10 +1,7 @@
 <div fxFlex *appLoading="!user" class="p-40px">
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start end" class="mb-20px">
-    <div class="container">
-    <img [src]="user.profilePicUrl || './assets/default_avatar.png'" alt="Profile pic"
-         class="profile-pic">
-    <mat-icon class="clickable edit-icon" (click)="editProfilePicture()">edit</mat-icon>
-    </div>
+    <img [src]="imgsrc || './assets/default_avatar.png'" alt="Profile pic"
+         class="profile-pic clickable" (click)="editProfilePicture()">
       <div fxLayout="column">
       <div class="name">{{user.name}}</div>
       <div class="job-title">{{user.jobTitle || user.role}}</div>

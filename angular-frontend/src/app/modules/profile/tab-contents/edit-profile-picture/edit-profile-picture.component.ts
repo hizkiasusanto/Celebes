@@ -3,6 +3,8 @@ import {User} from "../../../identity-manager/types/user";
 import {MatDialogRef} from "@angular/material/dialog";
 import {ImagesService} from "../../../../shared/services/images.service";
 import {BackendResponse} from "../../../../shared/types/backendresponse";
+import {AuthService} from "../../../identity-manager/services/auth.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-edit-profile-picture',
@@ -11,6 +13,7 @@ import {BackendResponse} from "../../../../shared/types/backendresponse";
 })
 export class EditProfilePictureComponent implements OnInit {
   @Input() user: User
+  currentImageUrl: string
   fileToUpload: File
   imageToUpload: string | ArrayBuffer;
 
@@ -18,10 +21,13 @@ export class EditProfilePictureComponent implements OnInit {
 
   constructor(
     private imagesService: ImagesService,
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<EditProfilePictureComponent>
   ) { }
 
   ngOnInit(): void {
+    this.currentImageUrl = this.imagesService.getProfilePicture(this.user.profilePicUrl)
   }
 
   selectFile = event => {
@@ -53,7 +59,13 @@ export class EditProfilePictureComponent implements OnInit {
 
   uploadFile = () : void => {
     this.imagesService.uploadProfilePicture(this.fileToUpload).subscribe((res:BackendResponse) => {
-      console.log(res);
+      if (res.success) {
+        this.authService.userSubject.next(res.user)
+        this.snackBar.open("Profile picture edited successfully","", {panelClass: ['success-snackbar']})
+        this.dialogRef.close()
+      } else {
+        this.snackBar.open(res.msg, "", {panelClass: ['error-snackbar']})
+      }
     })
   }
 

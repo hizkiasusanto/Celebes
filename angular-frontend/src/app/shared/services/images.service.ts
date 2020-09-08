@@ -12,6 +12,10 @@ export class ImagesService {
 
   constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
+  getProfilePicture(profilePicUrl: string) : string {
+    return `${environment.profilePicDirectoryUrl}/${profilePicUrl}`
+  }
+
   uploadProfilePicture(file: File) : Observable<BackendResponse> {
     const formData = new FormData();
     formData.append('profilePicture', file, file.name);

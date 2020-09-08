@@ -11,6 +11,11 @@ mat-card {
   width: 500px;
 }
 
+mat-card img {
+  background-color: black;
+  object-fit: cover;
+}
+
 mat-card-content {
   margin: 20px 40px;
 }

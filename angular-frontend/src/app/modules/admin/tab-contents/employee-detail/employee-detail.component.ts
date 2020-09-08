@@ -6,6 +6,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {User} from "../../../identity-manager/types/user";
 import {BackendResponse} from "../../../../shared/types/backendresponse";
 import {DateOnly} from "../../../../shared/types/date";
+import {ImagesService} from "../../../../shared/services/images.service";
 
 @Component({
   selector: 'app-employee-detail',
@@ -17,6 +18,7 @@ export class EmployeeDetailComponent implements OnInit {
   id? : string;
 
   dateOfBirthInputString: string;
+  profilePicUrl: string;
 
   jobTitleReadonly: boolean = true;
   newJobTitle: string;
@@ -25,6 +27,7 @@ export class EmployeeDetailComponent implements OnInit {
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private employeeService: EmployeeService,
+    private imagesService: ImagesService,
     private snackBar: MatSnackBar
   ) { }
 
@@ -35,6 +38,9 @@ export class EmployeeDetailComponent implements OnInit {
         this.user = res.user;
         this.dateOfBirthInputString = this.user.dateOfBirth === null ? 'Not set yet' :
           new DateOnly(this.user.dateOfBirth).displayDate();
+        if (this.user.profilePicUrl) {
+          this.profilePicUrl = this.imagesService.getProfilePicture(this.user.profilePicUrl)
+        }
         this.newJobTitle = res.user.jobTitle;
       } else {
         this.snackBar.open(res.msg, "", {
