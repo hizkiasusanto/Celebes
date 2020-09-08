@@ -71,4 +71,9 @@ export class AuthService {
     this.loadToken();
     return new HttpHeaders({'Content-Type':'application/json', 'Authorization':this.authToken});
   }
+
+  addAuthorizedHeaderNonJson = () : HttpHeaders => {
+    this.loadToken();
+    return new HttpHeaders({'Authorization':this.authToken})
+  }
 }

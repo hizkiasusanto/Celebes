@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../../../identity-manager/types/user";
 import {MatDialogRef} from "@angular/material/dialog";
+import {ImagesService} from "../../../../shared/services/images.service";
+import {BackendResponse} from "../../../../shared/types/backendresponse";
 
 @Component({
   selector: 'app-edit-profile-picture',
@@ -10,17 +12,19 @@ import {MatDialogRef} from "@angular/material/dialog";
 export class EditProfilePictureComponent implements OnInit {
   @Input() user: User
   fileToUpload: File
-  imageToUpload;
+  imageToUpload: string | ArrayBuffer;
 
   errorMessage: string;
 
-  constructor(private dialogRef: MatDialogRef<EditProfilePictureComponent>) { }
+  constructor(
+    private imagesService: ImagesService,
+    private dialogRef: MatDialogRef<EditProfilePictureComponent>
+  ) { }
 
   ngOnInit(): void {
   }
 
   selectFile = event => {
-    console.log(event.target.files[0])
     if (!event.target.files[0] || event.target.files[0].length == 0) {
       this.errorMessage = 'You must select an image';
       setTimeout(() => this.errorMessage = '', 2000);
@@ -48,7 +52,9 @@ export class EditProfilePictureComponent implements OnInit {
   }
 
   uploadFile = () : void => {
-    console.log(this.fileToUpload)
+    this.imagesService.uploadProfilePicture(this.fileToUpload).subscribe((res:BackendResponse) => {
+      console.log(res);
+    })
   }
 
   cancel = () : void => this.dialogRef.close()
