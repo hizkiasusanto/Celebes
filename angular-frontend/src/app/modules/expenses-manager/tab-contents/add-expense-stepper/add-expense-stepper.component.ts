@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Form, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../../identity-manager/types/user";
 import {AuthService} from "../../../identity-manager/services/auth.service";
 import {UnitOfMeasurement} from "../../../../shared/types/unit-of-measurement";
+import {requiredFileType} from "../../../../shared/services/images.service";
 
 @Component({
   selector: 'app-add-expense-stepper',
@@ -33,7 +34,7 @@ export class AddExpenseStepperComponent implements OnInit {
   }
 
   addExpensesForm: FormGroup = new FormGroup({
-    'invoice': new FormControl(null, Validators.required),
+    'invoice': new FormControl(null, [Validators.required, requiredFileType(['png','jpg','jpeg'])]),
     'expenses': new FormArray([
       this.createExpense()
     ], [Validators.required])

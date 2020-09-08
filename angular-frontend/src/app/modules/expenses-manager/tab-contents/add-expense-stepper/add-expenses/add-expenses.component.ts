@@ -10,7 +10,7 @@ import {UnitOfMeasurement} from "../../../../../shared/types/unit-of-measurement
 export class AddExpensesComponent implements OnInit {
   @Input() addExpensesForm: FormGroup
   @Output() addRow = new EventEmitter
-  @Output() removeRow = new EventEmitter
+  @Output() deleteRow = new EventEmitter
 
   get unitsOfMeasurement(): Array<string> {
     return Object.values(UnitOfMeasurement)
@@ -22,13 +22,8 @@ export class AddExpensesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  emitAddRow = () => {
-    console.log("adding row")
-    this.addRow.emit(null)
-  }
+  emitAddRow = () => this.addRow.emit(null)
 
-  emitRemoveRow = (index: number) => {
-    console.log("removing row " + index);
-    this.removeRow.emit(index)
-  }
+
+  emitRemoveRow = (index: number) => this.deleteRow.emit(index)
 }

@@ -3,6 +3,7 @@ import {HttpClient, HttpEvent} from "@angular/common/http";
 import {AuthService} from "../../modules/identity-manager/services/auth.service";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
+import {FormControl} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +29,24 @@ export class ImagesService {
     return this.httpClient.post(`${environment.backendUrl}/invoices/upload-invoice`,formData,
       {headers:this.authService.addAuthorizedHeaderNonJson(), reportProgress:true, observe:"events"})
   }
+}
+
+export function requiredFileType( types: string[] ) {
+  return function (control: FormControl) {
+    const file = control.value;
+    if ( file ) {
+      const extension = file.split('.').pop();
+      if ( types.map(type => type.toLowerCase()).includes(extension.toLowerCase()) ) {
+        return null;
+      }
+
+      return {
+        requiredFileType: true
+      };
+    }
+
+    return {
+      requiredFileType: true
+    };
+  };
 }

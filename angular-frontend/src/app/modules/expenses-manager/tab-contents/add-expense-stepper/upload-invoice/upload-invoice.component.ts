@@ -18,6 +18,7 @@ export class UploadInvoiceComponent implements OnInit {
   }
 
   selectFile = event => {
+    this.fileToUpload = null;
     if (!event.target.files[0] || event.target.files[0].length == 0) {
 
       this.snackBar.open("You must select an image","",{panelClass:['error-snackbar']})
@@ -30,7 +31,6 @@ export class UploadInvoiceComponent implements OnInit {
     }
 
     this.fileToUpload = event.target.files[0];
-    console.log(this.fileToUpload)
   }
 
 }

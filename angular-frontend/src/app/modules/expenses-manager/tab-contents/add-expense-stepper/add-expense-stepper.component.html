@@ -4,8 +4,7 @@
     <app-upload-invoice [uploadInvoiceForm]="addExpensesForm"></app-upload-invoice>
   </mat-step>
   <mat-step label="Add expenses" [stepControl]="addExpensesForm.controls.expenses">
-    <app-add-expenses [addExpensesForm]="addExpensesForm"></app-add-expenses>
-    <button mat-mini-fab (click)="addRow()"><mat-icon>add</mat-icon></button>
+    <app-add-expenses [addExpensesForm]="addExpensesForm" (addRow)="addRow()" (deleteRow)="deleteRow($event)"></app-add-expenses>
   </mat-step>
   <mat-step label="Review and confirm">
   </mat-step>
