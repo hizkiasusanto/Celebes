@@ -19,9 +19,11 @@ const storage = (subfolder) => multer.diskStorage({
 })
 
 const upload = (subfolder) => multer({
-    storage: storage(subfolder), limits: {
+    storage: storage(subfolder),
+    limits: {
         fileSize: 1024 * 1024
-    }, fileFilter: (req, file, callback) => {
+    },
+    fileFilter: (req, file, callback) => {
         if (file.mimetype.match(/image\/*/) === null) {
             callback(new Error('File type not recognized'), false)
         } else {
@@ -35,7 +37,7 @@ router.post('/upload-profile-picture', authenticate(),
     (req, res) => {
         User.getUserById(req.user._id, (err, user) => {
             if (err) {
-                res.send({success: true, msg: 'Failed to update profile picture'})
+                res.send({success: false, msg: 'Failed to update profile picture'})
             } else {
                 if (user.profilePicUrl) {
                     unlinkAsync(`uploads/profile-pictures/${user.profilePicUrl}`).catch(() => {

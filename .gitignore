@@ -19,6 +19,4 @@ app/tests/coverage/
 coverage/
 data
 
-uploads/profile-pictures/*.jpg
-uploads/profile-pictures/*.jpeg
-uploads/profile-pictures/*.png
+uploads/**/*
