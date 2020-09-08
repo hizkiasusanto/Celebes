@@ -2,10 +2,11 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {ExpensesService} from "../../../services/expenses.service";
 import {ChartDataSets, ChartOptions} from "chart.js";
 import {Label} from "ng2-charts";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, forkJoin, Observable} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {RupiahPipe} from "../../../../../shared/pipes/rupiah.pipe";
 import {BackendResponse} from "../../../../../shared/types/backendresponse";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-expenses-by-item',
@@ -17,7 +18,7 @@ export class ExpensesByItemComponent implements OnInit, OnChanges {
   @Input() endDate: Date;
   isLoading: boolean = false;
 
-  expensesData: {item: string, expense: number}[] = [];
+  expensesData: { item: string, expense: number }[] = [];
   private datasetSubject = new BehaviorSubject(this.expensesData);
 
   public chartData: ChartDataSets[] = [{data: this.expensesData.map(x => x.expense)}];
@@ -42,7 +43,8 @@ export class ExpensesByItemComponent implements OnInit, OnChanges {
     }
   };
 
-  constructor(private expensesService: ExpensesService, private snackBar: MatSnackBar) {}
+  constructor(private expensesService: ExpensesService, private snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
     this.datasetSubject.asObservable().subscribe(() => {
@@ -54,42 +56,35 @@ export class ExpensesByItemComponent implements OnInit, OnChanges {
     })
   }
 
-  ngOnChanges() : void {
+  ngOnChanges(): void {
     if (this.startDate && this.endDate) this.updateChartData()
+    console.log("ehy")
   }
 
-  updateChartData = () : void => {
+  updateChartData = (): void => {
     if (!this.isLoading) {
       this.isLoading = true;
       this.expensesData = [];
+      this.datasetSubject.next(this.expensesData)
       this.expensesService.findAllDistinctItems(this.startDate, this.endDate).subscribe((res: BackendResponse) => {
         if (res.success) {
-          if (res.items.length === 0) {
-            this.datasetSubject.next(this.expensesData)
-          }
-          res.items.forEach(item => this.updateItemData(item));
+          forkJoin(res.items.map(item => this.updateItemData(item))).subscribe((results: { item: string, expense: number }[]) => {
+            this.expensesData = results;
+            this.datasetSubject.next(this.expensesData);
+            this.isLoading = false;
+          })
         } else {
-          this.snackBar.open(res.msg, '', {panelClass:['error-snackbar']})
-          this.datasetSubject.next(this.expensesData)
+          this.snackBar.open(res.msg, '', {panelClass: ['error-snackbar']})
         }
-        this.isLoading = false;
       })
     }
   }
 
-  updateItemData = (item: string) : void => {
-    this.expensesService.getExpensesByItem(item, this.startDate, this.endDate).subscribe((res: BackendResponse) => {
-      if (res.success) {
-        let indexOfExisting = this.expensesData.map(e => e.item).indexOf(item);
-        if (indexOfExisting == -1) {
-          this.expensesData.push({item: item, expense: res.expense})
-        } else if (this.expensesData[indexOfExisting].expense != res.expense) {
-          this.expensesData[indexOfExisting].expense = res.expense;
-        }
-      } else {
-        this.snackBar.open(res.msg, "", {panelClass: ['error-snackbar']})
-      }
-      this.datasetSubject.next(this.expensesData);
-    })
+
+  updateItemData = (item: string): Observable<{ item: string, expense: number }> => {
+    return this.expensesService.getExpensesByItem(item, this.startDate, this.endDate).pipe(map(value => {
+      return {item: item, expense: value.expense}
+    }));
   }
+
 }
