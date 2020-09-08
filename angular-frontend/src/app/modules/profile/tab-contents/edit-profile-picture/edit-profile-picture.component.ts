@@ -27,7 +27,9 @@ export class EditProfilePictureComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.currentImageUrl = this.imagesService.getProfilePicture(this.user.profilePicUrl)
+    if (this.user.profilePicUrl) {
+      this.currentImageUrl = this.imagesService.getProfilePicture(this.user.profilePicUrl)
+    }
   }
 
   selectFile = event => {

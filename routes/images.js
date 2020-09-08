@@ -36,7 +36,17 @@ router.post('/upload-profile-picture', User.authenticate(),
         if (err) {
             res.send({success: true, msg: 'Failed to update profile picture'})
         } else {
-            unlinkAsync(`uploads/profile-pictures/${user.profilePicUrl}`).then(() => {
+            if (user.profilePicUrl) {
+                unlinkAsync(`uploads/profile-pictures/${user.profilePicUrl}`).then(() => {
+                    User.editProfilePicture(user._id, req.file.filename, (err, user) => {
+                        if (err) {
+                            res.send({success: false, msg: 'Failed to update profile picture'})
+                        } else {
+                            res.send({success: true, user})
+                        }
+                    })
+                })
+            } else {
                 User.editProfilePicture(user._id, req.file.filename, (err, user) => {
                     if (err) {
                         res.send({success: false, msg: 'Failed to update profile picture'})
@@ -44,7 +54,7 @@ router.post('/upload-profile-picture', User.authenticate(),
                         res.send({success: true, user})
                     }
                 })
-            })
+            }
         }
     })
 
