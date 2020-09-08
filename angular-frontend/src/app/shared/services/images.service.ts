@@ -21,4 +21,11 @@ export class ImagesService {
     return this.httpClient.post(`${environment.backendUrl}/images/upload-profile-picture`,formData,
       {headers: this.authService.addAuthorizedHeaderNonJson(), reportProgress: true, observe: "events"})
   }
+
+  uploadInvoice(file: File) : Observable<HttpEvent<any>> {
+    const formData = new FormData();
+    formData.append('invoice', file, file.name);
+    return this.httpClient.post(`${environment.backendUrl}/invoices/upload-invoice`,formData,
+      {headers:this.authService.addAuthorizedHeaderNonJson(), reportProgress:true, observe:"events"})
+  }
 }
