@@ -4,8 +4,10 @@ import {PageNotFoundComponent} from "../../shared/components/page-not-found/page
 import {ListOfExpensesComponent} from "./tab-contents/list-of-expenses/list-of-expenses.component";
 import {ExpensesManagerDashboardComponent} from "./expenses-manager-dashboard/expenses-manager-dashboard.component";
 import {ExpensesChartsComponent} from "./tab-contents/charts/expenses-charts.component";
+import {AddExpenseStepperComponent} from "./tab-contents/add-expense-stepper/add-expense-stepper.component";
 
 const routes: Routes = [
+  {path: 'add-new-expense', component: AddExpenseStepperComponent},
   {
     path: '', component: ExpensesManagerDashboardComponent, children: [
       {path: 'list-of-expenses', component: ListOfExpensesComponent},

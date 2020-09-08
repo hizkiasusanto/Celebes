@@ -21,7 +21,6 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
 import {AnchorDirective} from "./directives/anchor.directive";
 import {GridTileContentComponent} from "./partials/grid-tile-content/grid-tile-content.component";
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
-import { DisableAfterClickDirective } from './directives/disable-after-click.directive';
 
 @NgModule({
   declarations: [
@@ -37,7 +36,6 @@ import { DisableAfterClickDirective } from './directives/disable-after-click.dir
     PageNotFoundComponent,
     AnchorDirective,
     GridTileContentComponent,
-    DisableAfterClickDirective
   ],
   imports: [
     CommonModule,
@@ -60,7 +58,6 @@ import { DisableAfterClickDirective } from './directives/disable-after-click.dir
     HomeComponent,
     RupiahPipe,
     LoadingDirective,
-    DisableAfterClickDirective
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500, horizontalPosition: "end"}},

@@ -27,6 +27,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatStepperModule} from "@angular/material/stepper";
 
 @NgModule({
   declarations: [],
@@ -59,6 +60,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatCheckboxModule,
     MatBadgeModule,
     MatProgressBarModule,
+    MatStepperModule,
 
     FlexModule,
     LayoutModule

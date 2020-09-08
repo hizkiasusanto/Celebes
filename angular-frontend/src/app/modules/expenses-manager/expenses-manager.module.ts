@@ -10,6 +10,9 @@ import { EditExpenseFormComponent } from './tab-contents/forms/edit-expense-form
 import { DatepickerComponent } from './tab-contents/partials/datepicker/datepicker.component';
 import { DeleteExpenseFormComponent } from './tab-contents/forms/delete-expense-form/delete-expense-form.component';
 import { ExpensesChartsComponent } from './tab-contents/charts/expenses-charts.component';
+import { AddExpenseStepperComponent } from './tab-contents/add-expense-stepper/add-expense-stepper.component';
+import { UploadInvoiceComponent } from './tab-contents/add-expense-stepper/upload-invoice/upload-invoice.component';
+import { AddExpensesComponent } from './tab-contents/add-expense-stepper/add-expenses/add-expenses.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { ExpensesChartsComponent } from './tab-contents/charts/expenses-charts.c
     DatepickerComponent,
     DeleteExpenseFormComponent,
     ExpensesChartsComponent,
+    AddExpenseStepperComponent,
+    UploadInvoiceComponent,
+    AddExpensesComponent,
   ],
   imports: [
     SharedModule.forRoot(),
