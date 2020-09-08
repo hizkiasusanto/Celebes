@@ -11,14 +11,19 @@
     "bcryptjs": "*",
     "body-parser": "*",
     "cors": "*",
+    "dateformat": "^3.0.3",
     "dotenv": "^8.2.0",
     "express": "*",
     "jsonwebtoken": "*",
     "mongoose": "^5.10.2",
+    "multer": "^1.4.2",
     "passport": "*",
     "passport-jwt": "*"
   },
   "keywords": [],
   "author": "Hizkia Susanto",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/multer": "^1.4.4"
+  }
 }

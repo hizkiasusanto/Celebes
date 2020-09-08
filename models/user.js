@@ -62,6 +62,10 @@ module.exports.editProfile = (id, newData, callback) => {
     }, {new : true}, callback)
 }
 
+module.exports.editProfilePicture = (id, newProfilePicUrl, callback) => {
+    User.findByIdAndUpdate(id, {profilePicUrl: newProfilePicUrl}, {new: true}, callback)
+}
+
 module.exports.getUserByEmail = (email, callback) => User.findOne({email: email}, callback)
 
 module.exports.addUser = (newUser, callback) => {
