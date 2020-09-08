@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Form, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../../identity-manager/types/user";
 import {AuthService} from "../../../identity-manager/services/auth.service";
+import {UnitOfMeasurement} from "../../../../shared/types/unit-of-measurement";
 
 @Component({
   selector: 'app-add-expense-stepper',
@@ -10,8 +11,32 @@ import {AuthService} from "../../../identity-manager/services/auth.service";
 })
 export class AddExpenseStepperComponent implements OnInit {
   user: User;
+  createExpense(): FormGroup {
+    return new FormGroup({
+      'item': new FormControl(undefined,Validators.required),
+      'supplier': new FormControl(undefined,Validators.required),
+      'amount': new FormControl(undefined,Validators.required),
+      'unit': new FormControl(UnitOfMeasurement.Kg),
+      'pricePerUnit': new FormControl(undefined,Validators.required),
+      'totalPrice': new FormControl(undefined,Validators.required)
+    });
+  }
+
+  addRow(): void {
+    const expenses = this.addExpensesForm.get('expenses') as FormArray
+    expenses.push(this.createExpense())
+  }
+
+  deleteRow(index: number) : void {
+    const expenses = this.addExpensesForm.get('expenses') as FormArray
+    expenses.removeAt(index)
+  }
+
   addExpensesForm: FormGroup = new FormGroup({
-    'invoice': new FormControl(null, Validators.required)
+    'invoice': new FormControl(null, Validators.required),
+    'expenses': new FormArray([
+      this.createExpense()
+    ], [Validators.required])
   })
 
   constructor(private authService: AuthService) {

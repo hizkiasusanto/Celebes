@@ -1,5 +1,63 @@
-
-  <div>
-    Add expenses
+<div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="space-evenly stretch">
+  <form [formGroup]="addExpensesForm" fxFlex>
+    <table>
+      <thead>
+      <tr>
+        <th></th>
+        <th>Item</th>
+        <th>Supplier</th>
+        <th>Amount</th>
+        <th>Unit</th>
+        <th>Price/Unit</th>
+        <th>Total price</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container formArrayName="expenses"
+                    *ngFor="let expense of addExpensesForm.get('expenses')['controls']; let i = index;">
+        <tr [formGroupName]="i">
+          <td style="padding:5px; text-align: center">
+            {{i + 1}}
+          </td>
+          <td>
+            <div><input formControlName="item" type="text"/></div>
+          </td>
+          <td>
+            <div><input formControlName="supplier" type="text"/></div>
+          </td>
+          <td>
+            <div><input formControlName="amount" type="number"/></div>
+          </td>
+          <td>
+            <div class="auto-width">
+              <mat-select formControlName="unit">
+                <mat-option *ngFor="let unit of unitsOfMeasurement" [value]="unit">
+                  {{unit}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </td>
+          <td>
+            <div><input formControlName="pricePerUnit" type="number"/></div>
+          </td>
+          <td>
+            <div><input formControlName="totalPrice" type="number"/></div>
+          </td>
+          <td style="text-align: center">
+            <mat-icon (click)="emitRemoveRow(i)" style="cursor: pointer" color="warn">delete</mat-icon>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </form>
+  <div fxLayout="row" fxLayoutAlign="end">
+    <button mat-mini-fab (click)="emitAddRow()" color="accent"><mat-icon>add</mat-icon></button>
   </div>
-
+  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+    <button mat-stroked-button color="accent" matStepperPrevious>Previous</button>
+    <button mat-flat-button color="primary" matStepperNext [disabled]="!addExpensesForm.controls.expenses.valid">Next
+    </button>
+  </div>
+</div>
