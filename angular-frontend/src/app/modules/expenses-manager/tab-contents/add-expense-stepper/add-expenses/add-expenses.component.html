@@ -53,11 +53,14 @@
     </table>
   </form>
   <div fxLayout="row" fxLayoutAlign="end">
-    <button mat-mini-fab (click)="emitAddRow()" color="accent"><mat-icon>add</mat-icon></button>
+    <button mat-mini-fab (click)="emitAddRow()" color="accent">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
   <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
-    <button mat-stroked-button color="accent" matStepperPrevious>Previous</button>
-    <button mat-flat-button color="primary" matStepperNext [disabled]="!addExpensesForm.controls.expenses.valid">Next
+    <button mat-stroked-button color="accent" matStepperPrevious type="button">Previous</button>
+    <button mat-flat-button color="primary" matStepperNext [disabled]="!addExpensesForm.controls.expenses.valid"
+            type="button">Next
     </button>
   </div>
 </div>

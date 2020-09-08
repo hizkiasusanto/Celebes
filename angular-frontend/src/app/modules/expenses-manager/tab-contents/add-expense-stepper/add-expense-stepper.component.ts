@@ -12,6 +12,7 @@ import {requiredFileType} from "../../../../shared/services/images.service";
 })
 export class AddExpenseStepperComponent implements OnInit {
   user: User;
+  imageToUpload: string | ArrayBuffer;
   createExpense(): FormGroup {
     return new FormGroup({
       'item': new FormControl(undefined,Validators.required),
@@ -47,4 +48,15 @@ export class AddExpenseStepperComponent implements OnInit {
     this.authService.userSubject.subscribe(user => this.user = user);
   }
 
+  takeFile = (event: File) : void => {
+    this.addExpensesForm.patchValue({'invoice': event})
+    let reader = new FileReader();
+    reader.readAsDataURL(this.addExpensesForm.controls.invoice.value);
+
+    reader.onload = () => this.imageToUpload = reader.result;
+  }
+
+  submit() {
+    console.log('submitting')
+  }
 }

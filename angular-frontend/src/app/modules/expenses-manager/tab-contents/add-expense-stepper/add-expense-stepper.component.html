@@ -1,11 +1,18 @@
 <h3>Add new expenses</h3>
-<mat-vertical-stepper linear>
-  <mat-step label="Upload an invoice" [stepControl]="addExpensesForm.controls.invoice">
-    <app-upload-invoice [uploadInvoiceForm]="addExpensesForm"></app-upload-invoice>
-  </mat-step>
-  <mat-step label="Add expenses" [stepControl]="addExpensesForm.controls.expenses">
-    <app-add-expenses [addExpensesForm]="addExpensesForm" (addRow)="addRow()" (deleteRow)="deleteRow($event)"></app-add-expenses>
-  </mat-step>
-  <mat-step label="Review and confirm">
-  </mat-step>
-</mat-vertical-stepper>
+<form [formGroup]="addExpensesForm">
+  <mat-vertical-stepper linear>
+    <mat-step label="Upload an invoice" [stepControl]="addExpensesForm.controls.invoice">
+      <app-upload-invoice [uploadInvoiceForm]="addExpensesForm" (fileEmitter)="takeFile($event)"></app-upload-invoice>
+    </mat-step>
+    <mat-step label="Add expenses" [stepControl]="addExpensesForm.controls.expenses">
+      <app-add-expenses [addExpensesForm]="addExpensesForm" (addRow)="addRow()"
+                        (deleteRow)="deleteRow($event)"></app-add-expenses>
+    </mat-step>
+    <mat-step label="Review and confirm">
+      <app-form-review [imageToPreview]="imageToUpload" [addExpensesForm]="addExpensesForm"></app-form-review>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center" style="padding-top: 25px">
+        <button mat-raised-button color="primary" (click)="submit()" type="submit">Submit</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</form>

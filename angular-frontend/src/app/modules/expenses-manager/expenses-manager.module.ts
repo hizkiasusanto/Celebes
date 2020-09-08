@@ -13,6 +13,7 @@ import { ExpensesChartsComponent } from './tab-contents/charts/expenses-charts.c
 import { AddExpenseStepperComponent } from './tab-contents/add-expense-stepper/add-expense-stepper.component';
 import { UploadInvoiceComponent } from './tab-contents/add-expense-stepper/upload-invoice/upload-invoice.component';
 import { AddExpensesComponent } from './tab-contents/add-expense-stepper/add-expenses/add-expenses.component';
+import { FormReviewComponent } from './tab-contents/add-expense-stepper/form-review/form-review.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AddExpensesComponent } from './tab-contents/add-expense-stepper/add-exp
     AddExpenseStepperComponent,
     UploadInvoiceComponent,
     AddExpensesComponent,
+    FormReviewComponent,
   ],
   imports: [
     SharedModule.forRoot(),

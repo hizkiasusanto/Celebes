@@ -35,7 +35,7 @@ export function requiredFileType( types: string[] ) {
   return function (control: FormControl) {
     const file = control.value;
     if ( file ) {
-      const extension = file.split('.').pop();
+      const extension = file.name.split('.').pop();
       if ( types.map(type => type.toLowerCase()).includes(extension.toLowerCase()) ) {
         return null;
       }

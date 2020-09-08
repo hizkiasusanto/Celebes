@@ -1,0 +1,29 @@
+<div fxLayout="column" fxLayoutGap="20px">
+  <h4>Invoice Preview</h4>
+<img *ngIf="imageToPreview" [src]="imageToPreview" alt="Invoice image" style="width:500px;height: auto"/>
+  <h4>Transactions</h4>
+<table>
+  <thead>
+  <tr>
+    <th></th>
+    <th>Item</th>
+    <th>Supplier</th>
+    <th>Amount</th>
+    <th>Price/Unit</th>
+    <th>Total price</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let expense of addExpensesForm.controls.expenses.value; let i = index;">
+  <tr>
+    <td style="padding:5px; text-align: center">
+      {{i + 1}}
+    </td>
+    <td>{{expense.item}}</td>
+    <td>{{expense.supplier}}</td>
+    <td>{{expense.amount}} {{expense.unit}}</td>
+    <td>{{expense.pricePerUnit}}</td>
+    <td>{{expense.totalPrice}}</td>
+  </tr>
+  </tbody>
+</table>
+</div>

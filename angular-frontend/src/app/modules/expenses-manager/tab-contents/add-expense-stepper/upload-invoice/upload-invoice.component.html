@@ -1,9 +1,8 @@
 <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="space-evenly start">
-  <form fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" [formGroup]="uploadInvoiceForm">
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
     <button mat-flat-button (click)="inputFile.click()" color="primary">Choose file from device</button>
     <div>{{fileToUpload?.name}}</div>
-  <input style="display: none" #inputFile type="file" (change)="selectFile($event)" formControlName="invoice"
-         accept="image/jpeg, image/png"/>
-  </form>
+  <input style="display: none" #inputFile type="file" (change)="selectFile($event)" accept="image/jpeg, image/png"/>
+  </div>
   <button mat-flat-button color="primary" matStepperNext [disabled]="!uploadInvoiceForm.controls.invoice.valid">Next</button>
 </div>
