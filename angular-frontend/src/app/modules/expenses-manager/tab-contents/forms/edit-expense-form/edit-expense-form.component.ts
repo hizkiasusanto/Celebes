@@ -18,6 +18,8 @@ export class EditExpenseFormComponent implements OnInit {
 
   @Input() expense: Expense;
   @Input() _id: string;
+  isSubmitting: boolean = false;
+  private lastChanged: string;
 
   loggedInUser: User;
   get unitsOfMeasurement() : Array<string> {
@@ -47,19 +49,19 @@ export class EditExpenseFormComponent implements OnInit {
     })
   }
 
-  private lastChanged: string;
   changeLastChanged(controlName: string) {
     this.lastChanged = controlName;
   }
 
-  onAmountChange = () => this.priceCalculatorService.onAmountChange(this.expensesForm, this.lastChanged)
+  onAmountChange = () : void => this.priceCalculatorService.onAmountChange(this.expensesForm, this.lastChanged)
 
-  onPricePerUnitChange = () => this.priceCalculatorService.onPricePerUnitChange(this.expensesForm, this.lastChanged)
+  onPricePerUnitChange = () : void => this.priceCalculatorService.onPricePerUnitChange(this.expensesForm, this.lastChanged)
 
-  onTotalPriceChange = () => this.priceCalculatorService.onTotalPriceChange(this.expensesForm, this.lastChanged)
+  onTotalPriceChange = () : void => this.priceCalculatorService.onTotalPriceChange(this.expensesForm, this.lastChanged)
 
-  submit() {
+  submit() : void {
     if (this.expensesForm.valid) {
+      this.isSubmitting = true;
       let expense = <Expense>{
         item: this.expensesForm.value.item,
         supplier: this.expensesForm.value.supplier,
@@ -81,6 +83,7 @@ export class EditExpenseFormComponent implements OnInit {
         this.snackBar.open("Something wrong has happened", "", {
           panelClass: ['error-snackbar']
         })
+        this.isSubmitting = false;
       });
     } else {
       return;

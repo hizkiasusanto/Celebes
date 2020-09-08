@@ -32,21 +32,15 @@ const upload = (subfolder) => multer({
 router.post('/upload-profile-picture', User.authenticate(),
     upload(`profile-pictures/`).single('profilePicture'),
     (req, res) => {
-    User.getUserById(req.user._id, (err, user) => {
-        if (err) {
-            res.send({success: true, msg: 'Failed to update profile picture'})
-        } else {
-            if (user.profilePicUrl) {
-                unlinkAsync(`uploads/profile-pictures/${user.profilePicUrl}`).then(() => {
-                    User.editProfilePicture(user._id, req.file.filename, (err, user) => {
-                        if (err) {
-                            res.send({success: false, msg: 'Failed to update profile picture'})
-                        } else {
-                            res.send({success: true, user})
-                        }
-                    })
-                })
+        User.getUserById(req.user._id, (err, user) => {
+            if (err) {
+                res.send({success: true, msg: 'Failed to update profile picture'})
             } else {
+                if (user.profilePicUrl) {
+                    unlinkAsync(`uploads/profile-pictures/${user.profilePicUrl}`).catch(() => {
+                        console.log("File not found")
+                    })
+                }
                 User.editProfilePicture(user._id, req.file.filename, (err, user) => {
                     if (err) {
                         res.send({success: false, msg: 'Failed to update profile picture'})
@@ -55,8 +49,7 @@ router.post('/upload-profile-picture', User.authenticate(),
                     }
                 })
             }
-        }
-    })
+        })
 
     })
 

@@ -17,6 +17,8 @@ export class EmployeeDetailComponent implements OnInit {
   user? : User;
   id? : string;
 
+  isSubmitting: boolean = false;
+
   dateOfBirthInputString: string;
   profilePicUrl: string;
 
@@ -53,6 +55,7 @@ export class EmployeeDetailComponent implements OnInit {
   goBack = () : void => this.location.back()
 
   approveUser = () : void => {
+    this.isSubmitting = true;
     this.employeeService.approveUser(this.id).subscribe((res: BackendResponse) => {
       this.snackBar.open(res.msg, "", {
         panelClass: [res.success ? 'success-snackbar' : 'error-snackbar']
@@ -62,6 +65,7 @@ export class EmployeeDetailComponent implements OnInit {
   };
 
   updateJobTitle = () : void => {
+    this.isSubmitting = true;
     this.employeeService.updateJobTitle(this.id, this.newJobTitle).subscribe((res: BackendResponse) => {
       this.snackBar.open(res.msg, "", {
         panelClass: [res.success ? 'success-snackbar' : 'error-snackbar']

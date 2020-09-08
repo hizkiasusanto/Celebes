@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   password = new FormControl('', [Validators.required]);
 
   hidePassword: boolean = true;
+  isSubmitting: boolean = false;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit() : void {
+    this.isSubmitting = true;
     const user: LoginFormData = {
       email: this.email.value,
       password: this.password.value

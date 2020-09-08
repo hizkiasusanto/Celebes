@@ -9,7 +9,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./delete-expense-form.component.scss']
 })
 export class DeleteExpenseFormComponent implements OnInit {
-  @Input() _id;
+  @Input() _id: string;
+  isSubmitting: boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<DeleteExpenseFormComponent>,
@@ -20,11 +21,12 @@ export class DeleteExpenseFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goBack() {
+  goBack() : void {
     this.dialogRef.close();
   }
 
-  confirmDelete() {
+  confirmDelete() : void {
+    this.isSubmitting = true;
     this.expensesService.deleteExpense(this._id).subscribe((res: any) => {
       if (res.success) {
         this.snackBar.open("Expense deleted successfully", "", {
@@ -36,6 +38,7 @@ export class DeleteExpenseFormComponent implements OnInit {
         this.snackBar.open(res.msg, "", {
           panelClass: ['error-snackbar']
         })
+        this.isSubmitting = false;
       }
     });
   }
