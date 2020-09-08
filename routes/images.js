@@ -3,6 +3,9 @@ const router = express.Router()
 const User = require("../models/user")
 const multer = require('multer')
 
+const {promisify} = require('util')
+const unlinkAsync = promisify(require('fs').unlink)
+
 const dateFormat = "yyyymmdd_HHMMss"
 
 const storage = (subfolder) => multer.diskStorage({
@@ -29,13 +32,22 @@ const upload = (subfolder) => multer({
 router.post('/upload-profile-picture', User.authenticate(),
     upload(`profile-pictures/`).single('profilePicture'),
     (req, res) => {
-        User.editProfilePicture(req.user._id, req.file.filename, (err, user) => {
-            if (err) {
-                res.send({success: false, msg: 'Failed to update profile picture'})
-            } else {
-                res.send({success: true, user})
-            }
-        })
+    User.getUserById(req.user._id, (err, user) => {
+        if (err) {
+            res.send({success: true, msg: 'Failed to update profile picture'})
+        } else {
+            unlinkAsync(`uploads/profile-pictures/${user.profilePicUrl}`).then(() => {
+                User.editProfilePicture(user._id, req.file.filename, (err, user) => {
+                    if (err) {
+                        res.send({success: false, msg: 'Failed to update profile picture'})
+                    } else {
+                        res.send({success: true, user})
+                    }
+                })
+            })
+        }
+    })
+
     })
 
 module.exports = router
