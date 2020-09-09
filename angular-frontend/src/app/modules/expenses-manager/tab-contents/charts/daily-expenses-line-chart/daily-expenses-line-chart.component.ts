@@ -6,6 +6,7 @@ import {DateService} from "../../../../../shared/services/date.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {RupiahPipe} from "../../../../../shared/pipes/rupiah.pipe";
 import * as moment from 'moment';
+import {BackendResponse} from "../../../../../shared/types/backendresponse";
 
 @Component({
   selector: 'app-daily-expenses-line-chart',
@@ -56,11 +57,13 @@ export class DailyExpensesLineChartComponent implements OnInit, OnChanges {
     if (this.startDate && this.endDate) this.updateChartData()
   }
 
+  greaterThanZero(val) {return val > 0}
+
   updateChartData = (): void => {
     if (!this.isLoading) {
       this.isLoading = true
       this.expensesService.getDailyExpensesInDateRange(this.startDate, this.endDate)
-        .subscribe((res: any) => {
+        .subscribe((res: BackendResponse) => {
           if (res.success) {
             this.expensesData = res.expenses.sort(sortByDate);
             this.chartData = [{data: this.expensesData.map(x => x.expense)}];

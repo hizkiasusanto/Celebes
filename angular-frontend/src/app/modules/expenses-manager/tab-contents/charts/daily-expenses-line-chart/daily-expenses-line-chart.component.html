@@ -1,6 +1,6 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center" *appLoading="isLoading">
   <h4>Daily expenses</h4>
-  <canvas *ngIf="chartData" baseChart
+  <canvas *ngIf="chartData[0].data.some(greaterThanZero)" baseChart
           [datasets]="chartData"
           [labels]="chartLabels"
           [options]="chartOptions"
@@ -8,4 +8,5 @@
           [legend]="false"
           chartType="line">
   </canvas>
+  <div *ngIf="chartData[0].data.filter(greaterThanZero).length === 0">No expenses to show</div>
 </div>

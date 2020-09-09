@@ -1,10 +1,11 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center" *appLoading="isLoading">
   <h4>Expenses by item</h4>
-  <canvas *ngIf="chartData" baseChart
+  <canvas *ngIf="chartData[0].data.length > 0" baseChart
           [datasets]="chartData"
           [labels]="chartLabels"
           [options]="chartOptions"
           [legend]="false"
           chartType="bar">
   </canvas>
+  <div *ngIf="chartData[0].data.length === 0">No expenses to show</div>
 </div>

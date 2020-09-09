@@ -2,11 +2,11 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {ExpensesService} from "../../../services/expenses.service";
 import {ChartDataSets, ChartOptions} from "chart.js";
 import {Label} from "ng2-charts";
-import {BehaviorSubject, forkJoin, Observable, Subscription} from "rxjs";
+import {BehaviorSubject, forkJoin, Observable, of, Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {RupiahPipe} from "../../../../../shared/pipes/rupiah.pipe";
 import {BackendResponse} from "../../../../../shared/types/backendresponse";
-import {map} from "rxjs/operators";
+import {filter, map, switchMap, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-expenses-by-item',
@@ -48,7 +48,7 @@ export class ExpensesByItemComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.subscription = this.datasetSubject.asObservable().subscribe(() => {
+    this.subscription = this.datasetSubject.subscribe(() => {
       this.chartData = [{
         data: this.expensesData.map(x => x.expense),
         backgroundColor: this.expensesData.map(x => x.expense > 1000000 ? 'rgba(200,0,0,0.3)' : 'rgba(34,139,34,0.3)')
@@ -59,7 +59,7 @@ export class ExpensesByItemComponent implements OnInit, OnChanges {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
-}
+  }
 
   ngOnChanges(): void {
     if (this.startDate && this.endDate) this.updateChartData()
@@ -70,15 +70,26 @@ export class ExpensesByItemComponent implements OnInit, OnChanges {
       this.isLoading = true;
       this.expensesData = [];
       this.datasetSubject.next(this.expensesData)
-      this.expensesService.findAllDistinctItems(this.startDate, this.endDate).subscribe((res: BackendResponse) => {
-        if (res.success) {
-          forkJoin(res.items.map(item => this.updateItemData(item))).subscribe((results: { item: string, expense: number }[]) => {
-            this.expensesData = results;
-            this.datasetSubject.next(this.expensesData);
-            this.isLoading = false;
-          })
+      this.expensesService.findAllDistinctItems(this.startDate, this.endDate).pipe(
+        switchMap((res: BackendResponse) => {
+          if (res.success) {
+            return of(res.items as string[])
+          } else {
+            this.snackBar.open(res.msg, '', {panelClass: ['error-snackbar']})
+            return of(null)
+          }
+        })).subscribe((items: string[]) => {
+        if (items && items.length > 0) {
+          items.map(item => this.updateItemData(item).subscribe(result => {
+            this.expensesData.push(result);
+            if (this.expensesData.length === items.length) {
+              this.datasetSubject.next(this.expensesData);
+              this.isLoading = false;
+            }
+          }))
         } else {
-          this.snackBar.open(res.msg, '', {panelClass: ['error-snackbar']})
+          this.datasetSubject.next(this.expensesData);
+          this.isLoading = false;
         }
       })
     }
