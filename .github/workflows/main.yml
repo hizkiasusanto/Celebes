@@ -6,7 +6,7 @@ name: development-with-CI
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -23,4 +23,4 @@ jobs:
         git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
     - run: |
         git fetch --unshallow
-        git push heroku master -f
+        git push heroku main -f

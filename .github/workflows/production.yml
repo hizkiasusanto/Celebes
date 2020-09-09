@@ -21,4 +21,4 @@ jobs:
         git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.PRODUCTION_APP_NAME }}.git
     - run: |
         git fetch --unshallow
-        git push heroku master -f
+        git push heroku main -f
