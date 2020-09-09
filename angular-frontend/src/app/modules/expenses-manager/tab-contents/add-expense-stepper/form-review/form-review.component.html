@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="20px">
   <h4>Invoice Preview</h4>
-<img *ngIf="imageToPreview" [src]="imageToPreview" alt="Invoice image" style="width:500px;height: auto"/>
+<img *ngIf="imageToPreview" [src]="imageToPreview" alt="Invoice image" class="invoice-preview"/>
   <h4>Transactions</h4>
 <table>
   <thead>
@@ -15,7 +15,7 @@
   </thead>
   <tbody *ngFor="let expense of addExpensesForm.controls.expenses.value; let i = index;">
   <tr>
-    <td style="padding:5px; text-align: center">
+    <td class="table-row-number">
       {{i + 1}}
     </td>
     <td>{{expense.item}}</td>

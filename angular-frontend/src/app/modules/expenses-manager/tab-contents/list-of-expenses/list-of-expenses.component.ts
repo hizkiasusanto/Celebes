@@ -30,7 +30,6 @@ export class ListOfExpensesComponent implements OnInit {
   dataSource: MatTableDataSource<Expense>;
   expandedRow?: Expense;
   userSubscription: Subscription;
-  expensesSubscription: Subscription;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -50,14 +49,10 @@ export class ListOfExpensesComponent implements OnInit {
         this.isAuthorizedToDelete = this.authService.getUserRole() !== Role.Employee
       }
     })
-    this.expensesSubscription = this.expensesService.refreshSubject.subscribe(() =>
-      this.populateDataSourceWithExpenses()
-    )
   }
 
   ngOnDestroy() : void {
     this.userSubscription.unsubscribe()
-    this.expensesSubscription.unsubscribe()
   }
 
   populateDataSourceWithExpenses = () => {

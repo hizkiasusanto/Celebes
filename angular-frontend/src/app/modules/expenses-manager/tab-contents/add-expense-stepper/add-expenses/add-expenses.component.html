@@ -17,7 +17,7 @@
       <ng-container formArrayName="expenses"
                     *ngFor="let expense of addExpensesForm.get('expenses')['controls']; let i = index;">
         <tr [formGroupName]="i">
-          <td style="padding:5px; text-align: center">
+          <td class="table-row-number">
             {{i + 1}}
           </td>
           <td>
@@ -44,8 +44,8 @@
           <td>
             <div><input formControlName="totalPrice" type="number"/></div>
           </td>
-          <td style="text-align: center">
-            <mat-icon (click)="emitRemoveRow(i)" style="cursor: pointer" color="warn">delete</mat-icon>
+          <td class="table-row-number">
+            <mat-icon (click)="emitRemoveRow(i)" class="clickable" color="warn">delete</mat-icon>
           </td>
         </tr>
       </ng-container>

@@ -7,8 +7,7 @@
       <mat-icon>edit</mat-icon>
     </a>
   </div>
-  <input style="display: none" #inputFile type="file" (change)="selectFile($event)" accept="image/jpeg, image/png"/>
-
+  <input class="input-profile-pic" #inputFile type="file" (change)="selectFile($event)" accept="image/jpeg, image/png"/>
   <div fxLayout="row" fxLayoutGap="10px">
     <button mat-flat-button color="primary" *ngIf="imageToUpload" (click)="uploadFile()" [disabled]="isUploading">Upload</button>
     <a mat-stroked-button color="warn" *ngIf="imageToUpload" (click)="cancel()">Cancel</a>

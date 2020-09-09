@@ -43,8 +43,7 @@
           <div class="expanded-row" [@detailExpand]="row == expandedRow ? 'expanded' : 'collapsed'"
                fxLayout="row" fxLayoutAlign="space-evenly center">
             <div class="expanded-detail">
-              <div class="expense-id">Expense ID: {{row._id}}</div>
-              <div>Invoice ID: {{row.invoice_id || 'No invoice ID'}}</div>
+              <div>Invoice ID: {{row.invoiceId || 'No invoice ID'}}</div>
             </div>
             <div fxLayout="row">
               <button mat-mini-fab color="primary" aria-label="Edit" class="mr-4px"

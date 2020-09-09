@@ -13,13 +13,14 @@ router.post('/add-expense', authenticate(), (req, res) => {
         pricePerUnit: req.body.pricePerUnit,
         totalPrice: req.body.totalPrice,
         dateOfExpense: req.body.dateOfExpense,
-        submittedBy: req.body.submittedBy
+        submittedBy: req.body.submittedBy,
+        invoiceId: req.body.invoiceId
     })
-    Expense.addExpense(newExpense, (err) => {
+    Expense.addExpense(newExpense, (err, expense) => {
         if (err) {
             res.json({success: false, msg: `Failed to add expense`})
         } else {
-            res.json({success: true, msg: `Expense added successfully`})
+            res.json({success: true, expense})
         }
     })
 })

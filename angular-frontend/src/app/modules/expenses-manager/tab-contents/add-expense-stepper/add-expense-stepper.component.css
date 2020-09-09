@@ -1,3 +1,9 @@
+.pt-25px {
+  padding-top: 25px;
+}
 
+.green-check {
+  color: green;
+}
 
 /*# sourceMappingURL=add-expense-stepper.component.css.map */

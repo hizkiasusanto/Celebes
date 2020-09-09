@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {AddExpenseFormComponent} from "../tab-contents/forms/add-expense-form/add-expense-form.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 
@@ -10,12 +9,6 @@ import {Router} from "@angular/router";
 })
 export class ExpensesManagerDashboardComponent {
   dashboardTitle: string = "Expenses Manager";
-
-  openAddExpenseFormDialog(): void {
-    this.dialog.open(AddExpenseFormComponent, {
-      width: '500px',
-    });
-  }
 
   constructor(public dialog: MatDialog,public router: Router) {}
 }

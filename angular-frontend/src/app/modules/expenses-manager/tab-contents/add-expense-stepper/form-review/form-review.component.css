@@ -12,4 +12,15 @@ table {
   width: 100%;
 }
 
+.invoice-preview {
+  align-self: center;
+  width: 500px;
+  height: auto;
+}
+
+.table-row-number {
+  padding: 5px;
+  text-align: center;
+}
+
 /*# sourceMappingURL=form-review.component.css.map */

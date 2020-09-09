@@ -28,4 +28,13 @@ input {
   padding: 5px;
 }
 
+.table-row-number {
+  padding: 5px;
+  text-align: center;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=add-expenses.component.css.map */

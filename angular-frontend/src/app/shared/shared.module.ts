@@ -21,6 +21,7 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
 import {AnchorDirective} from "./directives/anchor.directive";
 import {GridTileContentComponent} from "./partials/grid-tile-content/grid-tile-content.component";
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
+import { FileSizePipe } from './pipes/file-size.pipe';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
     PageNotFoundComponent,
     AnchorDirective,
     GridTileContentComponent,
+    FileSizePipe,
   ],
   imports: [
     CommonModule,
@@ -58,6 +60,7 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
     HomeComponent,
     RupiahPipe,
     LoadingDirective,
+    FileSizePipe
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500, horizontalPosition: "end"}},

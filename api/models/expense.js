@@ -33,6 +33,9 @@ const ExpenseSchema = mongoose.Schema({
     submittedBy: {
         type: String,
         required: true
+    },
+    invoiceId: {
+        type: String
     }
 })
 
@@ -51,7 +54,8 @@ module.exports.editExpenseById = (id, updatedExpense, callback) => {
             unit: updatedExpense.unit,
             pricePerUnit: updatedExpense.pricePerUnit,
             totalPrice: updatedExpense.totalPrice,
-            submittedBy: updatedExpense.submittedBy
+            submittedBy: updatedExpense.submittedBy,
+            invoiceId: updatedExpense.invoiceId
         }, callback)
 }
 

@@ -32,7 +32,6 @@ export class DeleteExpenseFormComponent implements OnInit {
         this.snackBar.open("Expense deleted successfully", "", {
           panelClass: ['success-snackbar']
         })
-        this.expensesService.toggleRefresh();
         this.dialogRef.close();
       } else {
         this.snackBar.open(res.msg, "", {

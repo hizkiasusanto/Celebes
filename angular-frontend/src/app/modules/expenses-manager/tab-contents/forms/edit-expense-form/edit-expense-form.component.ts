@@ -77,13 +77,13 @@ export class EditExpenseFormComponent implements OnInit {
         totalPrice: this.expensesForm.value.totalPrice,
 
         dateOfExpense: this.expense.dateOfExpense,
-        submittedBy: this.loggedInUser.name
+        submittedBy: this.loggedInUser.name,
+        invoiceId: this.expense.invoiceId
       }
       this.expensesService.editExpense(expense, this.expense['_id']).subscribe((res: any) => {
         this.snackBar.open(res.msg, "", {
           panelClass: [res.success ? 'success-snackbar' : 'error-snackbar'],
         });
-        this.expensesService.toggleRefresh();
         this.dialogRef.close();
       }, () => {
         this.snackBar.open("Something wrong has happened", "", {

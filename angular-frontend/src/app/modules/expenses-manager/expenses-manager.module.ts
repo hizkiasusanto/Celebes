@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { ExpensesManagerDashboardComponent } from './expenses-manager-dashboard/expenses-manager-dashboard.component';
 import {ExpensesManagerRoutingModule} from "./expenses-manager-routing.module";
 import {SharedModule} from "../../shared/shared.module";
-import { AddExpenseFormComponent } from './tab-contents/forms/add-expense-form/add-expense-form.component';
 import { ListOfExpensesComponent } from './tab-contents/list-of-expenses/list-of-expenses.component';
 import { DailyExpensesLineChartComponent } from './tab-contents/charts/daily-expenses-line-chart/daily-expenses-line-chart.component';
 import { ExpensesByItemComponent } from './tab-contents/charts/expenses-by-item/expenses-by-item.component';
@@ -18,7 +17,6 @@ import { FormReviewComponent } from './tab-contents/add-expense-stepper/form-rev
 @NgModule({
   declarations: [
     ExpensesManagerDashboardComponent,
-    AddExpenseFormComponent,
     ListOfExpensesComponent,
     DailyExpensesLineChartComponent,
     ExpensesByItemComponent,

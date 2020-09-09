@@ -1,4 +1,10 @@
-<h3>Add new expenses</h3>
+<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+  <button mat-stroked-button (click)="goBack()" color="accent">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+    Back
+  </button>
+  <h3>Add new expenses</h3>
+</div>
 <form [formGroup]="addExpensesForm">
   <mat-vertical-stepper linear>
     <mat-step label="Upload an invoice" [stepControl]="addExpensesForm.controls.invoice">
@@ -10,8 +16,26 @@
     </mat-step>
     <mat-step label="Review and confirm">
       <app-form-review [imageToPreview]="imageToUpload" [addExpensesForm]="addExpensesForm"></app-form-review>
-      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center" style="padding-top: 25px">
-        <button mat-raised-button color="primary" (click)="submit()" type="submit">Submit</button>
+      <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
+        <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center" class="pt-25px" fxLayoutGap="10px">
+          <button mat-stroked-button color="accent" matStepperPrevious>Previous</button>
+          <button mat-raised-button color="primary" (click)="submit()" type="submit" [disabled]="disableButton">Submit
+          </button>
+        </div>
+        <div *ngIf="uploadProgress > 0" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <mat-spinner *ngIf="uploadProgress < totalUploadSize" diameter="14"></mat-spinner>
+          <mat-icon *ngIf="uploadProgress === totalUploadSize" class="green-check">check</mat-icon>
+          <div>Uploading invoice</div>
+          <div *ngIf="uploadProgress !== totalUploadSize"> {{uploadProgress | fileSize}}
+            /{{totalUploadSize | fileSize}}</div>
+        </div>
+        <div *ngIf="uploadProgress > 0 && uploadProgress === totalUploadSize" fxLayout="row"
+             fxLayoutAlign="center center" fxLayoutGap="10px">
+          <mat-spinner *ngIf="submittedExpenses !== totalExpenses" diameter="14"></mat-spinner>
+          <mat-icon *ngIf="submittedExpenses === totalExpenses" class="green-check">check</mat-icon>
+          <div>Submitting expenses</div>
+          <div *ngIf="submittedExpenses !== totalExpenses"> {{submittedExpenses}}/{{totalExpenses}}</div>
+        </div>
       </div>
     </mat-step>
   </mat-vertical-stepper>

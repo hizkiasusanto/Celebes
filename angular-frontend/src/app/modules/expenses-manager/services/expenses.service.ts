@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {AuthService} from "../../identity-manager/services/auth.service";
 import {Expense} from "../types/expense";
 import {environment} from "../../../../environments/environment";
-import {BehaviorSubject, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {BackendResponse} from "../../../shared/types/backendresponse";
 
 
@@ -11,13 +11,6 @@ import {BackendResponse} from "../../../shared/types/backendresponse";
   providedIn: 'root'
 })
 export class ExpensesService {
-  refreshSubject = new BehaviorSubject(null);
-
-
-  toggleRefresh() {
-    this.refreshSubject.next(null);
-  }
-
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService
