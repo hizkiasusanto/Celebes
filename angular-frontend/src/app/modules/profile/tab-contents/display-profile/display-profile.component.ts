@@ -1,19 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../../../identity-manager/services/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EditProfileComponent} from "../edit-profile/edit-profile.component";
 import {User} from "../../../identity-manager/types/user";
 import {DateOnly} from "../../../../shared/types/date";
 import {EditProfilePictureComponent} from "../edit-profile-picture/edit-profile-picture.component";
-import {environment} from "../../../../../environments/environment";
 import {ImagesService} from "../../../../shared/services/images.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-display-profile',
   templateUrl: './display-profile.component.html',
   styleUrls: ['./display-profile.component.scss'],
 })
-export class DisplayProfileComponent implements OnInit {
+export class DisplayProfileComponent implements OnInit, OnDestroy {
   user: User;
   dateOfBirthInputString: string;
   imgsrc: string;
@@ -27,8 +27,9 @@ export class DisplayProfileComponent implements OnInit {
   ) {
   }
 
+  subscription: Subscription
   ngOnInit(): void {
-    this.authService.userSubject.subscribe(user => {
+    this.subscription = this.authService.userSubject.subscribe(user => {
       this.user = user;
       if (user) {
         this.dateOfBirthInputString = this.user.dateOfBirth === null ? 'Not set yet' :
@@ -38,6 +39,10 @@ export class DisplayProfileComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnDestroy() : void {
+    this.subscription.unsubscribe()
   }
 
   closeAlert = (): void => {

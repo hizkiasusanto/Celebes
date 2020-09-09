@@ -9,6 +9,7 @@ import {PriceCalculatorService} from "../../../services/price-calculator.service
 import {UnitOfMeasurement} from "../../../../../shared/types/unit-of-measurement";
 import {User} from "../../../../identity-manager/types/user";
 import {BackendResponse} from "../../../../../shared/types/backendresponse";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-add-expense-form',
@@ -17,6 +18,7 @@ import {BackendResponse} from "../../../../../shared/types/backendresponse";
 })
 export class AddExpenseFormComponent implements OnInit {
   loggedInUser: User;
+  userSubscription: Subscription;
   isSubmitting: boolean = false;
   get unitsOfMeasurement() : Array<string> {
     return Object.values(UnitOfMeasurement)
@@ -42,7 +44,11 @@ export class AddExpenseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.userSubject.subscribe(user => this.loggedInUser = user);
+    this.userSubscription = this.authService.userSubject.subscribe(user => this.loggedInUser = user);
+  }
+
+  ngOnDestroy() : void {
+    this.userSubscription.unsubscribe()
   }
 
   private lastChanged: string;

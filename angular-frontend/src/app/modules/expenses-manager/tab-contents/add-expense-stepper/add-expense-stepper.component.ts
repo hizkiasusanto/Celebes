@@ -3,7 +3,9 @@ import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../../identity-manager/types/user";
 import {AuthService} from "../../../identity-manager/services/auth.service";
 import {UnitOfMeasurement} from "../../../../shared/types/unit-of-measurement";
-import {requiredFileType} from "../../../../shared/services/images.service";
+import {ImagesService, requiredFileType} from "../../../../shared/services/images.service";
+import {HttpEventType} from "@angular/common/http";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-add-expense-stepper',
@@ -12,6 +14,7 @@ import {requiredFileType} from "../../../../shared/services/images.service";
 })
 export class AddExpenseStepperComponent implements OnInit {
   user: User;
+  userSubscription: Subscription;
   imageToUpload: string | ArrayBuffer;
   createExpense(): FormGroup {
     return new FormGroup({
@@ -41,11 +44,15 @@ export class AddExpenseStepperComponent implements OnInit {
     ], [Validators.required])
   })
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private imagesService: ImagesService) {
   }
 
   ngOnInit(): void {
-    this.authService.userSubject.subscribe(user => this.user = user);
+    this.userSubscription = this.authService.userSubject.subscribe(user => this.user = user);
+  }
+
+  ngOnDestroy() : void {
+    this.userSubscription.unsubscribe()
   }
 
   takeFile = (event: File) : void => {
@@ -57,6 +64,10 @@ export class AddExpenseStepperComponent implements OnInit {
   }
 
   submit() {
-    console.log('submitting')
+    this.imagesService.uploadInvoice(this.addExpensesForm.value.invoice).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        console.log(Math.round(event.loaded/event.total * 100))
+      }
+    })
   }
 }

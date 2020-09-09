@@ -1,8 +1,9 @@
 const router = require('express').Router()
 const Invoice = require('../models/invoice')
 const multer = require('multer')
+const {authenticate} = require('../middlewares/authentication')
 
-router.post('/upload-invoice', multer({storage: multer.memoryStorage()}).single('invoice'), (req, res, next) => {
+router.post('/upload-invoice', authenticate(), multer({storage: multer.memoryStorage()}).single('invoice'), (req, res, next) => {
     if (req.file.mimetype.match(/image\/*/) !== null) {
         Invoice.addInvoice((err, invoice) => {
             if (!err) {

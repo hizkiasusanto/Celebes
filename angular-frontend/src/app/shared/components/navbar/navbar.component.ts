@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {AuthService} from "../../../modules/identity-manager/services/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {BreakpointObserver} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
 
@@ -11,13 +11,11 @@ import {map, shareReplay} from "rxjs/operators";
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   userRole: string;
-
   @Input() appBrand: string
-
-  @Output()
-  openSidenav: EventEmitter<boolean> = new EventEmitter();
+  @Output() openSidenav: EventEmitter<boolean> = new EventEmitter();
+  subscription: Subscription;
 
   clickMenu() : void {
     this.openSidenav.emit(true);
@@ -37,9 +35,13 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.userSubject.subscribe(user => {
+    this.subscription = this.authService.userSubject.subscribe(user => {
       if (user) this.userRole = this.authService.getUserRole()
     })
+  }
+
+  ngOnDestroy() : void {
+    this.subscription.unsubscribe()
   }
 
   isLoggedIn = () : boolean => this.authService.isLoggedIn()

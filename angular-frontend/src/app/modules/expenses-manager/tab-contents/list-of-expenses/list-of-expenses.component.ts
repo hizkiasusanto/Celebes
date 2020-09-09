@@ -10,6 +10,7 @@ import {EditExpenseFormComponent} from "../forms/edit-expense-form/edit-expense-
 import {DeleteExpenseFormComponent} from "../forms/delete-expense-form/delete-expense-form.component";
 import {DateService} from "../../../../shared/services/date.service";
 import {Role} from "../../../identity-manager/types/role";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-list-of-expenses',
@@ -28,6 +29,8 @@ export class ListOfExpensesComponent implements OnInit {
   lastUpdated: Date;
   dataSource: MatTableDataSource<Expense>;
   expandedRow?: Expense;
+  userSubscription: Subscription;
+  expensesSubscription: Subscription;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -42,14 +45,19 @@ export class ListOfExpensesComponent implements OnInit {
 
   ngOnInit(): void {
     this.populateDataSourceWithExpenses();
-    this.authService.userSubject.subscribe(user => {
+    this.userSubscription = this.authService.userSubject.subscribe(user => {
       if (user) {
         this.isAuthorizedToDelete = this.authService.getUserRole() !== Role.Employee
       }
     })
-    this.expensesService.refreshSubject.subscribe(() =>
+    this.expensesSubscription = this.expensesService.refreshSubject.subscribe(() =>
       this.populateDataSourceWithExpenses()
     )
+  }
+
+  ngOnDestroy() : void {
+    this.userSubscription.unsubscribe()
+    this.expensesSubscription.unsubscribe()
   }
 
   populateDataSourceWithExpenses = () => {

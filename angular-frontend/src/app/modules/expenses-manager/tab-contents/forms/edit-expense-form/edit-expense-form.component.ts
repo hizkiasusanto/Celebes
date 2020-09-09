@@ -8,6 +8,7 @@ import {MatDialogRef} from "@angular/material/dialog";
 import {PriceCalculatorService} from "../../../services/price-calculator.service";
 import {User} from "../../../../identity-manager/types/user";
 import {UnitOfMeasurement} from "../../../../../shared/types/unit-of-measurement";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-edit-expense-form',
@@ -20,6 +21,7 @@ export class EditExpenseFormComponent implements OnInit {
   @Input() _id: string;
   isSubmitting: boolean = false;
   private lastChanged: string;
+  private subscription: Subscription
 
   loggedInUser: User;
   get unitsOfMeasurement() : Array<string> {
@@ -38,7 +40,7 @@ export class EditExpenseFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.userSubject.subscribe(user => this.loggedInUser = user);
+    this.subscription = this.authService.userSubject.subscribe(user => this.loggedInUser = user);
     this.expensesForm = this.formBuilder.group({
       item: [this.expense.item, [Validators.required]],
       supplier: [this.expense.supplier, [Validators.required]],
@@ -47,6 +49,10 @@ export class EditExpenseFormComponent implements OnInit {
       pricePerUnit: [this.expense.pricePerUnit, [Validators.required]],
       totalPrice: [this.expense.totalPrice, [Validators.required]]
     })
+  }
+
+  ngOnDestroy() : void {
+    this.subscription.unsubscribe()
   }
 
   changeLastChanged(controlName: string) {

@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {ExpensesService} from "../../../services/expenses.service";
 import {ChartDataSets, ChartOptions} from "chart.js";
 import {Label} from "ng2-charts";
-import {BehaviorSubject, forkJoin, Observable} from "rxjs";
+import {BehaviorSubject, forkJoin, Observable, Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {RupiahPipe} from "../../../../../shared/pipes/rupiah.pipe";
 import {BackendResponse} from "../../../../../shared/types/backendresponse";
@@ -20,6 +20,7 @@ export class ExpensesByItemComponent implements OnInit, OnChanges {
 
   expensesData: { item: string, expense: number }[] = [];
   private datasetSubject = new BehaviorSubject(this.expensesData);
+  subscription: Subscription;
 
   public chartData: ChartDataSets[] = [{data: this.expensesData.map(x => x.expense)}];
   public chartLabels: Label[] = this.expensesData.map(x => x.item);
@@ -47,7 +48,7 @@ export class ExpensesByItemComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.datasetSubject.asObservable().subscribe(() => {
+    this.subscription = this.datasetSubject.asObservable().subscribe(() => {
       this.chartData = [{
         data: this.expensesData.map(x => x.expense),
         backgroundColor: this.expensesData.map(x => x.expense > 1000000 ? 'rgba(200,0,0,0.3)' : 'rgba(34,139,34,0.3)')
@@ -55,6 +56,10 @@ export class ExpensesByItemComponent implements OnInit, OnChanges {
       this.chartLabels = this.expensesData.map(x => x.item);
     })
   }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+}
 
   ngOnChanges(): void {
     if (this.startDate && this.endDate) this.updateChartData()
