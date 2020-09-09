@@ -44,3 +44,18 @@ td, th {
 .mr-4px {
   margin-right: 4px;
 }
+
+.mb-5px {
+  margin-bottom: 5px;
+}
+
+span {
+  cursor:pointer;
+  color:blue;
+  text-decoration:underline;
+}
+
+span:hover {
+  text-decoration:none;
+  text-shadow: 1px 1px 1px #555;
+}

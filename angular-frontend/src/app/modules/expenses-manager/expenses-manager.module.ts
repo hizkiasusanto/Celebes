@@ -13,6 +13,7 @@ import { AddExpenseStepperComponent } from './tab-contents/add-expense-stepper/a
 import { UploadInvoiceComponent } from './tab-contents/add-expense-stepper/upload-invoice/upload-invoice.component';
 import { AddExpensesComponent } from './tab-contents/add-expense-stepper/add-expenses/add-expenses.component';
 import { FormReviewComponent } from './tab-contents/add-expense-stepper/form-review/form-review.component';
+import { ViewInvoiceDialogComponent } from './tab-contents/view-invoice-dialog/view-invoice-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FormReviewComponent } from './tab-contents/add-expense-stepper/form-rev
     UploadInvoiceComponent,
     AddExpensesComponent,
     FormReviewComponent,
+    ViewInvoiceDialogComponent,
   ],
   imports: [
     SharedModule.forRoot(),
