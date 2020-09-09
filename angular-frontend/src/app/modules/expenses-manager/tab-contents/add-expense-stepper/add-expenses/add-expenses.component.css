@@ -37,4 +37,8 @@ input {
   cursor: pointer;
 }
 
+.green-check {
+  color: green;
+}
+
 /*# sourceMappingURL=add-expenses.component.css.map */

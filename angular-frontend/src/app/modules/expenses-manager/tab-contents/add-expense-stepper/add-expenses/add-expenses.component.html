@@ -18,7 +18,9 @@
                     *ngFor="let expense of addExpensesForm.get('expenses')['controls']; let i = index;">
         <tr [formGroupName]="i">
           <td class="table-row-number">
-            {{i + 1}}
+            <mat-icon color="warn" *ngIf="addExpensesForm.controls.expenses['controls'][i].invalid">error</mat-icon>
+            <mat-icon class="green-check" *ngIf="addExpensesForm.controls.expenses['controls'][i].valid">check_circle
+            </mat-icon>
           </td>
           <td>
             <div><input formControlName="item" type="text"/></div>
