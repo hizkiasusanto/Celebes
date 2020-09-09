@@ -27,7 +27,8 @@
             <div><input formControlName="supplier" type="text"/></div>
           </td>
           <td>
-            <div><input formControlName="amount" type="number"/></div>
+            <div><input formControlName="amount" type="number" (focus)="changeLastChanged('amount')"
+                        (ngModelChange)="onAmountChange(i)"/></div>
           </td>
           <td>
             <div class="auto-width">
@@ -39,10 +40,12 @@
             </div>
           </td>
           <td>
-            <div><input formControlName="pricePerUnit" type="number"/></div>
+            <div><input formControlName="pricePerUnit" (focus)="changeLastChanged('pricePerUnit')"
+                        (ngModelChange)="onPricePerUnitChange(i)" type="number"/></div>
           </td>
           <td>
-            <div><input formControlName="totalPrice" type="number"/></div>
+            <div><input formControlName="totalPrice" type="number" (focus)="changeLastChanged('totalPrice')"
+                        (ngModelChange)="onTotalPriceChange(i)"/></div>
           </td>
           <td class="table-row-number">
             <mat-icon (click)="emitRemoveRow(i)" class="clickable" color="warn">delete</mat-icon>

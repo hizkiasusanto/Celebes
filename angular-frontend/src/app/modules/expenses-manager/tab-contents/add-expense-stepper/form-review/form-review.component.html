@@ -21,8 +21,8 @@
     <td>{{expense.item}}</td>
     <td>{{expense.supplier}}</td>
     <td>{{expense.amount}} {{expense.unit}}</td>
-    <td>{{expense.pricePerUnit}}</td>
-    <td>{{expense.totalPrice}}</td>
+    <td>{{expense.pricePerUnit | rupiah}}</td>
+    <td>{{expense.totalPrice | rupiah}}</td>
   </tr>
   </tbody>
 </table>
