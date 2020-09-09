@@ -11,6 +11,7 @@ import {DeleteExpenseFormComponent} from "../forms/delete-expense-form/delete-ex
 import {DateService} from "../../../../shared/services/date.service";
 import {Role} from "../../../identity-manager/types/role";
 import {Subscription} from "rxjs";
+import {ViewInvoiceDialogComponent} from "../view-invoice-dialog/view-invoice-dialog.component";
 
 @Component({
   selector: 'app-list-of-expenses',
@@ -79,5 +80,12 @@ export class ListOfExpensesComponent implements OnInit {
     dialog.componentInstance._id = id;
 
     dialog.afterClosed().subscribe(this.populateDataSourceWithExpenses);
+  }
+
+  openViewInvoiceDialog(invoiceId: string): void {
+    let dialog = this.dialog.open(ViewInvoiceDialogComponent, {
+      panelClass: ['padding-less-dialog']
+    });
+    dialog.componentInstance.invoiceId = invoiceId;
   }
 }

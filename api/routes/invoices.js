@@ -39,4 +39,14 @@ router.post('/upload-invoice', authenticate(), multer({storage: multer.memorySto
     })
 })
 
+router.get('/get-invoice/:_id', authenticate(), (req, res) => {
+    Invoice.getInvoiceById(req.params._id, (err, invoice) => {
+        if (err) {
+            res.send({success: false, msg:'Failed to retrieve invoice'})
+        } else {
+            res.send({success:true,invoice})
+        }
+    })
+})
+
 module.exports = router

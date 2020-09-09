@@ -22,6 +22,10 @@ html, body {
   background-color: $success-color;
 }
 
+.padding-less-dialog .mat-dialog-container {
+  padding: 0;
+}
+
 .app-loading {
   position: relative;
   display: flex;

@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   backendUrl: 'http://localhost:3000/api',
-  profilePicDirectoryUrl: 'http://localhost:3000/uploads/profile-pictures'
+  profilePicDirectoryUrl: 'http://localhost:3000/uploads/profile-pictures',
+  invoiceDirectoryUrl: 'http://localhost:3000/uploads/invoices'
 };
 
 /*

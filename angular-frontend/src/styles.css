@@ -18,6 +18,10 @@ html, body {
   background-color: forestgreen;
 }
 
+.padding-less-dialog .mat-dialog-container {
+  padding: 0;
+}
+
 .app-loading {
   position: relative;
   display: flex;

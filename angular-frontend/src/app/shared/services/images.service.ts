@@ -23,6 +23,10 @@ export class ImagesService {
       {headers: this.authService.addAuthorizedHeaderNonJson(), reportProgress: true, observe: "events"})
   }
 
+  getInvoice(invoicePicUrl: string) : string {
+    return `${environment.invoiceDirectoryUrl}/${invoicePicUrl}`
+  }
+
   uploadInvoice(file: File) : Observable<HttpEvent<any>> {
     const formData = new FormData();
     formData.append('invoice', file, file.name);
