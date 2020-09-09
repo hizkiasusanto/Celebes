@@ -63,7 +63,6 @@ export class ExpensesByItemComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if (this.startDate && this.endDate) this.updateChartData()
-    console.log("ehy")
   }
 
   updateChartData = (): void => {
