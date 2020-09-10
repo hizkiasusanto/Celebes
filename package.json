@@ -26,5 +26,8 @@
   "license": "ISC",
   "devDependencies": {
     "@types/multer": "^1.4.4"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
