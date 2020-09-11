@@ -14,8 +14,8 @@ import {Role} from "./modules/identity-manager/types/role";
 
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
+  {path: '', component: HomeComponent, pathMatch: 'full'},
+  {path: 'home', redirectTo:'/'},
   {
     path: 'identity',
     loadChildren: () => import(`./modules/identity-manager/identity-manager.module`).then(m => m.IdentityManagerModule)
@@ -29,6 +29,11 @@ const routes: Routes = [
     path: 'expensesManager',
     canActivate: [AuthGuard, ApprovalGuard],
     loadChildren: () => import(`./modules/expenses-manager/expenses-manager.module`).then(m => m.ExpensesManagerModule)
+  },
+  {
+    path: 'ingredientsManager',
+    canActivate: [AuthGuard, ApprovalGuard],
+    loadChildren: () => import(`./modules/ingredients-manager/ingredients-manager.module`).then(m => m.IngredientsManagerModule)
   },
   {
     path: 'adminDashboard',

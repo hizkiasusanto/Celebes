@@ -1,0 +1,5 @@
+<h1>{{dashboardTitle}}</h1>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link [routerLink]="'library'" [active]="router.url.endsWith('library')">Library</a>
+</nav>
+<router-outlet></router-outlet>
