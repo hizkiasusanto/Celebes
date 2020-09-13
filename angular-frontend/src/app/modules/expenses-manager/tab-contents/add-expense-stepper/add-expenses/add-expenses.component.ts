@@ -2,6 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import {UnitOfMeasurement} from "../../../../../shared/types/unit-of-measurement";
 import {PriceCalculatorService} from "../../../services/price-calculator.service";
+import {Ingredient} from "../../../../ingredients-manager/types/ingredient";
+import {IngredientsService} from "../../../../ingredients-manager/services/ingredients.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-add-expenses',
@@ -17,10 +20,19 @@ export class AddExpensesComponent implements OnInit {
     return Object.values(UnitOfMeasurement)
   }
 
-  constructor(private priceCalculatorService: PriceCalculatorService) {
+  listOfIngredients: Ingredient[]
+
+  constructor(private priceCalculatorService: PriceCalculatorService, private ingredientsService: IngredientsService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
+    this.ingredientsService.getAllIngredients().subscribe(res => {
+      if (res.success) {
+        this.listOfIngredients = res.ingredients
+      } else {
+        this.snackBar.open(res.msg,'',{panelClass:['error-snackbar']})
+      }
+    })
   }
 
   emitAddRow = () => this.addRow.emit(null)

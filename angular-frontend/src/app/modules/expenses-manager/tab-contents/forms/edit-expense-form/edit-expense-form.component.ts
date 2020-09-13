@@ -9,6 +9,8 @@ import {PriceCalculatorService} from "../../../services/price-calculator.service
 import {User} from "../../../../identity-manager/types/user";
 import {UnitOfMeasurement} from "../../../../../shared/types/unit-of-measurement";
 import {Subscription} from "rxjs";
+import {Ingredient} from "../../../../ingredients-manager/types/ingredient";
+import {IngredientsService} from "../../../../ingredients-manager/services/ingredients.service";
 
 @Component({
   selector: 'app-edit-expense-form',
@@ -16,7 +18,6 @@ import {Subscription} from "rxjs";
   styleUrls: ['./edit-expense-form.component.scss']
 })
 export class EditExpenseFormComponent implements OnInit {
-
   @Input() expense: Expense;
   @Input() _id: string;
   isSubmitting: boolean = false;
@@ -28,6 +29,8 @@ export class EditExpenseFormComponent implements OnInit {
     return Object.values(UnitOfMeasurement)
   }
 
+  listOfIngredients: Ingredient[]
+
   expensesForm: FormGroup;
 
   constructor(
@@ -36,7 +39,8 @@ export class EditExpenseFormComponent implements OnInit {
     private expensesService: ExpensesService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<EditExpenseFormComponent>,
-    private priceCalculatorService: PriceCalculatorService
+    private priceCalculatorService: PriceCalculatorService,
+    private ingredientsService: IngredientsService
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +52,13 @@ export class EditExpenseFormComponent implements OnInit {
       unit: [this.expense.unit, [Validators.required]],
       pricePerUnit: [this.expense.pricePerUnit, [Validators.required]],
       totalPrice: [this.expense.totalPrice, [Validators.required]]
+    })
+    this.ingredientsService.getAllIngredients().subscribe(res => {
+      if (res.success) {
+        this.listOfIngredients = res.ingredients
+      } else {
+        this.snackBar.open(res.msg,'',{panelClass:['error-snackbar']})
+      }
     })
   }
 

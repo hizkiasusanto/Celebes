@@ -1,9 +1,21 @@
 <div fxFill fxLayoutAlign="center center">
-  <form [formGroup]="expensesForm" (ngSubmit)="submit()" fxLayout="column" fxFlex="100%" fxFlex.gt-md="70%" autocomplete="off">
+  <form [formGroup]="expensesForm" (ngSubmit)="submit()" fxLayout="column" fxFlex="100%" fxFlex.gt-md="70%"
+        autocomplete="off">
     <h2>Edit expense</h2>
     <mat-form-field>
       <mat-label>Item</mat-label>
-      <input matInput formControlName="item" type="text"/>
+      <mat-select formControlName="item">
+        <span *ngIf="listOfIngredients?.length > 0">
+        <mat-option *ngFor="let ingredient of listOfIngredients" [value]="ingredient.name">
+          {{ingredient.name}}
+        </mat-option>
+          </span>
+        <span *ngIf="listOfIngredients?.length === 0">
+          <mat-option>
+            No ingredients yet
+          </mat-option>
+        </span>
+      </mat-select>
       <mat-error
         *ngIf="expensesForm.get('item').hasError('required')">
         Item is required
