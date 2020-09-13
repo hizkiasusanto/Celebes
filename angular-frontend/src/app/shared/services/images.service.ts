@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpEvent} from "@angular/common/http";
-import {AuthService} from "../../modules/identity-manager/services/auth.service";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {FormControl} from "@angular/forms";
@@ -10,7 +9,7 @@ import {FormControl} from "@angular/forms";
 })
 export class ImagesService {
 
-  constructor(private httpClient: HttpClient, private authService: AuthService) { }
+  constructor(private httpClient: HttpClient) { }
 
   getProfilePicture(profilePicUrl: string) : string {
     return `${environment.profilePicDirectoryUrl}/${profilePicUrl}`
@@ -20,7 +19,7 @@ export class ImagesService {
     const formData = new FormData();
     formData.append('profilePicture', file, file.name);
     return this.httpClient.post(`${environment.backendUrl}/images/upload-profile-picture`,formData,
-      {headers: this.authService.addAuthorizedHeaderNonJson(), reportProgress: true, observe: "events"})
+      {reportProgress: true, observe: "events"})
   }
 
   getInvoice(invoicePicUrl: string) : string {
@@ -31,7 +30,7 @@ export class ImagesService {
     const formData = new FormData();
     formData.append('invoice', file, file.name);
     return this.httpClient.post(`${environment.backendUrl}/invoices/upload-invoice`,formData,
-      {headers:this.authService.addAuthorizedHeaderNonJson(), reportProgress:true, observe:"events"})
+      {reportProgress:true, observe:"events"})
   }
 }
 

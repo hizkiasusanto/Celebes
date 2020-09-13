@@ -1,1 +1,7 @@
-<p>ingredients-library works!</p>
+<div *ngIf="listOfIngredients.length > 0">
+<ul *ngFor="let ingredient of listOfIngredients">
+    <li>{{ingredient.name}} - {{ingredient.category}} - {{ingredient.lastPurchased.displayDate()}}</li>
+  </ul>
+</div>
+<a mat-raised-button (click)="addNewIngredient()">Add a new ingredient</a>
+<a mat-raised-button (click)="addNewCategory()">Add a new category</a>
