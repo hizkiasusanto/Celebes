@@ -12,6 +12,14 @@ table {
   width: 100%;
 }
 
+::ng-deep .item-input .mat-select-value {
+  min-width: 100px;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
 ::ng-deep .auto-width .mat-select-value {
   max-width: 100%;
   width: 100%;

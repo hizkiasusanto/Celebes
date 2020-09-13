@@ -23,7 +23,20 @@
             </mat-icon>
           </td>
           <td>
-            <div><input formControlName="item" type="text"/></div>
+            <div class="item-input">
+              <mat-select formControlName="item">
+                <span *ngIf="listOfIngredients?.length > 0">
+                  <mat-option *ngFor="let ingredient of listOfIngredients" [value]="ingredient.name">
+                    {{ingredient.name}}
+                  </mat-option>
+                </span>
+                <span *ngIf="listOfIngredients?.length === 0">
+                  <mat-option>
+                    No ingredients yet
+                  </mat-option>
+                </span>
+              </mat-select>
+            </div>
           </td>
           <td>
             <div><input formControlName="supplier" type="text"/></div>
