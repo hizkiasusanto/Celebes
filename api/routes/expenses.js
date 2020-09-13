@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const Expense = require("../models/expense")
+const Ingredient = require("../models/ingredient")
 const {authenticate} = require('../middlewares/authentication')
 const {permit} = require("../middlewares/authorization")
 
@@ -21,6 +22,7 @@ router.post('/add-expense', authenticate(), (req, res) => {
             res.json({success: false, msg: `Failed to add expense`})
         } else {
             res.json({success: true, expense})
+            Ingredient.updateLastPurchased(newExpense.item, () => {})
         }
     })
 })
