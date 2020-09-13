@@ -50,15 +50,12 @@ export class DisplayProfileComponent implements OnInit, OnDestroy {
   }
 
   editProfile = (): void => {
-    let dialog = this.dialog.open(EditProfileComponent, {
-      width: '500px',
-    });
+    let dialog = this.dialog.open(EditProfileComponent);
     dialog.componentInstance.user = this.user;
   }
 
   editProfilePicture = () : void => {
-    let dialog = this.dialog.open(EditProfilePictureComponent,
-      {width: '500px'});
+    let dialog = this.dialog.open(EditProfilePictureComponent);
     dialog.componentInstance.user = this.user;
   }
 }

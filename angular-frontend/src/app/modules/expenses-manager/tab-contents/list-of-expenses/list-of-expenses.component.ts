@@ -65,18 +65,14 @@ export class ListOfExpensesComponent implements OnInit {
   }
 
   openEditExpenseFormDialog(row: Expense): void {
-    let dialog = this.dialog.open(EditExpenseFormComponent, {
-      width: '500px',
-    });
+    let dialog = this.dialog.open(EditExpenseFormComponent);
     dialog.componentInstance.expense = row;
 
     dialog.afterClosed().subscribe(this.populateDataSourceWithExpenses);
   }
 
   openDeleteExpenseFormDialog(id: string): void {
-    let dialog = this.dialog.open(DeleteExpenseFormComponent, {
-      width: '500px',
-    });
+    let dialog = this.dialog.open(DeleteExpenseFormComponent);
     dialog.componentInstance._id = id;
 
     dialog.afterClosed().subscribe(this.populateDataSourceWithExpenses);
