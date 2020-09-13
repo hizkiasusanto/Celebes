@@ -7,7 +7,7 @@ import {IdentityManagerModule} from "./modules/identity-manager/identity-manager
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
-import {AuthInterceptor} from "./auth.interceptor";
+import {AuthInterceptor} from "./shared/interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
