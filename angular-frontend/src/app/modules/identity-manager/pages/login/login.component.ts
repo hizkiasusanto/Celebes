@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
         this.snackBar.open(res.msg, "", {
           panelClass: ['error-snackbar']
         });
+        this.isSubmitting = false;
         this.router.navigate(['identity/login']);
       }
     })

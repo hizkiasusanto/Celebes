@@ -3,16 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {BackendResponse} from "../../../shared/types/backendresponse";
 import {environment} from "../../../../environments/environment";
-import {AuthService} from "../../identity-manager/services/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvoicesService {
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient) { }
 
   getInvoiceById = (_id: string) : Observable<BackendResponse> =>
-    this.http.get<BackendResponse>(`${environment.backendUrl}/invoices/get-invoice/${_id}`,
-    {headers: this.authService.addAuthorizedHeader()})
+    this.http.get<BackendResponse>(`${environment.backendUrl}/invoices/get-invoice/${_id}`)
 }

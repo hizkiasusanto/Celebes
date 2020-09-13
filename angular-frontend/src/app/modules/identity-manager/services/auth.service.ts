@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   getProfile = () : Observable<User> => {
-    return this.httpClient.get<User>(`${environment.backendUrl}/users/profile`, {headers: this.addAuthorizedHeader()})
+    return this.httpClient.get<User>(`${environment.backendUrl}/users/profile`)
   }
 
   getUserRole = () : Role => {
@@ -67,13 +67,4 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(this.authToken);
   }
 
-  addAuthorizedHeader = () : HttpHeaders => {
-    this.loadToken();
-    return new HttpHeaders({'Content-Type':'application/json', 'Authorization':this.authToken});
-  }
-
-  addAuthorizedHeaderNonJson = () : HttpHeaders => {
-    this.loadToken();
-    return new HttpHeaders({'Authorization':this.authToken})
-  }
 }
