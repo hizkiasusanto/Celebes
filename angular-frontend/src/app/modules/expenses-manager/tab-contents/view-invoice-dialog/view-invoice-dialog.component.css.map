@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"view-invoice-dialog.component.css"}
+{"version":3,"sourceRoot":"","sources":["view-invoice-dialog.component.scss"],"names":[],"mappings":"AAAA;EACE;EACA","file":"view-invoice-dialog.component.css"}

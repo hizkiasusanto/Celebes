@@ -4,7 +4,7 @@ const {authenticate} = require('../middlewares/authentication')
 
 router.post('/add-ingredient', authenticate(), (req, res) => {
     let newIngredient = new Ingredient({
-        name: req.body.item,
+        name: req.body.name,
         category: req.body.category
     })
     Ingredient.addIngredient(newIngredient, (err, ingredient) => {
