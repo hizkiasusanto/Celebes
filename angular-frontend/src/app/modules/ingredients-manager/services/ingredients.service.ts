@@ -20,6 +20,12 @@ export class IngredientsService {
   getAllIngredients = () : Observable<BackendResponse> =>
     this.httpClient.get<BackendResponse>(`${environment.backendUrl}/ingredients/get-all-ingredients`)
 
+  addNewCategory = (categoryName: string): Observable<BackendResponse> => {
+    console.log(categoryName)
+    return this.httpClient.post<BackendResponse>(`${environment.backendUrl}/ingredients/create-new-category`,
+      {name: categoryName})
+  }
+
   getAllCategories = () : Observable<BackendResponse> =>
     this.httpClient.get<BackendResponse>(`${environment.backendUrl}/ingredients/get-all-categories`)
 }
