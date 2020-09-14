@@ -17,6 +17,9 @@ export class IngredientsService {
     })
   }
 
-  getAllIngredients = () : Observable<BackendResponse> => this.httpClient.get<BackendResponse>(`${environment.backendUrl}/ingredients/get-all-ingredients`)
+  getAllIngredients = () : Observable<BackendResponse> =>
+    this.httpClient.get<BackendResponse>(`${environment.backendUrl}/ingredients/get-all-ingredients`)
 
+  getAllCategories = () : Observable<BackendResponse> =>
+    this.httpClient.get<BackendResponse>(`${environment.backendUrl}/ingredients/get-all-categories`)
 }

@@ -8,12 +8,13 @@
         Name is required
       </mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="listOfCategories">
       <mat-label>Category</mat-label>
-      <input matInput formControlName="category" type="text"/>
-      <mat-error *ngIf="addIngredientsForm.get('category').errors?.required">
-        Category is required
-      </mat-error>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of listOfCategories" [value]="category">
+          {{category}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <div fxLayoutAlign="center">
       <button mat-raised-button color="primary" type="submit">Submit</button>

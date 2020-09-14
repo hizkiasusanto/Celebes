@@ -4,6 +4,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Ingredient} from "../../types/ingredient";
 import {MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {catchError, map} from "rxjs/operators";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-add-ingredients-form',
@@ -13,13 +15,25 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class AddIngredientsFormComponent implements OnInit {
   addIngredientsForm = new FormGroup({
     "name": new FormControl('',Validators.required),
-    "category": new FormControl('',Validators.required)
+    "category": new FormControl(null)
   })
+  listOfCategories: string[]
   isSubmitting: boolean = false;
 
-  constructor(private ingredientsService: IngredientsService, private dialogRef: MatDialogRef<AddIngredientsFormComponent>, private snackBar: MatSnackBar) { }
+  constructor(
+    private ingredientsService: IngredientsService,
+    private dialogRef: MatDialogRef<AddIngredientsFormComponent>,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
+    this.ingredientsService.getAllCategories().pipe(
+      map(res => res.categories.map(c => c.name)),
+      catchError(err => of(err)))
+      .subscribe(categories => {
+        this.listOfCategories = categories
+        this.addIngredientsForm.patchValue({category:this.listOfCategories[0]})
+      })
   }
 
   submit() : void {
