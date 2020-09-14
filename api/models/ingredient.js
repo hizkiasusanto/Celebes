@@ -1,13 +1,15 @@
 const mongoose = require("mongoose")
+const Schema = mongoose.Schema
 
-const IngredientSchema = mongoose.Schema({
+const IngredientSchema = new Schema({
     name: {
         type: String,
         required: true,
+        unique: true
     },
     category: {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
     },
     lastPurchased: {
         type: Object,
@@ -25,3 +27,14 @@ module.exports.updateLastPurchased = (ingredientName, callback) => {
     let date = {year:new Date().getFullYear(),month:new Date().getMonth(),date:new Date().getDate()}
     Ingredient.findOneAndUpdate({name:ingredientName},{lastPurchased:date},{new:true},callback)
 }
+
+const Category = require('./ingredient_category')
+module.exports.resolveCategory = ingredient => Category.findById(ingredient.category).then(category => {
+    return {
+        _id: ingredient._id,
+        lastPurchased: ingredient.lastPurchased,
+        name: ingredient.name,
+        category: category.name,
+        __v: ingredient.__v
+    }
+})
