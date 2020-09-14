@@ -5,6 +5,8 @@ import {IngredientsService} from "../../services/ingredients.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {AddIngredientsFormComponent} from "../add-ingredients-form/add-ingredients-form.component";
+import {catchError, map} from "rxjs/operators";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-ingredients-library',
@@ -13,10 +15,9 @@ import {AddIngredientsFormComponent} from "../add-ingredients-form/add-ingredien
 })
 export class IngredientsLibraryComponent implements OnInit {
   isLoading: boolean = false;
-  listOfIngredients: Ingredient[] = [
-    {name: "Cabe", category: "Bumbu", lastPurchased: new DateOnly({date: 25, month: 5, year: 2020})},
-    {name: "Ayam", category: "Daging", lastPurchased: new DateOnly({date: 25, month: 7, year: 2020})},
-  ]
+  listOfIngredients: Ingredient[]
+  listOfCategories: string[]
+
 
   constructor(private ingredientsService: IngredientsService, private snackBar: MatSnackBar, private dialog: MatDialog) {
   }
@@ -24,6 +25,7 @@ export class IngredientsLibraryComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.loadIngredients();
+    this.loadCategories();
   }
 
   loadIngredients = () : void => {
@@ -40,6 +42,15 @@ export class IngredientsLibraryComponent implements OnInit {
         this.isLoading = false;
       }
     )
+  }
+
+  loadCategories = () : void => {
+    this.ingredientsService.getAllCategories().pipe(
+      map(res => res.categories.map(c => c.name)),
+      catchError(err => of(err)))
+      .subscribe(categories => {
+        this.listOfCategories = categories
+      })
   }
 
   addNewIngredient = (): void => {
