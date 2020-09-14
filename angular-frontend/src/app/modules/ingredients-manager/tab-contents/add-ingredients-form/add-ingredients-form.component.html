@@ -1,6 +1,7 @@
 <div *appLoading="isSubmitting"></div>
 <div fxLayoutAlign="center">
   <form [formGroup]="addIngredientsForm" (ngSubmit)="submit()" fxLayout="column" fxFlex="100%" fxFlex.gt-md="70%">
+    <h2>Add a new ingredient</h2>
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" type="text"/>

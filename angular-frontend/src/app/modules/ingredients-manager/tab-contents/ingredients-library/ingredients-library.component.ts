@@ -7,6 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddIngredientsFormComponent} from "../add-ingredients-form/add-ingredients-form.component";
 import {catchError, map} from "rxjs/operators";
 import {of} from "rxjs";
+import {AddCategoryFormComponent} from "../add-category-form/add-category-form.component";
 
 @Component({
   selector: 'app-ingredients-library',
@@ -59,6 +60,7 @@ export class IngredientsLibraryComponent implements OnInit {
   }
 
   addNewCategory = (): void => {
-    console.log("Adding new category")
+    let dialog = this.dialog.open(AddCategoryFormComponent)
+    dialog.afterClosed().subscribe(this.loadCategories)
   }
 }
