@@ -12,6 +12,7 @@ import {DateService} from "../../../../shared/services/date.service";
 import {Role} from "../../../identity-manager/types/role";
 import {Subscription} from "rxjs";
 import {ViewInvoiceDialogComponent} from "../view-invoice-dialog/view-invoice-dialog.component";
+import {BackendResponse} from "../../../../shared/types/backendresponse";
 
 @Component({
   selector: 'app-list-of-expenses',
@@ -40,7 +41,8 @@ export class ListOfExpensesComponent implements OnInit {
     private expensesService: ExpensesService,
     private authService: AuthService,
     public dialog: MatDialog,
-    private dateService: DateService) {
+    private dateService: DateService
+  ) {
   }
 
   ngOnInit(): void {
@@ -57,7 +59,7 @@ export class ListOfExpensesComponent implements OnInit {
   }
 
   populateDataSourceWithExpenses = () => {
-    this.expensesService.getAllExpenses().subscribe((res: any) => {
+    this.expensesService.getAllExpenses().subscribe((res: BackendResponse) => {
       this.dataSource = new MatTableDataSource(res.expenses);
       this.dataSource.paginator = this.paginator;
       this.lastUpdated = this.dateService.now();
@@ -79,9 +81,7 @@ export class ListOfExpensesComponent implements OnInit {
   }
 
   openViewInvoiceDialog(invoiceId: string): void {
-    let dialog = this.dialog.open(ViewInvoiceDialogComponent, {
-      panelClass: ['padding-less-dialog']
-    });
+    let dialog = this.dialog.open(ViewInvoiceDialogComponent, {panelClass: ['padding-less-dialog']});
     dialog.componentInstance.invoiceId = invoiceId;
   }
 }

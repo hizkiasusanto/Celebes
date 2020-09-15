@@ -6,10 +6,11 @@ import { IngredientsManagerDashboardComponent } from './ingredients-manager-dash
 import { IngredientsLibraryComponent } from './tab-contents/ingredients-library/ingredients-library.component';
 import { AddIngredientsFormComponent } from './tab-contents/add-ingredients-form/add-ingredients-form.component';
 import { AddCategoryFormComponent } from './tab-contents/add-category-form/add-category-form.component';
+import { IngredientsTableComponent } from './tab-contents/ingredients-table/ingredients-table.component';
 
 
 @NgModule({
-  declarations: [IngredientsManagerDashboardComponent, IngredientsLibraryComponent, AddIngredientsFormComponent, AddCategoryFormComponent],
+  declarations: [IngredientsManagerDashboardComponent, IngredientsLibraryComponent, AddIngredientsFormComponent, AddCategoryFormComponent, IngredientsTableComponent],
   imports: [
     SharedModule.forRoot(),
     IngredientsManagerRoutingModule

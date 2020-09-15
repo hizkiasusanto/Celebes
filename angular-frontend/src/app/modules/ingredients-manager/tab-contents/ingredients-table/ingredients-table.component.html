@@ -1,0 +1,24 @@
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search by keyword" #input>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Item</th>
+    <td mat-cell *matCellDef="let row">{{row.name}}</td>
+  </ng-container>
+  <ng-container matColumnDef="lastPurchased">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Last purchased</th>
+    <td mat-cell *matCellDef="let row">{{row.lastPurchased?.displayDate() || 'Not purchased yet'}}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell"
+        [colSpan]="displayedColumns.length">{{dataSource.data.length === 0 ?
+      "No entries yet" : "No entries match the filter value " + input.value}}</td>
+  </tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
