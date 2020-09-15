@@ -26,7 +26,8 @@
             <div class="item-input">
               <mat-select formControlName="item">
                 <span *ngIf="listOfIngredients?.length > 0">
-                  <mat-option *ngFor="let ingredient of listOfIngredients" [value]="ingredient.name">
+                  <input matInput (keyup)="onKey($event.target.value)" placeholder="Search" class="search-input">
+                    <mat-option *ngFor="let ingredient of selectedIngredients" [value]="ingredient.name">
                     {{ingredient.name}}
                   </mat-option>
                 </span>

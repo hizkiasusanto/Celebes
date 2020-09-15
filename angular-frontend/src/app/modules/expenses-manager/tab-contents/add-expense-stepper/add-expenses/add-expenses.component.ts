@@ -21,6 +21,7 @@ export class AddExpensesComponent implements OnInit {
   }
 
   listOfIngredients: Ingredient[]
+  selectedIngredients: Ingredient[]
 
   constructor(private priceCalculatorService: PriceCalculatorService, private ingredientsService: IngredientsService, private snackBar: MatSnackBar) {
   }
@@ -29,6 +30,7 @@ export class AddExpensesComponent implements OnInit {
     this.ingredientsService.getAllIngredients().subscribe(res => {
       if (res.success) {
         this.listOfIngredients = res.ingredients
+        this.selectedIngredients = this.listOfIngredients
       } else {
         this.snackBar.open(res.msg,'',{panelClass:['error-snackbar']})
       }
@@ -51,4 +53,13 @@ export class AddExpensesComponent implements OnInit {
 
   onTotalPriceChange = (i: number): void =>
     this.priceCalculatorService.onTotalPriceChange(this.addExpensesForm.controls.expenses['controls'][i], this.lastChanged)
+
+  onKey(value) {
+    this.selectedIngredients = this.search(value)
+  }
+
+  search(value: string) {
+    let filter = value.toLowerCase();
+    return this.listOfIngredients.filter(ingredient => ingredient.name.toLowerCase().startsWith(filter));
+  }
 }
