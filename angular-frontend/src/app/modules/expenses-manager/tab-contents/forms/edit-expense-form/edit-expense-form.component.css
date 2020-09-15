@@ -8,4 +8,11 @@
   width: auto;
 }
 
+.search-input {
+  padding: 10px;
+  border: 1px solid #323232;
+  margin: 5px;
+  width: calc(100% - 35px);
+}
+
 /*# sourceMappingURL=edit-expense-form.component.css.map */

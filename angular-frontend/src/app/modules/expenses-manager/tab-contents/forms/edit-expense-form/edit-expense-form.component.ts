@@ -30,6 +30,7 @@ export class EditExpenseFormComponent implements OnInit {
   }
 
   listOfIngredients: Ingredient[]
+  selectedIngredients: Ingredient[]
 
   expensesForm: FormGroup;
 
@@ -56,6 +57,7 @@ export class EditExpenseFormComponent implements OnInit {
     this.ingredientsService.getAllIngredients().subscribe(res => {
       if (res.success) {
         this.listOfIngredients = res.ingredients
+        this.selectedIngredients = this.listOfIngredients
       } else {
         this.snackBar.open(res.msg,'',{panelClass:['error-snackbar']})
       }
@@ -105,5 +107,14 @@ export class EditExpenseFormComponent implements OnInit {
     } else {
       return;
     }
+  }
+
+  onKey(value) {
+    this.selectedIngredients = this.search(value)
+  }
+
+  search(value: string) {
+    let filter = value.toLowerCase();
+    return this.listOfIngredients.filter(ingredient => ingredient.name.toLowerCase().startsWith(filter));
   }
 }

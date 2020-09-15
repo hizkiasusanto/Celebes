@@ -6,10 +6,14 @@
       <mat-label>Item</mat-label>
       <mat-select formControlName="item">
         <span *ngIf="listOfIngredients?.length > 0">
-        <mat-option *ngFor="let ingredient of listOfIngredients" [value]="ingredient.name">
-          {{ingredient.name}}
-        </mat-option>
-          </span>
+        <input matInput (keyup)="onKey($event.target.value)" placeholder="Search" class="search-input">
+          <mat-option *ngFor="let ingredient of selectedIngredients" [value]="ingredient.name">
+            {{ingredient.name}}
+          </mat-option>
+          <mat-option *ngIf="selectedIngredients.length === 0">
+            No entries match the search query
+          </mat-option>
+        </span>
         <span *ngIf="listOfIngredients?.length === 0">
           <mat-option>
             No ingredients yet
