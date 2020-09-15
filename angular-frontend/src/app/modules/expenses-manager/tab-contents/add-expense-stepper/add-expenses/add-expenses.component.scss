@@ -54,3 +54,13 @@ input {
   margin: 5px;
   width: calc(100% - 10px);
 }
+
+.mat-option {
+  margin: 1rem 0;
+  overflow: visible;
+  word-wrap: break-word;
+  white-space: pre-line;
+}
+.mat-option i {
+  display: block;
+}

@@ -29,6 +29,7 @@ import {MatBadgeModule} from "@angular/material/badge";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [],
@@ -63,6 +64,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatProgressBarModule,
     MatStepperModule,
     MatExpansionModule,
+    ScrollingModule,
 
     FlexModule,
     LayoutModule
