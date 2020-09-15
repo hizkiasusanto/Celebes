@@ -31,7 +31,6 @@ export class IngredientsTableComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Ingredient>(ingredients)
       this.dataSource.sort = this.sort
       this.dataSource.paginator = this.paginator
-      console.log(this.dataSource)
     }
   }
 

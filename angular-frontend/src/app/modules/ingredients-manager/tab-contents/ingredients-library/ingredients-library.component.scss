@@ -1,3 +1,13 @@
 table {
   width: 100%
 }
+
+.accordion-title-align .mat-expansion-panel-header-title,
+.accordion-title-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.accordion-title-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}

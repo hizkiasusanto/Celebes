@@ -3,10 +3,11 @@
   <a mat-raised-button (click)="addNewIngredient()" color="primary">Add a new ingredient</a>
   <a mat-raised-button (click)="addNewCategory()" color="primary">Add a new category</a>
 </div>
-<mat-accordion>
+<mat-accordion class="accordion-title-align">
 <mat-expansion-panel *ngFor="let categorizedIngredient of categorizedIngredients">
   <mat-expansion-panel-header>
     <mat-panel-title>{{categorizedIngredient.category}}</mat-panel-title>
+    <mat-panel-description>{{categorizedIngredient.listOfIngredients.length}} entries in this category</mat-panel-description>
   </mat-expansion-panel-header>
   <app-ingredients-table [ingredients]="categorizedIngredient.listOfIngredients"></app-ingredients-table>
 </mat-expansion-panel>
