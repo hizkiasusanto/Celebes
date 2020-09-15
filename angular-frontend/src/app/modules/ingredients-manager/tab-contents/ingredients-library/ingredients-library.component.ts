@@ -1,13 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {Ingredient} from "../../types/ingredient";
-import {DateOnly} from "../../../../shared/types/date";
 import {IngredientsService} from "../../services/ingredients.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {AddIngredientsFormComponent} from "../add-ingredients-form/add-ingredients-form.component";
-import {catchError, map} from "rxjs/operators";
+import {catchError, map, mergeMap} from "rxjs/operators";
 import {of} from "rxjs";
 import {AddCategoryFormComponent} from "../add-category-form/add-category-form.component";
+
+interface CategorizedIngredients {
+  category: string
+  listOfIngredients: Ingredient[]
+}
 
 @Component({
   selector: 'app-ingredients-library',
@@ -16,27 +20,20 @@ import {AddCategoryFormComponent} from "../add-category-form/add-category-form.c
 })
 export class IngredientsLibraryComponent implements OnInit {
   isLoading: boolean = false;
-  listOfIngredients: Ingredient[]
-  listOfCategories: string[]
-
+  displayedColumns = ['name', 'lastPurchased']
+  categorizedIngredients: { category: string, listOfIngredients: Ingredient[] }[] = []
 
   constructor(private ingredientsService: IngredientsService, private snackBar: MatSnackBar, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.loadIngredients();
-    this.loadCategories();
+    this.loadCategorizedIngredients();
   }
 
-  loadIngredients = () : void => {
+  loadIngredients = (): void => {
     this.ingredientsService.getAllIngredients().subscribe(res => {
         if (res.success) {
-          this.listOfIngredients = res.ingredients.map(ingredient => <Ingredient>{
-            name: ingredient.name,
-            category: ingredient.category,
-            lastPurchased: ingredient.lastPurchased ? new DateOnly(ingredient.lastPurchased) : null
-          })
+          this.categorizedIngredients.map(c => c.listOfIngredients = res.ingredients.filter((i:Ingredient) => i.category === c.category))
         } else {
           this.snackBar.open(res.msg, '', {panelClass: ['error-snackbar']})
         }
@@ -45,22 +42,25 @@ export class IngredientsLibraryComponent implements OnInit {
     )
   }
 
-  loadCategories = () : void => {
+  loadCategorizedIngredients = (): void => {
+    this.isLoading = true
     this.ingredientsService.getAllCategories().pipe(
       map(res => res.categories.map(c => c.name)),
-      catchError(err => of(err)))
+      catchError(err => of(err)),
+      mergeMap(c => of(c.map(cname => <CategorizedIngredients>{category: cname, listOfIngredients: []}))))
       .subscribe(categories => {
-        this.listOfCategories = categories
+        this.categorizedIngredients = categories
+        this.loadIngredients()
       })
   }
 
   addNewIngredient = (): void => {
     let dialog = this.dialog.open(AddIngredientsFormComponent)
-    dialog.afterClosed().subscribe(this.loadIngredients)
+    dialog.afterClosed().subscribe(this.loadCategorizedIngredients)
   }
 
   addNewCategory = (): void => {
     let dialog = this.dialog.open(AddCategoryFormComponent)
-    dialog.afterClosed().subscribe(this.loadCategories)
+    dialog.afterClosed().subscribe(this.loadCategorizedIngredients)
   }
 }

@@ -1,16 +1,13 @@
 <div *appLoading="isLoading"></div>
-<div *ngIf="listOfIngredients">
-<ul *ngFor="let ingredient of listOfIngredients">
-    <li>{{ingredient.name}} - {{ingredient.category}} - {{ingredient.lastPurchased?.displayDate() || 'Never'}}</li>
-  </ul>
+<div fxLayout="row" fxLayoutGap="10px" style="margin: 20px">
+  <a mat-raised-button (click)="addNewIngredient()" color="primary">Add a new ingredient</a>
+  <a mat-raised-button (click)="addNewCategory()" color="primary">Add a new category</a>
 </div>
-<div *ngIf="!listOfIngredients">
-  No ingredients yet
-</div>
-<a mat-raised-button (click)="addNewIngredient()">Add a new ingredient</a>
-<a mat-raised-button (click)="addNewCategory()">Add a new category</a>
-<ol *ngIf="listOfCategories">
-  <li *ngFor="let category of listOfCategories">
-    {{category}}
-  </li>
-</ol>
+<mat-accordion>
+<mat-expansion-panel *ngFor="let categorizedIngredient of categorizedIngredients">
+  <mat-expansion-panel-header>
+    <mat-panel-title>{{categorizedIngredient.category}}</mat-panel-title>
+  </mat-expansion-panel-header>
+  <app-ingredients-table [ingredients]="categorizedIngredient.listOfIngredients"></app-ingredients-table>
+</mat-expansion-panel>
+</mat-accordion>
