@@ -5,7 +5,7 @@
     <mat-form-field>
       <mat-label>Item</mat-label>
       <mat-select formControlName="item">
-        <input matInput (keyup)="onKey($event.target.value)" placeholder="Search" class="search-input"
+        <input matInput (keyup)="search($event)" placeholder="Search" class="search-input"
                autocomplete="off"/>
         <cdk-virtual-scroll-viewport *ngIf="listOfIngredients?.length > 0" [itemSize]="48"
                                      [style.height.px]="(listOfIngredients.length > 5 ? 5 : listOfIngredients.length)*48">
@@ -17,7 +17,7 @@
           </mat-option>
         </cdk-virtual-scroll-viewport>
         <mat-option *ngIf="listOfIngredients?.length === 0" disabled>
-          No ingredients yet
+          No ingredients yet..
         </mat-option>
       </mat-select>
       <mat-error

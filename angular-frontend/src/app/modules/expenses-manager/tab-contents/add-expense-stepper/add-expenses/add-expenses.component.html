@@ -25,7 +25,7 @@
           <td>
             <div class="item-input">
               <mat-select formControlName="item">
-                <input matInput (keyup)="onKey($event.target.value)" placeholder="Search" class="search-input" autocomplete="off"/>
+                <input matInput (keyup)="search($event)" placeholder="Search" class="search-input" autocomplete="off"/>
                 <cdk-virtual-scroll-viewport *ngIf="listOfIngredients?.length > 0" [itemSize]="48"
                                              [style.height.px]="(listOfIngredients.length > 5 ? 5 : listOfIngredients.length)*48">
                   <mat-option *cdkVirtualFor="let ingredient of selectedIngredients" [value]="ingredient.name">

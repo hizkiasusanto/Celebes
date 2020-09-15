@@ -109,12 +109,9 @@ export class EditExpenseFormComponent implements OnInit {
     }
   }
 
-  onKey(value) {
-    this.selectedIngredients = this.search(value)
+  search(event: Event) {
+    let filter = (event.target as HTMLInputElement).value.toLowerCase();
+    this.selectedIngredients = this.listOfIngredients.filter(ingredient => ingredient.name.toLowerCase().startsWith(filter))
   }
 
-  search(value: string) {
-    let filter = value.toLowerCase();
-    return this.listOfIngredients.filter(ingredient => ingredient.name.toLowerCase().startsWith(filter));
-  }
 }
