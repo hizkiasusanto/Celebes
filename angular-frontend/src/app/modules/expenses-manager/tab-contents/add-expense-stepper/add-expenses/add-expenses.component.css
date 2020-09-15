@@ -49,4 +49,11 @@ input {
   color: green;
 }
 
+.search-input {
+  padding: 10px;
+  border: 1px solid #323232;
+  margin: 5px;
+  width: calc(100% - 10px);
+}
+
 /*# sourceMappingURL=add-expenses.component.css.map */
